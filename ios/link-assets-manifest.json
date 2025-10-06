@@ -1,0 +1,53 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Avenir LT Std 45 Book.otf",
+      "sha1": "db6bfde1c5f1f6d8129df5dce9484d88d3646f0d"
+    },
+    {
+      "path": "src/assets/fonts/Avenir LT Std 85 Heavy.otf",
+      "sha1": "bf135f69c60771d3e70ac6fe0d608994ec43b1a2"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Bold.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Medium.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Regular.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/AvenirLTStd-Roman.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Kollektif-Bold.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Kollektif-BoldItalic.ttf",
+      "sha1": "ddb42c09c6e7160bdd004c385b2a0cfca3ff626e"
+    },
+    {
+      "path": "src/assets/fonts/Kollektif-Italic.ttf",
+      "sha1": "c339ddb8527c75f6a686879c979dd90fb035b9d2"
+    },
+    {
+      "path": "src/assets/fonts/Kollektif-Regular.ttf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "path": "src/assets/fonts/Kollektif.ttf",
+      "sha1": "d37af95bc17b1055f5f3fea9c4f0fd29e953dafe"
+    },
+    {
+      "path": "src/assets/fonts/OpenSans-Bold.ttf",
+      "sha1": "c7e6b913f990299fcc5928f4581727972e869727"
+    }
+  ]
+}

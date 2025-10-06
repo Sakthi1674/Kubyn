@@ -11,6 +11,18 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		5EE52242627A4580A01D8342 /* Avenir LT Std 45 Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3E579C80D97F4ABEAF156067 /* Avenir LT Std 45 Book.otf */; };
+		B3ACFAD304A14CDB9725BFB3 /* Avenir LT Std 85 Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6B740072DD284A8FB3192338 /* Avenir LT Std 85 Heavy.otf */; };
+		0976BEB539B54DF7BA289823 /* AvenirLTStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C2CCA14FE4A44449557FAA8 /* AvenirLTStd-Bold.ttf */; };
+		33D1A2DC7AB14D9489305B47 /* AvenirLTStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31A870DB19934FD2A55BD72E /* AvenirLTStd-Medium.ttf */; };
+		375435FC060943648F939424 /* AvenirLTStd-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40600F936E9D494E9169FD75 /* AvenirLTStd-Regular.ttf */; };
+		3A1074DCF1324657A2818649 /* AvenirLTStd-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE2A9737A47A44BBA01436C3 /* AvenirLTStd-Roman.ttf */; };
+		FEBE351DA3CF421E9701CC03 /* Kollektif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD411B3DAF0C4757A1935747 /* Kollektif-Bold.ttf */; };
+		BFB1AF100B6643779E21CE3C /* Kollektif-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A5B4520BBB541D8B761BC2C /* Kollektif-BoldItalic.ttf */; };
+		816E627BB0E54759A6976213 /* Kollektif-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 32DDE7D335C64E4C8DFE5A5F /* Kollektif-Italic.ttf */; };
+		54B3D63E0FC6414F858D8C3E /* Kollektif-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E15538BBE494AA8B10D65B4 /* Kollektif-Regular.ttf */; };
+		44B2BB2C432A4BD7A73C6A34 /* Kollektif.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F283D95CE2049958F542CB5 /* Kollektif.ttf */; };
+		24D2E16A17A04706A2923092 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D06C6096C9B4792B38A7737 /* OpenSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +36,18 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = kubyntool/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kubyntool/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3E579C80D97F4ABEAF156067 /* Avenir LT Std 45 Book.otf */ = {isa = PBXFileReference; name = "Avenir LT Std 45 Book.otf"; path = "../src/assets/fonts/Avenir LT Std 45 Book.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6B740072DD284A8FB3192338 /* Avenir LT Std 85 Heavy.otf */ = {isa = PBXFileReference; name = "Avenir LT Std 85 Heavy.otf"; path = "../src/assets/fonts/Avenir LT Std 85 Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9C2CCA14FE4A44449557FAA8 /* AvenirLTStd-Bold.ttf */ = {isa = PBXFileReference; name = "AvenirLTStd-Bold.ttf"; path = "../src/assets/fonts/AvenirLTStd-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		31A870DB19934FD2A55BD72E /* AvenirLTStd-Medium.ttf */ = {isa = PBXFileReference; name = "AvenirLTStd-Medium.ttf"; path = "../src/assets/fonts/AvenirLTStd-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		40600F936E9D494E9169FD75 /* AvenirLTStd-Regular.ttf */ = {isa = PBXFileReference; name = "AvenirLTStd-Regular.ttf"; path = "../src/assets/fonts/AvenirLTStd-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DE2A9737A47A44BBA01436C3 /* AvenirLTStd-Roman.ttf */ = {isa = PBXFileReference; name = "AvenirLTStd-Roman.ttf"; path = "../src/assets/fonts/AvenirLTStd-Roman.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CD411B3DAF0C4757A1935747 /* Kollektif-Bold.ttf */ = {isa = PBXFileReference; name = "Kollektif-Bold.ttf"; path = "../src/assets/fonts/Kollektif-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3A5B4520BBB541D8B761BC2C /* Kollektif-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Kollektif-BoldItalic.ttf"; path = "../src/assets/fonts/Kollektif-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		32DDE7D335C64E4C8DFE5A5F /* Kollektif-Italic.ttf */ = {isa = PBXFileReference; name = "Kollektif-Italic.ttf"; path = "../src/assets/fonts/Kollektif-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1E15538BBE494AA8B10D65B4 /* Kollektif-Regular.ttf */ = {isa = PBXFileReference; name = "Kollektif-Regular.ttf"; path = "../src/assets/fonts/Kollektif-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3F283D95CE2049958F542CB5 /* Kollektif.ttf */ = {isa = PBXFileReference; name = "Kollektif.ttf"; path = "../src/assets/fonts/Kollektif.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0D06C6096C9B4792B38A7737 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../src/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +98,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				4AACC037EA3C465B8D4EEEF8 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -96,6 +121,26 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		4AACC037EA3C465B8D4EEEF8 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				3E579C80D97F4ABEAF156067 /* Avenir LT Std 45 Book.otf */,
+				6B740072DD284A8FB3192338 /* Avenir LT Std 85 Heavy.otf */,
+				9C2CCA14FE4A44449557FAA8 /* AvenirLTStd-Bold.ttf */,
+				31A870DB19934FD2A55BD72E /* AvenirLTStd-Medium.ttf */,
+				40600F936E9D494E9169FD75 /* AvenirLTStd-Regular.ttf */,
+				DE2A9737A47A44BBA01436C3 /* AvenirLTStd-Roman.ttf */,
+				CD411B3DAF0C4757A1935747 /* Kollektif-Bold.ttf */,
+				3A5B4520BBB541D8B761BC2C /* Kollektif-BoldItalic.ttf */,
+				32DDE7D335C64E4C8DFE5A5F /* Kollektif-Italic.ttf */,
+				1E15538BBE494AA8B10D65B4 /* Kollektif-Regular.ttf */,
+				3F283D95CE2049958F542CB5 /* Kollektif.ttf */,
+				0D06C6096C9B4792B38A7737 /* OpenSans-Bold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -159,6 +204,18 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				5EE52242627A4580A01D8342 /* Avenir LT Std 45 Book.otf in Resources */,
+				B3ACFAD304A14CDB9725BFB3 /* Avenir LT Std 85 Heavy.otf in Resources */,
+				0976BEB539B54DF7BA289823 /* AvenirLTStd-Bold.ttf in Resources */,
+				33D1A2DC7AB14D9489305B47 /* AvenirLTStd-Medium.ttf in Resources */,
+				375435FC060943648F939424 /* AvenirLTStd-Regular.ttf in Resources */,
+				3A1074DCF1324657A2818649 /* AvenirLTStd-Roman.ttf in Resources */,
+				FEBE351DA3CF421E9701CC03 /* Kollektif-Bold.ttf in Resources */,
+				BFB1AF100B6643779E21CE3C /* Kollektif-BoldItalic.ttf in Resources */,
+				816E627BB0E54759A6976213 /* Kollektif-Italic.ttf in Resources */,
+				54B3D63E0FC6414F858D8C3E /* Kollektif-Regular.ttf in Resources */,
+				44B2BB2C432A4BD7A73C6A34 /* Kollektif.ttf in Resources */,
+				24D2E16A17A04706A2923092 /* OpenSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
