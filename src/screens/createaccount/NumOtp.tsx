@@ -1,0 +1,217 @@
+import React, { useState, useRef } from "react";
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    TextInput,
+} from "react-native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+import BackWard from "../../assets/icons/BackWard";
+import ButtonComp from "../../components/common/ButtonComp";
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+ 
+// Define your route types
+type RootStackParamList = {
+    NumVerify: undefined;
+    NumOtp: undefined;
+    CreateAccount: undefined;
+};
+ 
+const NumOtp: React.FC = () => {
+    const [otp, setOtp] = useState(["", "", "", ""]);
+    const [error, setError] = useState("");
+    const inputsRef = useRef<TextInput[]>([]);
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+ 
+    // handle OTP box input
+    const handleChange = (text: string, index: number) => {
+        // only allow numbers 0–9
+        if (/^\d$/.test(text) || text === "") {
+            const newOtp = [...otp];
+            newOtp[index] = text;
+            setOtp(newOtp);
+            setError("");
+ 
+            // auto move to next or previous box
+            if (text && index < 3) {
+                inputsRef.current[index + 1].focus();
+            } else if (!text && index > 0) {
+                inputsRef.current[index - 1].focus();
+            }
+        }
+    };
+ 
+    // handle Verify button
+    const handleVerify = () => {
+        const enteredOtp = otp.join("");
+        if (enteredOtp.length === 4 && /^\d{4}$/.test(enteredOtp)) {
+            console.log("Entered OTP:", enteredOtp);
+            setError("");
+            navigation.navigate("CreateAccount"); // ✅ navigate after success
+        } else {
+            setError("* OTP is required");
+        }
+    };
+ 
+    return (
+        <View style={styles.container}>
+            {/* Header */}
+            <View style={styles.headerContainer}>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.backButton}
+                >
+                    <BackWard width={10} height={16} color="#223F61" />
+                </TouchableOpacity>
+                <Text style={styles.heading}>Verify your phone number</Text>
+            </View>
+ 
+            {/* OTP Text */}
+            <Text style={styles.otpText}>Enter your OTP here</Text>
+ 
+            {/* OTP Boxes */}
+            <View style={styles.otpContainer}>
+                {otp.map((digit, index) => (
+                    <TextInput
+                        key={index}
+                        ref={(el) => {
+                            inputsRef.current[index] = el!;
+                        }}
+                        style={[
+                            styles.otpBox,
+                            error ? { borderColor: "#E74C3C" } : {},
+                        ]}
+                        keyboardType="number-pad"
+                        maxLength={1}
+                        value={digit}
+                        onChangeText={(text) => handleChange(text, index)}
+                        textAlign="center"
+                        placeholder="0"
+                        placeholderTextColor={
+                            error ? "#E74C3C" : "rgba(34, 63, 97, 0.35)"
+                        }
+                    />
+                ))}
+            </View>
+ 
+            {/* Error message */}
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+ 
+            {/* Resend Section */}
+            <View style={styles.resendContainer}>
+                <Text style={styles.infoText}>Didn’t receive the OTP? </Text>
+                <TouchableOpacity onPress={() => console.log("Resend OTP")}>
+                    <Text style={styles.resendText}>Resend</Text>
+                </TouchableOpacity>
+            </View>
+ 
+            {/* Verify Button */}
+            <ButtonComp
+                title="Verify"
+                onPress={handleVerify}
+                style={{
+                    backgroundColor: "#223F61",
+                    marginTop: 19,
+                }}
+                textStyle={{
+                    color: "#FAF8F5",
+                }}
+            />
+        </View>
+    );
+};
+ const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        paddingHorizontal: scale(24),
+        paddingTop: verticalScale(90),
+        alignItems: "center",
+    },
+    headerContainer: {
+        fontFamily: "Kollektif",
+        fontSize: moderateScale(20),
+        fontWeight: "700",
+        width: "100%",
+        marginBottom: verticalScale(20),
+        alignItems: "center",
+        position: "relative",
+    },
+    backButton: {
+    position: "absolute",
+    left: scale(15),
+    top: verticalScale(5),
+    },
+    heading: {
+        fontFamily: "Kollektif",
+        fontWeight: "700",
+        fontSize: moderateScale(20),
+        lineHeight: moderateScale(24),
+        color: "#121212",
+        textAlign: "center",
+    },
+    otpText: {
+        fontFamily: "Avenir LT Std",
+        fontWeight: "600",
+        fontSize: moderateScale(20),
+        lineHeight: verticalScale(31),
+        color: "#121212",
+        marginTop:moderateScale(50),
+        marginBottom: verticalScale(21),
+    },
+    otpContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: scale(19),
+        marginBottom: verticalScale(5),
+    },
+    otpBox: {
+        width: scale(54),
+        height: verticalScale(54),
+        borderRadius: moderateScale(10),
+        borderWidth: 1,
+        borderColor: "#E3E9F1CC",
+        fontSize: moderateScale(24),
+        fontWeight: "600",
+        fontFamily: "Avenir LT Std",
+        color: "#223F61",
+        backgroundColor: "#E3E9F1CC",
+    },
+    errorText: {
+        fontFamily: "Avenir LT Std",
+        fontWeight: "400",
+        fontSize: moderateScale(12),
+        lineHeight: verticalScale(19),
+        color: "#E74C3C",
+        textAlign: "right",
+        width: "80%",
+        marginBottom: verticalScale(10),
+    },
+    resendContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: verticalScale(30),
+    },
+    infoText: {
+        fontFamily: "Avenir LT Std",
+        fontWeight: "300",
+        fontSize: moderateScale(16),
+        lineHeight: verticalScale(25),
+        color: "#121212",
+        marginTop:moderateScale(50),
+    },
+    resendText: {
+        fontFamily: "Avenir LT Std",
+        fontWeight: "600",
+        fontSize: moderateScale(16),
+        lineHeight: verticalScale(25),
+        color: "#223F61",
+        marginTop:moderateScale(50),
+    },
+});
+
+ 
+export default NumOtp;
+ 
+ 

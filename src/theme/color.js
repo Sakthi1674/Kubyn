@@ -5,6 +5,7 @@ import { Button } from "react-native-web";
 export const lightColors = {
   background: '#FBFDFF',
   text: '#121212',
+  bttext: '#FBFDFF',
   textSecondary: '#666666',
   notification: '#FD9D9D',
   icon: "#D1D1D6",
@@ -12,12 +13,14 @@ export const lightColors = {
   radio: "#223F61",
   container: "#E3E9F1CC",
   buttonDisabled:"#98989F",
+  buttondark:"#E3E9F1"
 };
 
 // Dark Theme Colors
 export const darkColors = {
   background: '#2F2F2F',
   text: '#FAFBFB',
+  bttext:'#2F2F2F',
   textSecondary: '#98989F',
   notification: '#E74C3C',
   icon: "#D1D1D6",
@@ -25,6 +28,7 @@ export const darkColors = {
   radio: "#E3E9F1",
   container: "#3A3A3A",
   buttonDisabled:"#E3E9F1CC",
+  buttondark:"#3A3A3A"
 };
 
 // Combined theme object
