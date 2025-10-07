@@ -69,7 +69,6 @@ const NumOtp: React.FC = () => {
  
             {/* OTP Text */}
             <Text style={styles.otpText}>Enter your OTP here</Text>
- <Text style={styles.otpText}>Enter your OTP here</Text>
             {/* OTP Boxes */}
             <View style={styles.otpContainer}>
                 {otp.map((digit, index) => (
