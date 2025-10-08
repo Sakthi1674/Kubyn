@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 const ButtonComp = ({ 
   title, 
@@ -24,7 +25,7 @@ const ButtonComp = ({
 
 const styles = StyleSheet.create({
   button: {
-    width: 290,
+    width: scale(260),
     height: 54,
     borderRadius: 10,
     justifyContent: 'center',
@@ -33,8 +34,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Avenir LT Std 65 Medium',
     fontWeight: '600',
-    fontSize: 20,
-    lineHeight: 20,
+    fontSize: moderateScale(20),
+    lineHeight: verticalScale(20),
     letterSpacing: 0,
   },
 });

@@ -54,7 +54,7 @@ const WelcomePage: React.FC = () => {
         title="Log in"
         onPress={goToHome}
         style={{
-          backgroundColor:theme.Button
+          backgroundColor:theme.Button,
         }}
         textStyle={{
           color: theme.bttext, 
@@ -73,6 +73,7 @@ const WelcomePage: React.FC = () => {
         }}
         textStyle={{
           color: theme.text,
+          fontWeight: '700',
         }}
       />
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingHorizontal: scale(52),
+    paddingHorizontal: scale(40),
     alignItems: "center",
     paddingTop: verticalScale(66),
   },
@@ -131,6 +132,9 @@ const styles = StyleSheet.create({
     width: scale(273),
     height: verticalScale(173),
     marginTop: verticalScale(109),
+    marginBottom:verticalScale(-4),
+
+    
   },
 
 });
