@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginTop: 116,
     width: scale(300),
     height: verticalScale(243),
-    marginBottom: verticalScale(51),
+    marginBottom: verticalScale(30),
   },
   point1: {
     fontFamily: "Avenir LT Std 95 Black",
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     lineHeight: moderateVerticalScale(16 * 1.57),
     paddingHorizontal: 51,
     color: "#E3E9F1",
-    marginBottom: verticalScale(12),
+    marginBottom: verticalScale(10),
   },
   point2: {
     fontFamily: "Avenir LT Std 55 Roman",

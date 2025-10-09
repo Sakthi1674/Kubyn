@@ -6,7 +6,7 @@ import colors from "../../theme/color";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 type RootStackParamList = {
-  Home: undefined;
+  Login: undefined;
   Details: undefined;
   NumVerify: undefined; // ✅ added this
 };
@@ -19,8 +19,8 @@ const WelcomePage: React.FC = () => {
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "light"];
 
-  const goToHome = () => {
-    navigation.navigate("Home");
+  const Login = () => {
+    navigation.navigate("Login");
   };
 
   const goToNumVerify = () => {
@@ -32,7 +32,7 @@ const WelcomePage: React.FC = () => {
       <View style={styles.textContainer}>
         {/* Welcome to (same line) */}
         <Text style={styles.welcomeLine}>
-            <Text style={[styles.welcome, { color: theme.text }]}>Welcome </Text>
+            <Text style={[styles.welcome, { color: theme.Button }]}>Welcome </Text>
           <Text style={[styles.to, { color: theme.text }]}>to</Text>
         </Text>
 
@@ -52,7 +52,7 @@ const WelcomePage: React.FC = () => {
 
       <ButtonComp
         title="Log in"
-        onPress={goToHome}
+        onPress={Login}
         style={{
           backgroundColor:theme.Button,
         }}
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     width: scale(273),
     height: verticalScale(173),
     marginTop: verticalScale(109),
-    marginBottom:verticalScale(-4),
+    marginBottom:verticalScale(-6),
 
     
   },

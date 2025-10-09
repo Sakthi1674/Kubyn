@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import ButtonComp from "../../components/common/ButtonComp";
 import BackWard from "../../assets/icons/BackWard";
 import Flag from "../../assets/icons/IndianFlag";
- import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 type RootStackParamList = {
   NumVerify: undefined;
@@ -80,14 +80,14 @@ const NumVerify: React.FC = () => {
           style={[
             styles.phoneInput,
             error && {
-              borderColor: "#E74C3C",
+              borderColor: "rgba(231,76,60,0.35",
               backgroundColor: "#FBFDFF",
             },
           ]}
           keyboardType="number-pad"
           placeholder="00000 00000"
           placeholderTextColor={
-            error ? "#E74C3C" : "#223F61"
+            error ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
           }
           value={phone}
           onChangeText={handlePhoneChange}
@@ -109,7 +109,7 @@ const NumVerify: React.FC = () => {
         onPress={handleConfirm}
         style={{
           backgroundColor: "#223F61",
-          marginTop: 40,
+          marginTop: 29,
         }}
         textStyle={{
           color: "#FAF8F5",
@@ -214,15 +214,14 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(20),
     color: "#223F61",
     backgroundColor: "#E3E9F1CC",
-    opacity: 35,
+   
   },
 
   errorContainer: {
     height: verticalScale(20), // adjust to fit error text height
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "flex-end",
     width: "100%",
-    paddingLeft: moderateScale(135),
     marginTop: verticalScale(5),
   },
 

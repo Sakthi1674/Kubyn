@@ -226,7 +226,7 @@ const CreateAccount: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
+    flex: 1,
     backgroundColor: "#FFFFFF",
     paddingHorizontal: scale(40),
     paddingTop: verticalScale(90),

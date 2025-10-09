@@ -162,7 +162,8 @@ const styles = StyleSheet.create({
         lineHeight: verticalScale(31),
         color: "#121212",
         marginTop: moderateScale(50),
-        marginBottom: verticalScale(21),
+        marginBottom: verticalScale(10),
+        textAlignVertical: "center",
     },
     otpContainer: {
         flexDirection: "row",
