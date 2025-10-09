@@ -54,7 +54,10 @@ const ForgetPasswordOtp: React.FC = () => {
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.backButton}
+                >
                     <BackWard width={10} height={16} color="#223F61" />
                 </TouchableOpacity>
                 <Text style={styles.heading}>Verify</Text>
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
     },
     otpContainer: {
         flexDirection: "row",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         gap: 19,
         marginTop: 20,
     },
@@ -198,21 +201,20 @@ const styles = StyleSheet.create({
         lineHeight: 19,
         color: "#E74C3C",
         alignSelf: "flex-end",
-        marginRight: 48,
         marginTop: 6,
     },
     errorWrapper: {
         height: verticalScale(20), // ⬅ keeps layout stable
         justifyContent: "flex-end",
         alignItems: "flex-end",
-        width: "100%",
+        width: "95%",
         marginBottom: verticalScale(10),
     },
     resendContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop:25,
-        marginLeft:40,
+        justifyContent: "center",
+        marginTop: verticalScale(25),        
     },
     infoText: {
         fontFamily: "Avenir LT Std 45 Book",  

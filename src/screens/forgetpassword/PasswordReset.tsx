@@ -36,8 +36,10 @@ const PasswordReset: React.FC = () => {
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                    <BackWard width={10} height={16} color="#223F61" />
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.backButton}
+                >
                 </TouchableOpacity>
                 <Text style={styles.heading}>Password Reset</Text>
             </View>

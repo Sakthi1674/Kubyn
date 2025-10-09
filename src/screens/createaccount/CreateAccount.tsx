@@ -16,7 +16,7 @@ import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 type RootStackParamList = {
-  NumOtp: undefined;
+  Login: undefined;
   CreateAccount: undefined;
 };
 
@@ -65,15 +65,28 @@ const CreateAccount: React.FC = () => {
         <TextInput
           style={[
             styles.inputBox,
-            focusedField === "userName" && styles.focusedInput,
-            isFieldEmpty(userName) && showError && { borderColor: "rgba(231, 77, 60, 0.35" },
+            {
+              borderColor: showError && userName === ""
+                ? "rgba(231,76,60,0.35)"    // Error
+                : focusedField === "userName"
+                  ? "rgba(34,63,97,0.35)"     // Focus
+                  : "#E3E9F1CC",              // Default
+              backgroundColor: showError && userName === ""
+                ? "#FBFDFF"                 // Error background
+                : "#E3E9F1CC",              // Default/focus background
+            },
           ]}
           placeholder="User Name"
           placeholderTextColor={
-            isFieldEmpty(userName) && showError ? "rgba(231, 77, 60, 0.35)" : "#223F61"
+            showError && userName === ""
+              ? "rgba(231,76,60,0.35)"
+              : "#223F61"
           }
           value={userName}
-          onChangeText={setUserName}
+          onChangeText={(text) => {
+            setUserName(text);
+            if (showError && text !== "") setShowError(false); // reset error after typing
+          }}
           onFocus={() => setFocusedField("userName")}
           onBlur={() => setFocusedField(null)}
         />
@@ -82,34 +95,61 @@ const CreateAccount: React.FC = () => {
         <TextInput
           style={[
             styles.inputBox,
-            focusedField === "email" && styles.focusedInput,
-            isFieldEmpty(email) && showError && { borderColor: "rgba(231, 77, 60, 0.35)" },
+            {
+              borderColor: showError && email === ""
+                ? "rgba(231,76,60,0.35)"    // Error
+                : focusedField === "email"
+                  ? "rgba(34,63,97,0.35)"     // Focus
+                  : "#E3E9F1CC",              // Default
+              backgroundColor: showError && email === ""
+                ? "#FBFDFF"                 // Error background
+                : "#E3E9F1CC",              // Default/focus background
+            },
           ]}
           placeholder="Email"
           placeholderTextColor={
-            isFieldEmpty(email) && showError ? "rgba(231, 77, 60, 0.35)" : "#223F61"
+            showError && email === ""
+              ? "rgba(231,76,60,0.35)"
+              : "#223F61"
           }
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(text) => {
+            setEmail(text);
+            if (showError && text !== "") setShowError(false); // reset error after typing
+          }}
           onFocus={() => setFocusedField("email")}
           onBlur={() => setFocusedField(null)}
           keyboardType="email-address"
         />
 
         {/* Password Field */}
+        {/* Password */}
         <View style={styles.passwordContainer}>
           <TextInput
             style={[
               styles.inputBoxPassword,
-              focusedField === "password" && styles.focusedInput,
-              isFieldEmpty(password) && showError && { borderColor: "rgba(231, 77, 60, 0.35)" },
+              {
+                borderColor: showError && password === ""
+                  ? "rgba(231,76,60,0.35)"    // Error
+                  : focusedField === "password"
+                    ? "rgba(34,63,97,0.35)"     // Focus
+                    : "#E3E9F1CC",              // Default
+                backgroundColor: showError && password === ""
+                  ? "#FBFDFF"                 // Error background
+                  : "#E3E9F1CC",              // Default/focus background
+              },
             ]}
             placeholder="Password"
             placeholderTextColor={
-              isFieldEmpty(password) && showError ? "rgba(231, 77, 60, 0.35)" : "#223F61"
+              showError && password === ""
+                ? "rgba(231,76,60,0.35)"
+                : "#223F61"
             }
             value={password}
-            onChangeText={setPassword}
+            onChangeText={(text) => {
+              setPassword(text);
+              if (showError && text !== "") setShowError(false); // reset error after typing
+            }}
             onFocus={() => setFocusedField("password")}
             onBlur={() => setFocusedField(null)}
             secureTextEntry={!showPassword}
@@ -119,28 +159,42 @@ const CreateAccount: React.FC = () => {
             onPress={() => setShowPassword(!showPassword)}
           >
             <EyeIcon
-              color={
-                isFieldEmpty(password) && showError ? "rgba(231, 77, 60, 0.35)" : "#223F61"
-              }
+              color={showError && password === ""
+                ? "rgba(231,76,60,0.35)"
+                : "#223F61"}
               opacity={0.35}
             />
           </TouchableOpacity>
         </View>
 
         {/* Confirm Password Field */}
+        {/* Confirm Password */}
         <View style={styles.passwordContainer}>
           <TextInput
             style={[
               styles.inputBoxPassword,
-              focusedField === "confirmPassword" && styles.focusedInput,
-              isFieldEmpty(confirmPassword) && showError && { borderColor: "rgba(231, 77, 60, 0.35)" },
+              {
+                borderColor: showError && confirmPassword === ""
+                  ? "rgba(231,76,60,0.35)"    // Error
+                  : focusedField === "confirmPassword"
+                    ? "rgba(34,63,97,0.35)"     // Focus
+                    : "#E3E9F1CC",              // Default
+                backgroundColor: showError && confirmPassword === ""
+                  ? "#FBFDFF"                 // Error background
+                  : "#E3E9F1CC",              // Default/focus background
+              },
             ]}
             placeholder="Confirm Password"
             placeholderTextColor={
-              isFieldEmpty(confirmPassword) && showError ? "rgba(231, 77, 60, 0.35)" : "#223F61"
+              showError && confirmPassword === ""
+                ? "rgba(231,76,60,0.35)"
+                : "#223F61"
             }
             value={confirmPassword}
-            onChangeText={setConfirmPassword}
+            onChangeText={(text) => {
+              setConfirmPassword(text);
+              if (showError && text !== "") setShowError(false); // reset error after typing
+            }}
             onFocus={() => setFocusedField("confirmPassword")}
             onBlur={() => setFocusedField(null)}
             secureTextEntry={!showConfirmPassword}
@@ -150,9 +204,9 @@ const CreateAccount: React.FC = () => {
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             <EyeIcon
-              color={
-                isFieldEmpty(confirmPassword) && showError ? "rgba(231, 77, 60, 0.35)" : "#223F61"
-              }
+              color={showError && confirmPassword === ""
+                ? "rgba(231,76,60,0.35)"
+                : "#223F61"}
               opacity={0.35}
             />
           </TouchableOpacity>
@@ -178,14 +232,14 @@ const CreateAccount: React.FC = () => {
           <Text style={styles.termsText}>Terms and Conditions</Text>
         </View>
 
- <View style={styles.errorWrapper}>
-        {showError && (
-          <Text style={styles.errorText}>
-            * Please fill out all required details
-          </Text>
-        )}
-</View>   
-</View>
+        <View style={styles.errorWrapper}>
+          {showError && (
+            <Text style={styles.errorText}>
+              * Please fill out all required details
+            </Text>
+          )}
+        </View>
+      </View>
 
       {/* Create Account Button */}
       <ButtonComp
@@ -214,8 +268,8 @@ const CreateAccount: React.FC = () => {
 
       {/* Already have account */}
       <TouchableOpacity
-        style={{ flexDirection: "row", marginTop: 30 }}
-        onPress={() => navigation.navigate("NumOtp")}
+        style={{ flexDirection: "row", marginTop: 20 }}
+        onPress={() => navigation.navigate("Login")}
       >
         <Text style={styles.alreadyText}>Already have an account? </Text>
         <Text style={styles.loginText}>Log In</Text>
@@ -251,7 +305,7 @@ const styles = StyleSheet.create({
     color: "#121212",
     textAlign: "center",
   },
-  inputContainer: { gap:verticalScale(15), marginTop: verticalScale(10) },
+  inputContainer: { gap: verticalScale(15), marginTop: verticalScale(10) },
   inputBox: {
     width: scale(260),
     height: verticalScale(45),
@@ -268,7 +322,7 @@ const styles = StyleSheet.create({
   },
   passwordContainer: { position: "relative", width: 290 },
   inputBoxPassword: {
-   width: scale(260),
+    width: scale(260),
     height: verticalScale(45),
     borderRadius: scale(10),
     borderWidth: 1,
@@ -284,7 +338,7 @@ const styles = StyleSheet.create({
   eyeIcon: { position: "absolute", right: scale(15), top: verticalScale(15) },
   termsErrorContainer: {
     width: scale(250),
-    marginTop: verticalScale(5),
+    marginTop: verticalScale(15),
     alignItems: "flex-end",
   },
   termsContainer: {
@@ -292,7 +346,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-end",
   },
-  
+
   checkbox: {
     width: scale(14),
     height: scale(14),
@@ -323,12 +377,12 @@ const styles = StyleSheet.create({
     textAlign: "right",
     width: "100%",
   },
-    errorWrapper: {
-        height: verticalScale(20), // ⬅ keeps layout stable
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        width: "80%",
-    },
+  errorWrapper: {
+    height: verticalScale(20), // ⬅ keeps layout stable
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    width: "80%",
+  },
   orContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -347,7 +401,7 @@ const styles = StyleSheet.create({
     fontFamily: "Avenir LT Std 55 Roman",
     fontWeight: "400",
     fontSize: moderateScale(16),
-    lineHeight:verticalScale(20),
+    lineHeight: verticalScale(20),
     color: "#121212",
     opacity: 0.44,
   },
@@ -358,7 +412,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(15),
   },
   socialBox: {
-     width: scale(88),
+    width: scale(88),
     height: verticalScale(42),
     borderRadius: scale(10),
     backgroundColor: "#FBFDFF",
@@ -376,14 +430,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: "#121212",
     opacity: 0.44,
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(17),
   },
   loginText: {
     fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(16),
     color: "#223F61",
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(15),
   },
   focusedInput: {
     borderColor: "#223F61",

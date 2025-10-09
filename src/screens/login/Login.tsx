@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   eyeIcon: {
     position: "absolute",
     right: scale(15),
-    top: verticalScale(15),
+    top: verticalScale(20),
   },
 
   termsErrorContainer: {
@@ -400,6 +400,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: "#121212",
     opacity: 0.44,
+    marginTop:scale(20),
   },
 
   signUpText: {
@@ -407,6 +408,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: moderateScale(16),
     color: "#223F61",
+     marginTop:scale(19),
   },
 });
  

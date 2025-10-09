@@ -123,68 +123,78 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
   overlay: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    paddingHorizontal: scale(20), // 🔸 responsive padding
   },
+
   image: {
-    marginTop: 116,
-    width: scale(300),
-    height: verticalScale(243),
+    marginTop: verticalScale(100),
+    width: scale(280),
+    height: verticalScale(240),
     marginBottom: verticalScale(30),
   },
+
   point1: {
     fontFamily: "Avenir LT Std 95 Black",
     fontWeight: "700",
     fontSize: moderateScale(16),
-    lineHeight: moderateVerticalScale(16 * 1.57),
-    paddingHorizontal: 51,
+    lineHeight: moderateVerticalScale(28),
+    textAlign: "center",
     color: "#E3E9F1",
+    width:scale(291),
     marginBottom: verticalScale(10),
   },
+
   point2: {
     fontFamily: "Avenir LT Std 55 Roman",
     fontWeight: "400",
     fontSize: moderateScale(14),
-    lineHeight: moderateVerticalScale(14 * 1.57),
-    paddingHorizontal: 35,
+    lineHeight: moderateVerticalScale(22),
     textAlign: "center",
     color: "#E3E9F1CC",
     marginBottom: verticalScale(20),
+    width:scale(290),
   },
+
   pagination: {
     flexDirection: "row",
-    marginBottom: verticalScale(12),
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: verticalScale(20),
   },
+
   dot: {
     backgroundColor: "#D9D9D9",
     width: scale(10),
     height: scale(10),
-    borderRadius: scale(10),
-    marginHorizontal: scale(7),
+    borderRadius: scale(5),
+    marginHorizontal: scale(6),
   },
+
   activeDot: {
     backgroundColor: "#fff",
     width: scale(24),
     height: scale(10),
-    borderRadius: scale(3),
-    marginHorizontal: scale(8),
+    borderRadius: scale(5),
+    marginHorizontal: scale(6),
   },
 
   skipText: {
     position: "absolute",
+    top: verticalScale(60),
+    left: scale(75), // 🔸 moved to right for better UX on all screen sizes
     fontFamily: "Avenir LT Std 55 Roman",
     fontWeight: "400",
     fontSize: moderateScale(16),
-    lineHeight: moderateVerticalScale(16),
-    letterSpacing: 0,
+    lineHeight: moderateVerticalScale(20),
     color: "#FAF8F5",
-    top: 80,
-    left: 120,
-  }
-
+  },
 });
+
 
 export default SplashScreen;
