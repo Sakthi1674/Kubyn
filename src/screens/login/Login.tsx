@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    TextInput,
-    ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
@@ -16,204 +16,227 @@ import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 type RootStackParamList = {
-    NumOtp: undefined;
-    Login: undefined;
-    CreateAccount: undefined;
-    LoginNumOtp: undefined;
-    ForgetPassword: undefined;
+  NumOtp: undefined;
+  Login: undefined;
+  CreateAccount: undefined;
+  LoginNumOtp: undefined;
+  ForgetPassword: undefined;
 };
- 
+
 const Login: React.FC = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
-    const [isChecked, setIsChecked] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const [showPhoneError, setShowPhoneError] = useState(false);
-    const [showPasswordError, setShowPasswordError] = useState(false);
-    const [showRememberError, setShowRememberError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
- 
- 
-    const handleLogin = () => {
-        const digitsOnly = phone.replace(/\s/g, "");
- 
-        // Reset errors
-        setShowPhoneError(false);
-        setShowPasswordError(false);
-        setShowRememberError(false);
-        setErrorMessage("");
- 
-        // Phone validation
-        if (digitsOnly.length !== 10) {
-            setErrorMessage("* Enter a valid 10-digit number");
-            setShowPhoneError(true);   // <-- set this
-            return;
-        }
- 
-        // Password validation
-        if (!password) {
-            setErrorMessage("* Password is required");
-            setShowPasswordError(true);  // <-- set this
-            return;
-        }
- 
-        // Remember Me validation
-        if (!isChecked) {
-            setErrorMessage("* Please check Remember Me");
-            setShowRememberError(true); // optional if needed
-            return;
-        }
- 
-        // All good → clear error and navigate
-        setErrorMessage("");
-        navigation.navigate("LoginNumOtp");
-    };
- 
- 
- 
-    const handlePhoneChange = (text: string) => {
-        // Remove non-digit characters
-        let digits = text.replace(/\D/g, "");
- 
-        // Limit to 10 digits
-        if (digits.length > 10) digits = digits.slice(0, 10);
- 
-        // Format as 5 + 5 digits
-        if (digits.length > 5) digits = digits.slice(0, 5) + " " + digits.slice(5);
- 
-        setPhone(digits);
-    };
- 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            {/* Header */}
-            <View style={styles.headerContainer}>
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                    style={styles.backButton}
-                >
-                    <BackWard width={10} height={16} color="#223F61" />
-                </TouchableOpacity>
-                <Text style={styles.heading}>Login</Text>
-            </View>
- 
-            {/* Input Fields */}
-            <View style={styles.inputContainer}>
-                {/* Phone Number */}
-                <TextInput
-                    style={[
-                        styles.inputBox,
-                        showPhoneError && {
-                            borderColor: "rgba(231, 76, 60, 0.35)",
-                            backgroundColor: "#FBFDFF",   // <-- Add this
-                        },
-                    ]}
-                    placeholder="Phone Number"
-                    placeholderTextColor={
-                        showPhoneError ? "rgba(231, 76, 60, 0.35)" : "rgba(34, 63, 97, 0.35)"
-                    }
-                    keyboardType="number-pad"
-                    value={phone}
-                    onChangeText={handlePhoneChange}
-                    maxLength={11}
-                />
- 
- 
-                {/* Password */}
-                <View style={styles.passwordContainer}>
-                    <TextInput
-                        style={[
-                            styles.inputBoxPassword,
-                            showPasswordError && {
-                                borderColor: "rgba(231, 76, 60, 0.35)",
-                                backgroundColor: "#FBFDFF",  // <-- Add this
-                            },
-                        ]}
-                        placeholder="Password"
-                        placeholderTextColor={
-                            showPasswordError ? "rgba(231, 76, 60, 0.35)" : "rgba(34, 63, 97, 0.35)"
-                        }
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry={!showPassword}
-                    />
-                    <TouchableOpacity
-                        style={styles.eyeIcon}
-                        onPress={() => setShowPassword(!showPassword)}
-                    >
-                        <EyeIcon
-                            color={showPasswordError ? "rgba(231, 76, 60, 0.35)" : "#223F61"}
-                            opacity={0.35}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
- 
-            {/* Remember Me */}
-            <View style={styles.termsErrorContainer}>
-                <View style={styles.termsContainer}>
-                    <TouchableOpacity
-                        style={[styles.checkbox, isChecked && styles.checkboxChecked]}
-                        onPress={() => setIsChecked(!isChecked)}
-                    >
-                        {isChecked && <Text style={styles.tick}>✓</Text>}
-                    </TouchableOpacity>
-                    <Text style={styles.rememberText}>Remember me</Text>
-                </View>
-            
-                <View style={{ minHeight: verticalScale(20), width: "100%" }}>
-                    {errorMessage !== "" && (
-                        <Text style={styles.errorText}>{errorMessage}</Text>
-                    )}
-                </View>
-            </View>
- 
- 
-            {/* Log In Button */}
-            <ButtonComp
-                title="Log In"
-                onPress={handleLogin}
-                style={{ backgroundColor: "#223F61", marginTop: 30 }}
-                textStyle={{ color: "#FAF8F5" }}
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPhoneError, setShowPhoneError] = useState(false);
+  const [showPasswordError, setShowPasswordError] = useState(false);
+  const [showRememberError, setShowRememberError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+
+  const handleLogin = () => {
+    const digitsOnly = phone.replace(/\s/g, "");
+
+    // Reset errors
+    setShowPhoneError(false);
+    setShowPasswordError(false);
+    setShowRememberError(false);
+    setErrorMessage("");
+
+    // Phone validation
+    if (digitsOnly.length !== 10) {
+      setErrorMessage("* Enter a valid 10-digit number");
+      setShowPhoneError(true);   // <-- set this
+      return;
+    }
+
+    // Password validation
+    if (!password) {
+      setErrorMessage("* Password is required");
+      setShowPasswordError(true);  // <-- set this
+      return;
+    }
+
+    // Remember Me validation
+    if (!isChecked) {
+      setErrorMessage("* Please check Remember Me");
+      setShowRememberError(true); // optional if needed
+      return;
+    }
+
+    // All good → clear error and navigate
+    setErrorMessage("");
+    navigation.navigate("LoginNumOtp");
+  };
+
+
+
+  const handlePhoneChange = (text: string) => {
+    // Remove non-digit characters
+    let digits = text.replace(/\D/g, "");
+
+    // Limit to 10 digits
+    if (digits.length > 10) digits = digits.slice(0, 10);
+
+    // Format as 5 + 5 digits
+    if (digits.length > 5) digits = digits.slice(0, 5) + " " + digits.slice(5);
+
+    setPhone(digits);
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <BackWard width={10} height={16} color="#223F61" />
+        </TouchableOpacity>
+        <Text style={styles.heading}>Login</Text>
+      </View>
+
+      {/* Input Fields */}
+      <View style={styles.inputContainer}>
+        {/* Phone Number */}
+        {/* Phone Number */}
+        <TextInput
+          style={[
+            styles.inputBox,
+            {
+              borderColor: showPhoneError
+                ? "rgba(231,76,60,0.35)"       // Error
+                : focusedField === "phone"
+                  ? "rgba(34,63,97,0.35)"        // Focus
+                  : "#E3E9F1CC",                 // Default
+              backgroundColor: showPhoneError
+                ? "#FBFDFF"                     // Error background
+                : "#E3E9F1CC",                  // Default
+            },
+          ]}
+          placeholder="Phone Number"
+          placeholderTextColor={
+            showPhoneError ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
+          }
+          keyboardType="number-pad"
+          value={phone}
+          onChangeText={(text) => {
+            handlePhoneChange(text);
+            if (showPhoneError && text.replace(/\s/g, "").length > 0) setShowPhoneError(false);
+          }}
+          onFocus={() => setFocusedField("phone")}
+          onBlur={() => setFocusedField(null)}
+          maxLength={11}
+        />
+
+        {/* Password */}
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={[
+              styles.inputBoxPassword,
+              {
+                borderColor: showPasswordError
+                  ? "rgba(231,76,60,0.35)"      // Error
+                  : focusedField === "password"
+                    ? "rgba(34,63,97,0.35)"       // Focus
+                    : "#E3E9F1CC",                // Default
+                backgroundColor: showPasswordError
+                  ? "#FBFDFF"                    // Error background
+                  : "#E3E9F1CC",                 // Default/focus background
+              },
+            ]}
+            placeholder="Password"
+            placeholderTextColor={
+              showPasswordError ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
+            }
+            value={password}
+            onChangeText={(text) => {
+              setPassword(text);
+              if (showPasswordError && text.length > 0) setShowPasswordError(false);
+            }}
+            onFocus={() => setFocusedField("password")}
+            onBlur={() => setFocusedField(null)}
+            secureTextEntry={!showPassword}
+          />
+          <TouchableOpacity
+            style={styles.eyeIcon}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <EyeIcon
+              color={showPasswordError ? "rgba(231,76,60,0.35)" : "#223F61"}
+              opacity={0.35}
             />
- 
-           
-            {/* Forgot password */}
-            <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
-                <Text style={styles.forgotText}>Forgot password?</Text>
-            </TouchableOpacity>
- 
- 
-            {/* OR Continue with */}
-            <View style={styles.orContainer}>
-                <View style={styles.line} />
-                <Text style={styles.orText}>or Continue with</Text>
-                <View style={styles.line} />
-            </View>
- 
-            {/* Social Login */}
-            <View style={styles.socialContainer}>
-                <TouchableOpacity style={styles.socialBox}>
-                    <GoogleIcon width={24} height={24} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.socialBox}>
-                    <AppleIcon width={24} height={24} />
-                </TouchableOpacity>
-            </View>
- 
-            {/* Create Account */}
-            <TouchableOpacity
-                style={{ flexDirection: "row", marginTop: 60 }}
-                onPress={() => navigation.navigate("CreateAccount")}
-            >
-                <Text style={styles.createText}>Create a new account? </Text>
-                <Text style={styles.signUpText}>Sign up</Text>
-            </TouchableOpacity>
-        </ScrollView>
-    );
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Remember Me */}
+      <View style={styles.termsErrorContainer}>
+        <View style={styles.termsContainer}>
+          <TouchableOpacity
+            style={[styles.checkbox, isChecked && styles.checkboxChecked]}
+            onPress={() => setIsChecked(!isChecked)}
+          >
+            {isChecked && <Text style={styles.tick}>✓</Text>}
+          </TouchableOpacity>
+          <Text style={styles.rememberText}>Remember me</Text>
+        </View>
+
+        <View style={{ minHeight: verticalScale(20), width: "100%" }}>
+          {errorMessage !== "" && (
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          )}
+        </View>
+      </View>
+
+
+      {/* Log In Button */}
+      <ButtonComp
+        title="Log In"
+        onPress={handleLogin}
+        style={{ backgroundColor: "#223F61", marginTop: 30 }}
+        textStyle={{ color: "#FAF8F5" }}
+      />
+
+
+      {/* Forgot password */}
+      <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
+        <Text style={styles.forgotText}>Forgot password?</Text>
+      </TouchableOpacity>
+
+
+      {/* OR Continue with */}
+      <View style={styles.orContainer}>
+        <View style={styles.line} />
+        <Text style={styles.orText}>or Continue with</Text>
+        <View style={styles.line} />
+      </View>
+
+      {/* Social Login */}
+      <View style={styles.socialContainer}>
+        <TouchableOpacity style={styles.socialBox}>
+          <GoogleIcon width={24} height={24} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialBox}>
+          <AppleIcon width={24} height={24} />
+        </TouchableOpacity>
+      </View>
+
+      {/* Create Account */}
+      <TouchableOpacity
+        style={{ flexDirection: "row", marginTop: 60 }}
+        onPress={() => navigation.navigate("CreateAccount")}
+      >
+        <Text style={styles.createText}>Create a new account? </Text>
+        <Text style={styles.signUpText}>Sign up</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
 };
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -232,7 +255,7 @@ const styles = StyleSheet.create({
 
   backButton: {
     position: "absolute",
-    left: scale(0),
+    left: scale(8),
     top: verticalScale(8)
 
   },
@@ -263,7 +286,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     color: "#223F61",
     paddingHorizontal: scale(15),
-    
+
   },
 
   passwordContainer: {
@@ -289,7 +312,8 @@ const styles = StyleSheet.create({
   eyeIcon: {
     position: "absolute",
     right: scale(15),
-    top: verticalScale(20),
+    top: "50%",
+    transform: [{ translateY: -moderateScale(5) }], // adjusts nicely across devices
   },
 
   termsErrorContainer: {
@@ -353,7 +377,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: verticalScale(45),
+    marginTop: verticalScale(60),
     gap: scale(10),
   },
 
@@ -377,7 +401,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: scale(20),
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(15),
   },
 
   socialBox: {
@@ -400,18 +424,16 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: "#121212",
     opacity: 0.44,
-    marginTop:scale(20),
+    marginTop:scale(10),
   },
 
   signUpText: {
     fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(18),
     color: "#223F61",
-     marginTop:scale(19),
+    marginTop:scale(7),
   },
 });
- 
+
 export default Login;
- 
- 

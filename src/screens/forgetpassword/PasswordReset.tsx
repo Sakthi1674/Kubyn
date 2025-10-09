@@ -40,6 +40,7 @@ const PasswordReset: React.FC = () => {
                     onPress={() => navigation.goBack()}
                     style={styles.backButton}
                 >
+                     <BackWard width={scale(10)} height={verticalScale(16)} color="#223F61" />
                 </TouchableOpacity>
                 <Text style={styles.heading}>Password Reset</Text>
             </View>
@@ -114,75 +115,85 @@ const PasswordReset: React.FC = () => {
 };
  
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
     paddingHorizontal: scale(40),
     paddingTop: verticalScale(90),
-    },
-    headerContainer: {
-        width: "100%",
-        position: "relative",
-    },
-    backButton: {
+  },
+  headerContainer: {
+    width: "100%",
+    position: "relative",
+  },
+  backButton: {
     position: "absolute",
     left: scale(0),
-    top: verticalScale(2)
-    },
-    heading: {
-        fontFamily: "Kollektif-Bold",
-        fontWeight: "700",
-        fontSize: 20,
-        lineHeight: 20,
-        color: "#121212",
-        marginBottom: scale(27),
-        textAlign:"center",
-    },
-        errorWrapper: {
-        height: verticalScale(20), // ⬅ keeps layout stable
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        width: "100%",
-        marginBottom: verticalScale(10),
-    },
-    instructionText: {
-        fontFamily: "Avenir LT Std 45 Book",
-        fontWeight: "400",
-        fontSize: 14,
-        lineHeight: 22,
-        letterSpacing: 0,
-        color: "rgba(18, 18, 18, 0.6)",
-        textAlign: "left",
-        marginBottom:scale(20),
-    },
-    passwordContainer: { position: "relative", width: "100%", marginTop: 15 },
-    inputBoxPassword: {
-        width: "100%",
-        height: 54,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: "#E3E9F1CC",
-        backgroundColor: "#E3E9F1CC",
-        fontFamily: "Avenir LT Std 65 Medium",
-        fontWeight: "600",
-        fontSize: 16,
-        lineHeight: 20,
-        color: "#223F61",
-        paddingHorizontal: 15,
-    },
-    eyeIcon: { position: "absolute", right: 15, top: 15, opacity: 0.23 },
-    errorText: {
-        fontFamily: "Avenir LT Std",
-        fontWeight: "400",
-        fontSize: 12,
-        lineHeight: 20,
-        color: "rgba(231, 76, 60, 0.35)",
-        marginTop: 6,
-        textAlign: "right",
-        width: "100%",
-    },
+    top: verticalScale(0),
+  },
+  heading: {
+    fontFamily: "Kollektif-Bold",
+    fontWeight: "700",
+    fontSize: moderateScale(20),
+    lineHeight: moderateScale(20),
+    color: "#121212",
+    marginBottom: verticalScale(27),
+    textAlign: "center",
+  },
+  errorWrapper: {
+    height: verticalScale(20), // keeps layout stable
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    width: "100%",
+    marginBottom: verticalScale(10),
+  },
+  instructionText: {
+    fontFamily: "Avenir LT Std 45 Book",
+    fontWeight: "400",
+    fontSize: moderateScale(14),
+    lineHeight: verticalScale(22),
+    letterSpacing: 0,
+    color: "rgba(18, 18, 18, 0.6)",
+    textAlign: "left",
+    marginBottom: verticalScale(20),
+  },
+  passwordContainer: {
+    position: "relative",
+    width: "100%",
+    marginTop: verticalScale(15),
+  },
+  inputBoxPassword: {
+    width: "100%",
+    height: verticalScale(54),
+    borderRadius: scale(10),
+    borderWidth: scale(1),
+    borderColor: "#E3E9F1CC",
+    backgroundColor: "#E3E9F1CC",
+    fontFamily: "Avenir LT Std 65 Medium",
+    fontWeight: "600",
+    fontSize: moderateScale(16),
+    lineHeight: verticalScale(20),
+    color: "#223F61",
+    paddingHorizontal: scale(15),
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: scale(15),
+    top: "50%",
+    transform: [{ translateY: -moderateScale(10) }], // adjusted for better alignment on all devices
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    fontFamily: "Avenir LT Std",
+    fontWeight: "400",
+    fontSize: moderateScale(12),
+    lineHeight: verticalScale(20),
+    color: "rgba(231, 76, 60, 0.35)",
+    marginTop: verticalScale(6),
+    textAlign: "right",
+    width: "100%",
+  },
 });
- 
 export default PasswordReset;
  
  

@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
-  passwordContainer: { position: "relative", width: 290 },
+  passwordContainer: {width: 260 },
   inputBoxPassword: {
     width: scale(260),
     height: verticalScale(45),
@@ -328,14 +328,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E3E9F1CC",
     backgroundColor: "#E3E9F1CC",
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(16),
     lineHeight: verticalScale(20),
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
-  eyeIcon: { position: "absolute", right: scale(15), top: verticalScale(15) },
+  eyeIcon: {
+    position: "absolute",
+    right: scale(15),
+    top: "50%",
+    transform: [{ translateY: -moderateScale(5) }], // adjusts nicely across devices
+  },
   termsErrorContainer: {
     width: scale(250),
     marginTop: verticalScale(15),
