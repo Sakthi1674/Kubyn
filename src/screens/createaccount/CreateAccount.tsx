@@ -19,6 +19,7 @@ type RootStackParamList = {
   NumOtp: undefined;
   CreateAccount: undefined;
   Login: undefined;
+ ProfileScreen: undefined;
 };
 
 const CreateAccount: React.FC = () => {
@@ -43,6 +44,8 @@ const CreateAccount: React.FC = () => {
     }
     setShowError(false);
     console.log("Account Created Successfully!");
+    navigation.navigate("ProfileScreen");
+
   };
 
   const isFieldEmpty = (field: string) => field === "";

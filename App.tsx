@@ -13,10 +13,14 @@ import PasswordReset from './src/screens/forgetpassword/PasswordReset';
 import ForgetPasswordSuccess from './src/screens/forgetpassword/ForgetPasswordSuccess';
 import WelcomePage from './src/screens/welcome/WelcomePage';
 import SplashScreen from './src/screens/welcome/SplashScreen';
- 
- 
+import AccountScreen from './src/screens/ProfileSection/Account/AccountScreen';
+import ProfileScreen from './src/screens/ProfileSection/ProfileField/ProfileScreen';
+import MySubscriptions from './src/screens/ProfileSection/Account/MySubscription';
+import DownloadStatements from './src/screens/ProfileSection/Account/DownloadStatement';
+
+
 const Stack = createNativeStackNavigator();
- 
+
 const App = () => {
   return (
     <NavigationContainer>
@@ -81,11 +85,30 @@ const App = () => {
           component={ForgetPasswordSuccess}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="AccountScreen"
+          component={AccountScreen}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="MySubscriptions"
+          component={MySubscriptions}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="DownloadStatements"
+          component={DownloadStatements}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
- 
+
 export default App;
- 
- 
+
