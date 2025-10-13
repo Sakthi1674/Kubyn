@@ -59,13 +59,6 @@ const Login: React.FC = () => {
       return;
     }
 
-    // Remember Me validation
-    if (!isChecked) {
-      setErrorMessage("* Please check Remember Me");
-      setShowRememberError(true); // optional if needed
-      return;
-    }
-
     // All good → clear error and navigate
     setErrorMessage("");
     navigation.navigate("LoginNumOtp");
@@ -256,15 +249,14 @@ const styles = StyleSheet.create({
   backButton: {
     position: "absolute",
     left: scale(8),
-    top: verticalScale(8)
-
+    top: verticalScale(8),
   },
 
   heading: {
     fontFamily: "Kollektif-Bold",
     fontWeight: "700",
     fontSize: moderateScale(32),
-    lineHeight: moderateScale(32),
+    lineHeight: moderateScale(36),
     color: "#121212",
   },
 
@@ -311,14 +303,14 @@ const styles = StyleSheet.create({
 
   eyeIcon: {
     position: "absolute",
-    right: scale(15),
+    right: scale(20),
     top: "50%",
-    transform: [{ translateY: -moderateScale(5) }], // adjusts nicely across devices
+    transform: [{ translateY: -moderateScale(5) }], 
   },
 
   termsErrorContainer: {
     width: scale(260),
-    marginTop: verticalScale(5),
+    marginTop: verticalScale(15),
     alignItems: "flex-end",
   },
 
@@ -326,6 +318,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-end",
+    marginTop: verticalScale(5),
   },
 
   checkbox: {
@@ -377,7 +370,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: verticalScale(60),
+    marginTop: verticalScale(50),
     gap: scale(10),
   },
 
@@ -424,15 +417,15 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: "#121212",
     opacity: 0.44,
-    marginTop:scale(10),
+    
   },
 
   signUpText: {
     fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(16),
     color: "#223F61",
-    marginTop:scale(7),
+   
   },
 });
 

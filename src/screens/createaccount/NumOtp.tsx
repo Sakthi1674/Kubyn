@@ -10,30 +10,31 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
 import ButtonComp from "../../components/common/ButtonComp";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-
+ 
 // Define your route types
 type RootStackParamList = {
   NumVerify: undefined;
   NumOtp: undefined;
   CreateAccount: undefined;
+  LoginSuccess: undefined;
 };
-
-const NumOtp: React.FC = () => {
+ 
+const LoginNumOtp: React.FC = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [error, setError] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const inputsRef = useRef<TextInput[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
+ 
   const handleChange = (text: string, index: number) => {
     if (/^\d$/.test(text) || text === "") {
       const newOtp = [...otp];
       newOtp[index] = text;
       setOtp(newOtp);
-
+ 
       // If user types something after error → reset error
       if (text) setError(false);
-
+ 
       // Auto move focus
       if (text && index < 3) {
         inputsRef.current[index + 1]?.focus();
@@ -42,7 +43,7 @@ const NumOtp: React.FC = () => {
       }
     }
   };
-
+ 
   const handleVerify = () => {
     const enteredOtp = otp.join("");
     if (enteredOtp.length === 4 && /^\d{4}$/.test(enteredOtp)) {
@@ -53,7 +54,7 @@ const NumOtp: React.FC = () => {
       setError(true);
     }
   };
-
+ 
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -66,19 +67,19 @@ const NumOtp: React.FC = () => {
         </TouchableOpacity>
         <Text style={styles.heading}>Verify your phone number</Text>
       </View>
-
+ 
       <Text style={styles.otpText}>Enter your OTP here</Text>
-
+ 
       {/* OTP Boxes */}
       <View style={styles.otpContainer}>
         {otp.map((digit, index) => {
           const isFocused = focusedIndex === index;
-
+ 
           // 🔹 Dynamic color logic
           let borderColor = "#E3E9F1CC";
           let backgroundColor = "#E3E9F1CC";
           let placeholderColor = "rgba(34,63,97,0.35)";
-
+ 
           if (error) {
             borderColor = "rgba(231,76,60,0.35)";
             backgroundColor = "#FBFDFF";
@@ -86,7 +87,7 @@ const NumOtp: React.FC = () => {
           } else if (isFocused) {
             borderColor = "rgba(34,63,97,0.35)";
           }
-
+ 
           return (
             <TextInput
               key={index}
@@ -110,14 +111,14 @@ const NumOtp: React.FC = () => {
           );
         })}
       </View>
-
+ 
       {/* Error message */}
       <View style={styles.errorWrapper}>
         {error ? (
           <Text style={styles.errorText}>* OTP is required</Text>
         ) : null}
       </View>
-
+ 
       {/* Resend Section */}
       <View style={styles.resendContainer}>
         <Text style={styles.infoText}>Didn’t receive the OTP? </Text>
@@ -125,7 +126,7 @@ const NumOtp: React.FC = () => {
           <Text style={styles.resendText}>Resend</Text>
         </TouchableOpacity>
       </View>
-
+ 
       {/* Verify Button */}
       <ButtonComp
         title="Verify"
@@ -140,7 +141,7 @@ const NumOtp: React.FC = () => {
     </View>
   );
 };
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kollektif-Bold",
     fontWeight: "700",
     fontSize: moderateScale(20),
-    lineHeight: moderateScale(24),
+    lineHeight: moderateScale(26),
     color: "#121212",
     textAlign: "center",
   },
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: verticalScale(15),
+    marginTop: moderateScale(30),
   },
   infoText: {
     fontFamily: "Avenir LT Std 45 Book",
@@ -219,7 +221,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     lineHeight: verticalScale(25),
     color: "#121212",
-    marginTop: moderateScale(30),
   },
   resendText: {
     fontFamily: "Avenir LT Std 65 Medium",
@@ -227,8 +228,9 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     lineHeight: verticalScale(25),
     color: "#223F61",
-    marginTop: moderateScale(30),
   },
 });
-
-export default NumOtp;
+ 
+export default LoginNumOtp;
+ 
+ 

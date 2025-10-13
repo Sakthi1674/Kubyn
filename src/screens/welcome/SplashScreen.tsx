@@ -69,7 +69,7 @@ const SplashScreen = () => {
     >
       {currentSlide === 0 && (
         <TouchableOpacity
-          onPress={() => navigation.navigate("Details")}
+          onPress={() => navigation.navigate("Welcome")}
         >
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#E3E9F1CC",
     marginBottom: verticalScale(20),
-    width:scale(290),
+    width:scale(310),
   },
 
   pagination: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   skipText: {
     position: "absolute",
     top: verticalScale(60),
-    left: scale(75), // 🔸 moved to right for better UX on all screen sizes
+    left: scale(100), // 🔸 moved to right for better UX on all screen sizes
     fontFamily: "Avenir LT Std 55 Roman",
     fontWeight: "400",
     fontSize: moderateScale(16),

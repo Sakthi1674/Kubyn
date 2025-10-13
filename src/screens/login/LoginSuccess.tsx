@@ -15,7 +15,10 @@ const LoginSuccess: React.FC = () => {
  
             {/* Two-Factor Authentication Successful */}
             <Text style={styles.subText}>
-                Two - Factor Authentication Successful
+                Two - Factor
+            </Text>
+            <Text style={styles.subText}>
+               Authentication Successful
             </Text>
         </View>
     );
@@ -26,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop:scale(150),
     backgroundColor: "#223F61",
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(40),
     alignItems:"center"
   },
   image: {
@@ -51,8 +54,6 @@ const styles = StyleSheet.create({
     color: "#FAF8F5",
     opacity: 0.58,
     textAlign: "center",
-    width: scale(225),
-    height: verticalScale(50),
   },
 });
 

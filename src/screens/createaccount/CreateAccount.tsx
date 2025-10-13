@@ -16,8 +16,9 @@ import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 type RootStackParamList = {
-  Login: undefined;
+  NumOtp: undefined;
   CreateAccount: undefined;
+  Login: undefined;
 };
 
 const CreateAccount: React.FC = () => {
@@ -67,20 +68,20 @@ const CreateAccount: React.FC = () => {
             styles.inputBox,
             {
               borderColor: showError && userName === ""
-                ? "rgba(231,76,60,0.35)"    // Error
+                ? "rgba(231,76,60,0.35)"   
                 : focusedField === "userName"
-                  ? "rgba(34,63,97,0.35)"     // Focus
-                  : "#E3E9F1CC",              // Default
+                  ? "rgba(34,63,97,0.35)"     
+                  : "#E3E9F1CC",             
               backgroundColor: showError && userName === ""
-                ? "#FBFDFF"                 // Error background
-                : "#E3E9F1CC",              // Default/focus background
+                ? "#FBFDFF"                
+                : "#E3E9F1CC",              
             },
           ]}
           placeholder="User Name"
           placeholderTextColor={
             showError && userName === ""
               ? "rgba(231,76,60,0.35)"
-              : "#223F61"
+              : "rgba(34,63,97,0.35)"
           }
           value={userName}
           onChangeText={(text) => {
@@ -110,7 +111,7 @@ const CreateAccount: React.FC = () => {
           placeholderTextColor={
             showError && email === ""
               ? "rgba(231,76,60,0.35)"
-              : "#223F61"
+              : "rgba(34,63,97,0.35)"
           }
           value={email}
           onChangeText={(text) => {
@@ -143,7 +144,7 @@ const CreateAccount: React.FC = () => {
             placeholderTextColor={
               showError && password === ""
                 ? "rgba(231,76,60,0.35)"
-                : "#223F61"
+                : "rgba(34,63,97,0.35)"
             }
             value={password}
             onChangeText={(text) => {
@@ -167,7 +168,6 @@ const CreateAccount: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Confirm Password Field */}
         {/* Confirm Password */}
         <View style={styles.passwordContainer}>
           <TextInput
@@ -188,7 +188,7 @@ const CreateAccount: React.FC = () => {
             placeholderTextColor={
               showError && confirmPassword === ""
                 ? "rgba(231,76,60,0.35)"
-                : "#223F61"
+                : "rgba(34,63,97,0.35)"
             }
             value={confirmPassword}
             onChangeText={(text) => {
@@ -268,7 +268,7 @@ const CreateAccount: React.FC = () => {
 
       {/* Already have account */}
       <TouchableOpacity
-        style={{ flexDirection: "row", marginTop: 20 }}
+        style={{ flexDirection: "row", marginTop: 30 }}
         onPress={() => navigation.navigate("Login")}
       >
         <Text style={styles.alreadyText}>Already have an account? </Text>
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kollektif-Bold",
     fontWeight: "700",
     fontSize: moderateScale(25),
-    lineHeight: moderateScale(25),
+    lineHeight: moderateScale(28),
     color: "#121212",
     textAlign: "center",
   },
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
-  passwordContainer: {width: 260 },
+  passwordContainer: { position: "relative", width: 290 },
   inputBoxPassword: {
     width: scale(260),
     height: verticalScale(45),
@@ -328,19 +328,21 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E3E9F1CC",
     backgroundColor: "#E3E9F1CC",
-    fontFamily: "Avenir LT Std 65 Medium",
+    fontFamily: "Avenir LT Std",
     fontWeight: "600",
     fontSize: moderateScale(16),
     lineHeight: verticalScale(20),
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
+  
   eyeIcon: {
     position: "absolute",
-    right: scale(15),
+    right: scale(20),
     top: "50%",
-    transform: [{ translateY: -moderateScale(5) }], // adjusts nicely across devices
+    transform: [{ translateY: -moderateScale(5) }], 
   },
+
   termsErrorContainer: {
     width: scale(250),
     marginTop: verticalScale(15),
@@ -350,6 +352,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-end",
+    gap: verticalScale(15)
   },
 
   checkbox: {
@@ -360,7 +363,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(3),
     justifyContent: "center",
     alignItems: "center",
-    marginRight: scale(8),
+
   },
   checkboxChecked: { backgroundColor: "#223F61" },
   tick: { color: "#FFFFFF", fontSize: moderateScale(10), fontWeight: "700" },
@@ -401,6 +404,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     opacity: 0.25,
     borderColor: "#121212",
+    backgroundColor:"rgba(18, 18, 18, 0.25)",
   },
   orText: {
     fontFamily: "Avenir LT Std 55 Roman",
@@ -435,14 +439,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: "#121212",
     opacity: 0.44,
-    marginTop: verticalScale(17),
+    marginTop: verticalScale(12),
   },
   loginText: {
     fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(16),
     color: "#223F61",
-    marginTop: verticalScale(15),
+    marginTop: verticalScale(10),
   },
   focusedInput: {
     borderColor: "#223F61",

@@ -15,7 +15,7 @@ import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 type RootStackParamList = {
     NumVerify: undefined;
     NumOtp: undefined;
-    CreateAccount: undefined;
+    LoginSuccess: undefined;
 };
 
 const LoginNumOtp: React.FC = () => {
@@ -45,7 +45,7 @@ const LoginNumOtp: React.FC = () => {
         if (enteredOtp.length === 4 && /^\d{4}$/.test(enteredOtp)) {
             setError("");
             console.log("Entered OTP:", enteredOtp);
-            navigation.navigate("CreateAccount");
+            navigation.navigate("LoginSuccess");
         } else {
             setError("* OTP is required");
         }
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         fontFamily: "Kollektif-Bold",
         fontWeight: "700",
         fontSize: moderateScale(20),
-        lineHeight: moderateScale(24),
+        lineHeight: moderateScale(26),
         color: "#121212",
         textAlign: "center",
     },
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginBottom: verticalScale(15),
+        marginTop: moderateScale(30),
     },
     infoText: {
         fontFamily: "Avenir LT Std 45 Book",
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(16),
         lineHeight: verticalScale(25),
         color: "#121212",
-        marginTop: moderateScale(30),
+        
     },
     resendText: {
         fontFamily: "Avenir LT Std 65 Medium",
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(16),
         lineHeight: verticalScale(25),
         color: "#223F61",
-        marginTop: moderateScale(30),
+       
     },
 });
 

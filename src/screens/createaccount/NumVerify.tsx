@@ -27,7 +27,7 @@ const NumVerify: React.FC = () => {
   const navigation = useNavigation<NumVerifyNavigationProp>();
   const [phone, setPhone] = useState("");
   const [error, setError] = useState(false);
- 
+ const [isFocused, setIsFocused] = useState(false);
   const handlePhoneChange = (text: string) => {
     const numericText = text.replace(/[^0-9]/g, "");
     const limitedText = numericText.slice(0, 10);
@@ -77,21 +77,27 @@ const NumVerify: React.FC = () => {
           <Text style={styles.countryText}>+91</Text>
         </View>
         <TextInput
-          style={[
-            styles.phoneInput,
-            error && {
-              borderColor: "rgba(231,76,60,0.35",
-              backgroundColor: "#FBFDFF",
-            },
-          ]}
-          keyboardType="number-pad"
-          placeholder="00000 00000"
-          placeholderTextColor={
-            error ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
-          }
-          value={phone}
-          onChangeText={handlePhoneChange}
-        />
+  style={[
+    styles.phoneInput,
+    isFocused && !error && {
+      borderColor: "rgba(34,63,97,0.35)",
+      backgroundColor: "#E3E9F1CC",
+    },
+    error && {
+      borderColor: "rgba(231,76,60,0.35)",
+      backgroundColor: "#FBFDFF",
+    },
+  ]}
+  keyboardType="number-pad"
+  placeholder="00000 00000"
+  placeholderTextColor={
+    error ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
+  }
+  value={phone}
+  onChangeText={handlePhoneChange}
+  onFocus={() => setIsFocused(true)}
+  onBlur={() => setIsFocused(false)}
+/>
       </View>
  
     <View style={styles.errorContainer}>
@@ -142,8 +148,8 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: "Kollekti-Bold",
     fontWeight: "700",
-    fontSize: moderateScale(18),
-    lineHeight: verticalScale(24),
+    fontSize: moderateScale(20),
+    lineHeight: verticalScale(26),
     color: "#121212",
     textAlign: "center",
     justifyContent:"center",

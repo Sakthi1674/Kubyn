@@ -4,25 +4,23 @@ import { useNavigation, NavigationProp, RouteProp, useRoute } from "@react-navig
 import ButtonComp from "../../components/common/ButtonComp";
 import BackWard from "../../assets/icons/BackWard";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-
+ 
 type RootStackParamList = {
-  ForgetPasswordOtp: { method: "sms" | "email"; contact: string };
-  PasswordReset: undefined;
+    ForgetPasswordOtp: { method: "sms" | "email"; contact: string };
+    PasswordReset: undefined;
 };
  
 type ForgetPasswordOtpRouteProp = RouteProp<RootStackParamList, "ForgetPasswordOtp">;
  
 const ForgetPasswordOtp: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const route = useRoute<ForgetPasswordOtpRouteProp>();
- 
-  const { method, contact } = route.params; // ✅ get passed data
- 
- 
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const route = useRoute<ForgetPasswordOtpRouteProp>();
+    const [focusedField, setFocusedField] = useState<string | null>(null);
+    const { method, contact } = route.params; // ✅ get passed data
     const [otp, setOtp] = useState(["", "", "", ""]);
     const [error, setError] = useState(false);
- 
     const inputsRef = useRef<TextInput[]>([]); // ✅ added ref
+    const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
  
     const handleChange = (text: string, index: number) => {
         if (/^\d$/.test(text) || text === "") {
@@ -54,10 +52,7 @@ const ForgetPasswordOtp: React.FC = () => {
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.headerContainer}>
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                    style={styles.backButton}
-                >
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <BackWard width={10} height={16} color="#223F61" />
                 </TouchableOpacity>
                 <Text style={styles.heading}>Verify</Text>
@@ -74,34 +69,52 @@ const ForgetPasswordOtp: React.FC = () => {
  
             {/* OTP Boxes */}
             <View style={styles.otpContainer}>
-                {otp.map((digit, index) => (
-                    <TextInput
-                        key={index}
-                        ref={(el) => { inputsRef.current[index] = el!; }}
-                        style={[
-                            styles.otpBox,
-                            // ✅ highlight in red if error AND this box is empty
-                            error && otp[index] === "" && {
-                                borderColor: "#E74C3C",
-                                backgroundColor: "#FBFDFF",
-                            },
-                        ]}
-                        keyboardType="number-pad"
-                        maxLength={1}
-                        value={digit}
-                        onChangeText={(text) => handleChange(text, index)}
-                        textAlign="center"
-                        placeholder="0"
-                        placeholderTextColor={error ? "#E74C3C59" : "rgba(34, 63, 97, 0.35)"}
-                    />
-                ))}
+                {otp.map((digit, index) => {
+                    const isFocused = focusedIndex === index;
+ 
+                    // 🔹 Dynamic color logic
+                    let borderColor = "#E3E9F1CC";
+                    let backgroundColor = "#E3E9F1CC";
+                    let placeholderColor = "rgba(34,63,97,0.35)";
+ 
+                    if (error) {
+                        borderColor = "rgba(231,76,60,0.35)";
+                        backgroundColor = "#FBFDFF";
+                        placeholderColor = "rgba(231,76,60,0.35)";
+                    } else if (isFocused) {
+                        borderColor = "rgba(34,63,97,0.35)";
+                    }
+ 
+                    return (
+                        <TextInput
+                            key={index}
+                            ref={(el) => {
+                                if (el) inputsRef.current[index] = el;
+                            }}
+                            style={[
+                                styles.otpBox,
+                                { borderColor, backgroundColor },
+                            ]}
+                            keyboardType="number-pad"
+                            maxLength={1}
+                            value={digit}
+                            onChangeText={(text) => handleChange(text, index)}
+                            onFocus={() => setFocusedIndex(index)}
+                            onBlur={() => setFocusedIndex(null)}
+                            textAlign="center"
+                            placeholder="0"
+                            placeholderTextColor={placeholderColor}
+                        />
+                    );
+                })}
             </View>
+ 
  
             {/* Error message aligned right */}
             <View style={styles.errorWrapper}>
-            {error && <Text style={styles.errorText}>OTP is required</Text>}
+                {error && <Text style={styles.errorText}>OTP is required</Text>}
             </View>
-
+ 
             {/* Resend Section */}
             <View style={styles.resendContainer}>
                 <Text style={styles.infoText}>Didn’t receive the OTP? </Text>
@@ -135,14 +148,14 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
-    left: scale(5),
-    top: verticalScale(5),
+    left: scale(0),
+    top: verticalScale(2),
   },
   heading: {
     fontFamily: "Kollektif",
     fontWeight: "700",
     fontSize: moderateScale(20),
-    lineHeight: verticalScale(20),
+    lineHeight: verticalScale(26),
     color: "#121212",
     textAlign: "center",
   },
@@ -177,15 +190,15 @@ const styles = StyleSheet.create({
   },
   otpContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     gap: scale(19),
     marginTop: verticalScale(20),
   },
   otpBox: {
     width: scale(54),
-    height: scale(54),
+    height: verticalScale(54),
     borderRadius: scale(10),
-    borderBottomWidth: scale(1),
+    borderWidth: 1,
     borderColor: "rgba(34,63,97,0.35)",
     backgroundColor: "#E3E9F1CC",
     textAlign: "center",
@@ -193,6 +206,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: moderateScale(24),
     color: "#223F61",
+    borderBottomWidth: 1,
   },
   errorText: {
     fontFamily: "Avenir LT Std 55 Roman",
@@ -201,13 +215,14 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(19),
     color: "#E74C3C",
     alignSelf: "flex-end",
+    marginRight: scale(48),
     marginTop: verticalScale(6),
   },
   errorWrapper: {
-    height: verticalScale(20), // keeps layout stable
+    height: verticalScale(20),
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    width: "95%",
+    width: "100%",
     marginBottom: verticalScale(10),
   },
   resendContainer: {
@@ -215,6 +230,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: verticalScale(25),
+    width: "100%",
   },
   infoText: {
     fontFamily: "Avenir LT Std 45 Book",
@@ -235,5 +251,6 @@ const styles = StyleSheet.create({
 });
  
 export default ForgetPasswordOtp;
+ 
  
  

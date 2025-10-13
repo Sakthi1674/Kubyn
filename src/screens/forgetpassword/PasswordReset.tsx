@@ -107,7 +107,7 @@ const PasswordReset: React.FC = () => {
             <ButtonComp
                 title="Confirm"
                 onPress={handleVerify}
-                style={{ backgroundColor: "#223F61", marginTop: 50 }}
+                style={{ backgroundColor: "#223F61", marginTop: 60 }}
                 textStyle={{ color: "#FAF8F5" }}
             />
         </View>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   eyeIcon: {
     position: "absolute",
-    right: scale(15),
+    right: scale(20),
     top: "50%",
     transform: [{ translateY: -moderateScale(10) }], // adjusted for better alignment on all devices
     justifyContent: "center",

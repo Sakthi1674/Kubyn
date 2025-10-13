@@ -3,31 +3,34 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 // Replace this with your actual success image
- 
+
 const ForgetPasswordSuccess: React.FC = () => {
-    return (
-        <View style={styles.container}>
-            {/* Image */}
-            <Image source={require("../../assets/images/onboardimg/successpage.png")} style={styles.image} />
- 
-            {/* Successful! */}
-            <Text style={styles.successText}>Successful!</Text>
- 
-            {/* Two-Factor Authentication Successful */}
-            <Text style={styles.subText}>
-                Your password has been changed successfully
-            </Text>
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      {/* Image */}
+      <Image source={require("../../assets/images/onboardimg/successpage.png")} style={styles.image} />
+
+      {/* Successful! */}
+      <Text style={styles.successText}>Successful!</Text>
+
+      {/* Two-Factor Authentication Successful */}
+      <Text style={styles.subText}>
+                Your password has been
+      </Text>
+      <Text style={styles.subText}>
+           changed successfully
+      </Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:scale(150),
+    paddingTop: scale(150),
     backgroundColor: "#223F61",
-    paddingHorizontal: scale(20),
-    alignItems:"center"
+    paddingHorizontal: scale(40),
+    alignItems: "center"
   },
   image: {
     width: scale(224),
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(30),
     resizeMode: "contain",
     alignItems: "center",
-    marginRight:scale(50), //remove during animation
+    marginRight: scale(50), //remove during animation
   },
   successText: {
     fontFamily: "Kollektif-Bold",
@@ -51,12 +54,9 @@ const styles = StyleSheet.create({
     color: "#FAF8F5",
     opacity: 0.58,
     textAlign: "center",
-    width: scale(225),
-    height: verticalScale(50),
   },
 });
 
- 
+
 export default ForgetPasswordSuccess;
- 
- 
+

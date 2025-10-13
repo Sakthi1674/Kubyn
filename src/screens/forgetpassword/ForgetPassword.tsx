@@ -100,8 +100,6 @@ const ForgetPassword: React.FC = () => {
           <Text style={styles.viaSmsText}>via E-Mail</Text>
           <Text
             style={styles.phoneText}
-            numberOfLines={1}
-            ellipsizeMode="tail"
           >
             abc123@gmail.com
           </Text>
@@ -148,7 +146,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kollektif-Bold",
     fontWeight: "700",
     fontSize: moderateScale(32),
-    lineHeight: moderateScale(32),
+    lineHeight: moderateScale(34),
     color: "#121212",
     textAlign: "center",
   },
@@ -225,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FBFDFF",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: scale(24),
+    marginLeft: scale(15),
   },
 });
 
