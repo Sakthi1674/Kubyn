@@ -9,7 +9,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
 import ButtonComp from "../../components/common/ButtonComp";
 import GoogleIcon from "../../assets/icons/GoogleIcon";
@@ -24,13 +24,15 @@ const API_BASE_URL =
 
 type RootStackParamList = {
   NumOtp: undefined;
-  CreateAccount: undefined;
+  CreateAccount: { number: string };
   Login: undefined;
   ProfileScreen: undefined;
 };
 
 const CreateAccount: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const route = useRoute();
+  const { number } = route.params as { number: string }; // ✅ Fixed type assertion
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const [userName, setUserName] = useState("");
@@ -41,10 +43,9 @@ const CreateAccount: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [showError, setShowError] = useState(false);
 
- // ✅ Handle Create Account
+  // ✅ Handle Create Account
   const handleCreateAccount = async () => {
     if (!userName || !email || !password || !confirmPassword || !isChecked) {
       setShowError(true);
@@ -60,8 +61,9 @@ const CreateAccount: React.FC = () => {
       const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName, email, password }),
+        body: JSON.stringify({ number, userName, email, password }),
       });
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -77,8 +79,6 @@ const CreateAccount: React.FC = () => {
       Alert.alert("Error", "Unable to reach server");
     }
   };
-
-  const isFieldEmpty = (field: string) => field === "";
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -101,13 +101,13 @@ const CreateAccount: React.FC = () => {
             styles.inputBox,
             {
               borderColor: showError && userName === ""
-                ? "rgba(231,76,60,0.35)"   
+                ? "rgba(231,76,60,0.35)"
                 : focusedField === "userName"
-                  ? "rgba(34,63,97,0.35)"     
-                  : "#E3E9F1CC",             
+                ? "rgba(34,63,97,0.35)"
+                : "#E3E9F1CC",
               backgroundColor: showError && userName === ""
-                ? "#FBFDFF"                
-                : "#E3E9F1CC",              
+                ? "#FBFDFF"
+                : "#E3E9F1CC",
             },
           ]}
           placeholder="User Name"
@@ -119,7 +119,7 @@ const CreateAccount: React.FC = () => {
           value={userName}
           onChangeText={(text) => {
             setUserName(text);
-            if (showError && text !== "") setShowError(false); // reset error after typing
+            if (showError && text !== "") setShowError(false);
           }}
           onFocus={() => setFocusedField("userName")}
           onBlur={() => setFocusedField(null)}
@@ -131,13 +131,13 @@ const CreateAccount: React.FC = () => {
             styles.inputBox,
             {
               borderColor: showError && email === ""
-                ? "rgba(231,76,60,0.35)"    // Error
+                ? "rgba(231,76,60,0.35)"
                 : focusedField === "email"
-                  ? "rgba(34,63,97,0.35)"     // Focus
-                  : "#E3E9F1CC",              // Default
+                ? "rgba(34,63,97,0.35)"
+                : "#E3E9F1CC",
               backgroundColor: showError && email === ""
-                ? "#FBFDFF"                 // Error background
-                : "#E3E9F1CC",              // Default/focus background
+                ? "#FBFDFF"
+                : "#E3E9F1CC",
             },
           ]}
           placeholder="Email"
@@ -149,14 +149,13 @@ const CreateAccount: React.FC = () => {
           value={email}
           onChangeText={(text) => {
             setEmail(text);
-            if (showError && text !== "") setShowError(false); // reset error after typing
+            if (showError && text !== "") setShowError(false);
           }}
           onFocus={() => setFocusedField("email")}
           onBlur={() => setFocusedField(null)}
           keyboardType="email-address"
         />
 
-        {/* Password Field */}
         {/* Password */}
         <View style={styles.passwordContainer}>
           <TextInput
@@ -164,13 +163,13 @@ const CreateAccount: React.FC = () => {
               styles.inputBoxPassword,
               {
                 borderColor: showError && password === ""
-                  ? "rgba(231,76,60,0.35)"    // Error
+                  ? "rgba(231,76,60,0.35)"
                   : focusedField === "password"
-                    ? "rgba(34,63,97,0.35)"     // Focus
-                    : "#E3E9F1CC",              // Default
+                  ? "rgba(34,63,97,0.35)"
+                  : "#E3E9F1CC",
                 backgroundColor: showError && password === ""
-                  ? "#FBFDFF"                 // Error background
-                  : "#E3E9F1CC",              // Default/focus background
+                  ? "#FBFDFF"
+                  : "#E3E9F1CC",
               },
             ]}
             placeholder="Password"
@@ -182,7 +181,7 @@ const CreateAccount: React.FC = () => {
             value={password}
             onChangeText={(text) => {
               setPassword(text);
-              if (showError && text !== "") setShowError(false); // reset error after typing
+              if (showError && text !== "") setShowError(false);
             }}
             onFocus={() => setFocusedField("password")}
             onBlur={() => setFocusedField(null)}
@@ -208,13 +207,13 @@ const CreateAccount: React.FC = () => {
               styles.inputBoxPassword,
               {
                 borderColor: showError && confirmPassword === ""
-                  ? "rgba(231,76,60,0.35)"    // Error
+                  ? "rgba(231,76,60,0.35)"
                   : focusedField === "confirmPassword"
-                    ? "rgba(34,63,97,0.35)"     // Focus
-                    : "#E3E9F1CC",              // Default
+                  ? "rgba(34,63,97,0.35)"
+                  : "#E3E9F1CC",
                 backgroundColor: showError && confirmPassword === ""
-                  ? "#FBFDFF"                 // Error background
-                  : "#E3E9F1CC",              // Default/focus background
+                  ? "#FBFDFF"
+                  : "#E3E9F1CC",
               },
             ]}
             placeholder="Confirm Password"
@@ -226,7 +225,7 @@ const CreateAccount: React.FC = () => {
             value={confirmPassword}
             onChangeText={(text) => {
               setConfirmPassword(text);
-              if (showError && text !== "") setShowError(false); // reset error after typing
+              if (showError && text !== "") setShowError(false);
             }}
             onFocus={() => setFocusedField("confirmPassword")}
             onBlur={() => setFocusedField(null)}
@@ -311,6 +310,7 @@ const CreateAccount: React.FC = () => {
   );
 };
 
+// ... (keep your existing styles the same)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -368,14 +368,12 @@ const styles = StyleSheet.create({
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
-  
   eyeIcon: {
     position: "absolute",
     right: scale(20),
     top: "50%",
-    transform: [{ translateY: -moderateScale(5) }], 
+    transform: [{ translateY: -moderateScale(5) }],
   },
-
   termsErrorContainer: {
     width: scale(250),
     marginTop: verticalScale(15),
@@ -387,7 +385,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     gap: verticalScale(15)
   },
-
   checkbox: {
     width: scale(14),
     height: scale(14),
@@ -396,7 +393,6 @@ const styles = StyleSheet.create({
     borderRadius: scale(3),
     justifyContent: "center",
     alignItems: "center",
-
   },
   checkboxChecked: { backgroundColor: "#223F61" },
   tick: { color: "#FFFFFF", fontSize: moderateScale(10), fontWeight: "700" },
@@ -419,7 +415,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   errorWrapper: {
-    height: verticalScale(20), // ⬅ keeps layout stable
+    height: verticalScale(20),
     justifyContent: "flex-end",
     alignItems: "flex-end",
     width: "80%",
@@ -437,7 +433,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     opacity: 0.25,
     borderColor: "#121212",
-    backgroundColor:"rgba(18, 18, 18, 0.25)",
+    backgroundColor: "rgba(18, 18, 18, 0.25)",
   },
   orText: {
     fontFamily: "Avenir LT Std 55 Roman",
