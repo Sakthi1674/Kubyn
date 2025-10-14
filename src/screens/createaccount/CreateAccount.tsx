@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Platform,
+  Alert,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
@@ -15,11 +17,16 @@ import AppleIcon from "../../assets/icons/Ios";
 import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
+const API_BASE_URL =
+  Platform.OS === "android"
+    ? "http://10.0.2.2:5000"
+    : "http://localhost:5000";
+
 type RootStackParamList = {
   NumOtp: undefined;
   CreateAccount: undefined;
   Login: undefined;
- ProfileScreen: undefined;
+  ProfileScreen: undefined;
 };
 
 const CreateAccount: React.FC = () => {
@@ -37,15 +44,38 @@ const CreateAccount: React.FC = () => {
 
   const [showError, setShowError] = useState(false);
 
-  const handleCreateAccount = () => {
+ // ✅ Handle Create Account
+  const handleCreateAccount = async () => {
     if (!userName || !email || !password || !confirmPassword || !isChecked) {
       setShowError(true);
       return;
     }
-    setShowError(false);
-    console.log("Account Created Successfully!");
-    navigation.navigate("ProfileScreen");
 
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, email, password }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        Alert.alert("Error", data.message || "Registration failed");
+        return;
+      }
+
+      console.log("✅ User registered:", data);
+      Alert.alert("Success", "Account created successfully");
+      navigation.navigate("ProfileScreen");
+    } catch (err) {
+      console.error("❌ Register request failed:", err);
+      Alert.alert("Error", "Unable to reach server");
+    }
   };
 
   const isFieldEmpty = (field: string) => field === "";

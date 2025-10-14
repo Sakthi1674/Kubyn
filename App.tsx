@@ -14,7 +14,7 @@ import ForgetPasswordSuccess from './src/screens/forgetpassword/ForgetPasswordSu
 import WelcomePage from './src/screens/welcome/WelcomePage';
 import SplashScreen from './src/screens/welcome/SplashScreen';
 import AccountScreen from './src/screens/ProfileSection/Account/AccountScreen';
-import ProfileScreen from './src/screens/ProfileSection/ProfileField/ProfileScreen';
+// import ProfileScreen from './src/screens/ProfileSection/ProfileField/ProfileScreen';
 import MySubscriptions from './src/screens/ProfileSection/Account/MySubscription';
 import DownloadStatements from './src/screens/ProfileSection/Account/DownloadStatement';
 
@@ -100,11 +100,11 @@ const App = () => {
           component={DownloadStatements}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+         {/* <Stack.Screen
           name="ProfileScreen"
           component={ProfileScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
