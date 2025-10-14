@@ -1,36 +1,82 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Image,useColorScheme } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import ButtonComp from './../../components/common/ButtonComp';
+import ButtonComp from "./../../components/common/ButtonComp";
+import colors from "../../theme/color";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
-
-// Define your stack param list
 type RootStackParamList = {
-  Home: undefined;
+  Login: undefined;
   Details: undefined;
+  NumVerify: undefined; // ✅ added this
 };
 
-const WelcomePage: React.FC = () => {
-  // Type the navigation prop
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const handlePress = () => {
-    navigation.navigate("Home"); // Go back to SplashScreen
+
+
+const WelcomePage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme || "light"];
+
+  const Login = () => {
+    navigation.navigate("Login");
+  };
+
+  const goToNumVerify = () => {
+    navigation.navigate("NumVerify");
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the App!</Text>
+    <View style={[styles.container,{backgroundColor:theme.background}]}>
+      <View style={styles.textContainer}>
+        {/* Welcome to (same line) */}
+        <Text style={styles.welcomeLine}>
+            <Text style={[styles.welcome, { color: theme.Button }]}>Welcome </Text>
+          <Text style={[styles.to, { color: theme.text }]}>to</Text>
+        </Text>
 
-      {/* Default React Native button */}
-      <Button title="Go Back to Splash" onPress={handlePress} />
+        {/* Kubyn separate, same font */}
+         <Text style={[styles.kubyn, { color: theme.text }]}>Kubyn</Text>
 
-      {/* ✅ Custom reusable button component */}
-      <ButtonComp
-        title="Custom Button"
-        color="#FF6B00" // You can change this dynamically
-        onPress={handlePress}
+        <Text style={[styles.description, { color: theme.text }]}>
+          Plan cash. Track goals. Master your money.
+        </Text>
+      </View>
+
+      <Image
+        source={require("../../assets/images/onboardimg/wingedkuboo.png")} // 👈 your image path
+        style={styles.image}
+        resizeMode="contain"
       />
+
+      <ButtonComp
+        title="Log in"
+        onPress={Login}
+        style={{
+          backgroundColor:theme.Button,
+        }}
+        textStyle={{
+          color: theme.bttext, 
+          fontWeight: '700',
+        }}
+
+      />
+
+      {/* Create Account button → NumVerify */}
+      <ButtonComp
+        title="Create Account"
+        onPress={goToNumVerify} // ✅ updated handler
+        style={{
+          backgroundColor: theme.buttondark,
+          marginTop: verticalScale(14),
+        }}
+        textStyle={{
+          color: theme.text,
+          fontWeight: '700',
+        }}
+      />
+
     </View>
   );
 };
@@ -38,14 +84,59 @@ const WelcomePage: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: scale(40),
+    alignItems: "center",
+    paddingTop: verticalScale(66),
+  },
+  textContainer: {
+    paddingRight: scale(42)
+  },
+  welcomeLine: {
+    flexDirection: "row",
+  },
+  welcome: {
+    fontFamily: "Kollektif-Bold",
+    fontWeight: "700",
+    fontSize: moderateScale(40),
+    color: "#223F61",
+  },
+  to: {
+    fontFamily: "Kollektif-Bold",
+    fontWeight: "700",
+    fontSize: moderateScale(40),
+    color: "#121212",
+  },
+  kubyn: {
+    fontFamily: "Avenir LT Std 65 Medium",
+    fontWeight: "600",
+    fontSize: moderateScale(24),
+    lineHeight: 40,
+    color: "#121212",
+    marginBottom: verticalScale(34),
+  },
+  description: {
+    fontFamily: "Avenir LT Std 85 Heavy",
+    fontWeight: "700",
+    fontSize: moderateScale(20),
+    lineHeight: 35,
+    color: "#121212",
+  },
+  buttonContainer: {
+  },
+  // Image styles
+  imageContainer: {
     alignItems: "center",
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
+  image: {
+    width: scale(273),
+    height: verticalScale(173),
+    marginTop: verticalScale(109),
+    marginBottom:verticalScale(-6),
+
+    
   },
+
 });
 
 export default WelcomePage;
