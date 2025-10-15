@@ -5,6 +5,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
+  Platform,
 } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation, RouteProp, useRoute } from "@react-navigation/native";
@@ -12,6 +14,9 @@ import ButtonComp from "../../components/common/ButtonComp";
 import BackWard from "../../assets/icons/BackWard";
 import Flag from "../../assets/icons/IndianFlag";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+
+const API_BASE_URL =
+  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
 
 type RootStackParamList = {
   NumVerify: undefined;
@@ -43,15 +48,18 @@ const NumVerify: React.FC = () => {
 
   const handleConfirm = () => {
     const rawPhone = phone.replace(/\s/g, "");
+
     if (rawPhone.length !== 10) {
       setError(true);
-    } else {
-      setError(false);
-      console.log("Phone Number:", rawPhone);
-      // ✅ Fixed: Navigate to CreateAccount with number parameter
-      navigation.navigate("CreateAccount", { number: rawPhone });
+      return;
     }
+
+    setError(false);
+    navigation.navigate("NumOtp", { phone: rawPhone });
   };
+
+
+
 
   return (
     <View style={styles.container}>
@@ -73,8 +81,8 @@ const NumVerify: React.FC = () => {
       <Text style={styles.label}>Phone Number</Text>
 
       <View style={styles.phoneContainer}>
-        <View style={{ marginRight: 10}}>
-          <Flag width={30} height={23}  />
+        <View style={{ marginRight: 10 }}>
+          <Flag width={30} height={23} />
         </View>
         <View style={[styles.countryBox, { marginRight: 10 }]}>
           <Text style={styles.countryText}>+91</Text>

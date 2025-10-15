@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "856788563797",
+    "project_id": "kubyn-7dc5f",
+    "storage_bucket": "kubyn-7dc5f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856788563797:android:26d51ddd5148b97ba2e1dc",
+        "android_client_info": {
+          "package_name": "com.vibexio.kubyn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRcSg9w0KFbZT2dRmFXJSIYrltIdgNEaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

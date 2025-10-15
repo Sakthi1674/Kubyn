@@ -9,7 +9,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
+import { useNavigation, NavigationProp, useRoute, RouteProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
 import ButtonComp from "../../components/common/ButtonComp";
 import GoogleIcon from "../../assets/icons/GoogleIcon";
@@ -18,22 +18,23 @@ import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 const API_BASE_URL =
-  Platform.OS === "android"
-    ? "http://10.0.2.2:5000"
-    : "http://localhost:5000";
+  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
 
 type RootStackParamList = {
   NumOtp: undefined;
-  CreateAccount: { number: string };
   Login: undefined;
   ProfileScreen: undefined;
-};
+  CreateAccount: { number: string };
 
+};
+type CreateAccountRouteProp = RouteProp<RootStackParamList, "CreateAccount">;
 const CreateAccount: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const route = useRoute();
-  const { number } = route.params as { number: string }; // ✅ Fixed type assertion
   const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const route = useRoute<RouteProp<RootStackParamList, "CreateAccount">>();
+  const phone = route.params?.number || "";
+  console.log("Received phone:", phone); // Debug
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,12 +44,12 @@ const CreateAccount: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showError, setShowError] = useState(false);
 
-  // ✅ Handle Create Account
+  const [showError, setShowError] = useState(false);
   const handleCreateAccount = async () => {
-    if (!userName || !email || !password || !confirmPassword || !isChecked) {
+    if (!userName || !email || !password || !confirmPassword || !phone || !isChecked) {
       setShowError(true);
+      console.log("Missing field:", { userName, email, password, confirmPassword, phone, isChecked });
       return;
     }
 
@@ -61,7 +62,12 @@ const CreateAccount: React.FC = () => {
       const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ number, userName, email, password }),
+        body: JSON.stringify({
+          userName,
+          email,
+          password,
+          phoneNumber: phone,
+        }),
       });
 
       const data = await response.json();
@@ -71,14 +77,14 @@ const CreateAccount: React.FC = () => {
         return;
       }
 
-      console.log("✅ User registered:", data);
       Alert.alert("Success", "Account created successfully");
       navigation.navigate("ProfileScreen");
     } catch (err) {
-      console.error("❌ Register request failed:", err);
+      console.error(err);
       Alert.alert("Error", "Unable to reach server");
     }
   };
+
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -103,8 +109,8 @@ const CreateAccount: React.FC = () => {
               borderColor: showError && userName === ""
                 ? "rgba(231,76,60,0.35)"
                 : focusedField === "userName"
-                ? "rgba(34,63,97,0.35)"
-                : "#E3E9F1CC",
+                  ? "rgba(34,63,97,0.35)"
+                  : "#E3E9F1CC",
               backgroundColor: showError && userName === ""
                 ? "#FBFDFF"
                 : "#E3E9F1CC",
@@ -119,7 +125,7 @@ const CreateAccount: React.FC = () => {
           value={userName}
           onChangeText={(text) => {
             setUserName(text);
-            if (showError && text !== "") setShowError(false);
+            if (showError && text !== "") setShowError(false); // reset error after typing
           }}
           onFocus={() => setFocusedField("userName")}
           onBlur={() => setFocusedField(null)}
@@ -131,13 +137,13 @@ const CreateAccount: React.FC = () => {
             styles.inputBox,
             {
               borderColor: showError && email === ""
-                ? "rgba(231,76,60,0.35)"
+                ? "rgba(231,76,60,0.35)"    // Error
                 : focusedField === "email"
-                ? "rgba(34,63,97,0.35)"
-                : "#E3E9F1CC",
+                  ? "rgba(34,63,97,0.35)"     // Focus
+                  : "#E3E9F1CC",              // Default
               backgroundColor: showError && email === ""
-                ? "#FBFDFF"
-                : "#E3E9F1CC",
+                ? "#FBFDFF"                 // Error background
+                : "#E3E9F1CC",              // Default/focus background
             },
           ]}
           placeholder="Email"
@@ -149,13 +155,14 @@ const CreateAccount: React.FC = () => {
           value={email}
           onChangeText={(text) => {
             setEmail(text);
-            if (showError && text !== "") setShowError(false);
+            if (showError && text !== "") setShowError(false); // reset error after typing
           }}
           onFocus={() => setFocusedField("email")}
           onBlur={() => setFocusedField(null)}
           keyboardType="email-address"
         />
 
+        {/* Password Field */}
         {/* Password */}
         <View style={styles.passwordContainer}>
           <TextInput
@@ -163,13 +170,13 @@ const CreateAccount: React.FC = () => {
               styles.inputBoxPassword,
               {
                 borderColor: showError && password === ""
-                  ? "rgba(231,76,60,0.35)"
+                  ? "rgba(231,76,60,0.35)"    // Error
                   : focusedField === "password"
-                  ? "rgba(34,63,97,0.35)"
-                  : "#E3E9F1CC",
+                    ? "rgba(34,63,97,0.35)"     // Focus
+                    : "#E3E9F1CC",              // Default
                 backgroundColor: showError && password === ""
-                  ? "#FBFDFF"
-                  : "#E3E9F1CC",
+                  ? "#FBFDFF"                 // Error background
+                  : "#E3E9F1CC",              // Default/focus background
               },
             ]}
             placeholder="Password"
@@ -181,7 +188,7 @@ const CreateAccount: React.FC = () => {
             value={password}
             onChangeText={(text) => {
               setPassword(text);
-              if (showError && text !== "") setShowError(false);
+              if (showError && text !== "") setShowError(false); // reset error after typing
             }}
             onFocus={() => setFocusedField("password")}
             onBlur={() => setFocusedField(null)}
@@ -207,13 +214,13 @@ const CreateAccount: React.FC = () => {
               styles.inputBoxPassword,
               {
                 borderColor: showError && confirmPassword === ""
-                  ? "rgba(231,76,60,0.35)"
+                  ? "rgba(231,76,60,0.35)"    // Error
                   : focusedField === "confirmPassword"
-                  ? "rgba(34,63,97,0.35)"
-                  : "#E3E9F1CC",
+                    ? "rgba(34,63,97,0.35)"     // Focus
+                    : "#E3E9F1CC",              // Default
                 backgroundColor: showError && confirmPassword === ""
-                  ? "#FBFDFF"
-                  : "#E3E9F1CC",
+                  ? "#FBFDFF"                 // Error background
+                  : "#E3E9F1CC",              // Default/focus background
               },
             ]}
             placeholder="Confirm Password"
@@ -225,7 +232,7 @@ const CreateAccount: React.FC = () => {
             value={confirmPassword}
             onChangeText={(text) => {
               setConfirmPassword(text);
-              if (showError && text !== "") setShowError(false);
+              if (showError && text !== "") setShowError(false); // reset error after typing
             }}
             onFocus={() => setFocusedField("confirmPassword")}
             onBlur={() => setFocusedField(null)}
@@ -310,7 +317,6 @@ const CreateAccount: React.FC = () => {
   );
 };
 
-// ... (keep your existing styles the same)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -368,12 +374,14 @@ const styles = StyleSheet.create({
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
+
   eyeIcon: {
     position: "absolute",
     right: scale(20),
     top: "50%",
     transform: [{ translateY: -moderateScale(5) }],
   },
+
   termsErrorContainer: {
     width: scale(250),
     marginTop: verticalScale(15),
@@ -385,6 +393,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     gap: verticalScale(15)
   },
+
   checkbox: {
     width: scale(14),
     height: scale(14),
@@ -393,6 +402,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(3),
     justifyContent: "center",
     alignItems: "center",
+
   },
   checkboxChecked: { backgroundColor: "#223F61" },
   tick: { color: "#FFFFFF", fontSize: moderateScale(10), fontWeight: "700" },
@@ -415,7 +425,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   errorWrapper: {
-    height: verticalScale(20),
+    height: verticalScale(20), // ⬅ keeps layout stable
     justifyContent: "flex-end",
     alignItems: "flex-end",
     width: "80%",

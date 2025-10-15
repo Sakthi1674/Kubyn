@@ -36,35 +36,33 @@ const Login: React.FC = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const digitsOnly = phone.replace(/\s/g, "");
 
-    // Reset errors
-    setShowPhoneError(false);
-    setShowPasswordError(false);
-    setShowRememberError(false);
-    setErrorMessage("");
-
-    // Phone validation
-    if (digitsOnly.length !== 10) {
-      setErrorMessage("* Enter a valid 10-digit number");
-      setShowPhoneError(true);   // <-- set this
+    if (digitsOnly.length !== 10 || !password) {
+      setErrorMessage("* Enter valid phone and password");
       return;
     }
 
-    // Password validation
-    if (!password) {
-      setErrorMessage("* Password is required");
-      setShowPasswordError(true);  // <-- set this
-      return;
-    }
+    try {
+      const response = await fetch("http://10.0.2.2:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phoneNumber: digitsOnly, password }),
+      });
 
-    // All good → clear error and navigate
-    setErrorMessage("");
-    navigation.navigate("LoginNumOtp");
+      const data = await response.json();
+      if (response.ok) {
+        console.log("Login success:", data.user);
+        navigation.navigate("LoginNumOtp"); // or dashboard
+      } else {
+        setErrorMessage(data.message || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Server error");
+    }
   };
-
-
 
   const handlePhoneChange = (text: string) => {
     // Remove non-digit characters
@@ -305,7 +303,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: scale(20),
     top: "50%",
-    transform: [{ translateY: -moderateScale(5) }], 
+    transform: [{ translateY: -moderateScale(5) }],
   },
 
   termsErrorContainer: {
@@ -417,7 +415,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: "#121212",
     opacity: 0.44,
-    
+
   },
 
   signUpText: {
@@ -425,7 +423,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: moderateScale(16),
     color: "#223F61",
-   
+
   },
 });
 

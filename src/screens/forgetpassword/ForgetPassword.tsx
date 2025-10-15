@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
 import ButtonComp from "../../components/common/ButtonComp";
 import BackWard from "../../assets/icons/BackWard";
 import MobileIcon from "../../assets/icons/MobileIcon";
@@ -8,33 +8,58 @@ import EmailIcon from "../../assets/icons/EmailIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 type RootStackParamList = {
+  ForgetPassword: { phoneNumber: string };
   ForgetPasswordOtp: { method: "sms" | "email"; contact: string };
 };
 
 const ForgetPassword: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
+  const route = useRoute<any>();
   const [selectedMethod, setSelectedMethod] = useState<"sms" | "email">("sms");
+  const [phone, setPhone] = useState<string>(route.params?.phoneNumber || "");
+  const [email, setEmail] = useState<string>("");
 
- const handleVerify = () => {
-  // Send data to next screen
-  const contactInfo =
-    selectedMethod === "sms" ? "+91 ***** **234" : "abc123@gmail.com";
- 
-  navigation.navigate("ForgetPasswordOtp", {
-    method: selectedMethod,
-    contact: contactInfo,
-  });
-};
+  // Fetch user data from backend
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!phone) return;
+
+      try {
+        const response = await fetch("http://10.0.2.2:5000/api/forget-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phoneNumber: phone }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          setEmail(data.email);
+          setPhone(data.phoneNumber);
+        } else {
+          console.log("Error fetching user data:", data.message);
+        }
+      } catch (err) {
+        console.error("Server error:", err);
+      }
+    };
+
+    fetchUserData();
+  }, [phone]);
+
+  const handleVerify = () => {
+    const contactInfo = selectedMethod === "sms" ? phone : email;
+
+    navigation.navigate("ForgetPasswordOtp", {
+      method: selectedMethod,
+      contact: contactInfo,
+    });
+  };
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <BackWard width={10} height={16} color="#223F61" />
         </TouchableOpacity>
         <Text style={styles.heading}>Forget Password</Text>
@@ -46,27 +71,19 @@ const ForgetPassword: React.FC = () => {
 
       {/* SMS Contact */}
       <TouchableOpacity
-        style={[
-          styles.contactMethodContainer,
-          selectedMethod === "sms" && styles.selectedContainer
-        ]}
+        style={[styles.contactMethodContainer, selectedMethod === "sms" && styles.selectedContainer]}
         onPress={() => setSelectedMethod("sms")}
         activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
-          <View
-            style={[
-              styles.bigCircle,
-              { opacity: selectedMethod === "sms" ? 1 : 0.2 },
-            ]}
-          >
+          <View style={[styles.bigCircle, { opacity: selectedMethod === "sms" ? 1 : 0.2 }]}>
             <View style={styles.smallCircle} />
           </View>
         </View>
 
         <View style={styles.textContainer}>
           <Text style={styles.viaSmsText}>via SMS</Text>
-          <Text style={styles.phoneText}>+91 ***** **234</Text>
+          <Text style={styles.phoneText}>{phone ? phone : "+91 ***** **234"}</Text>
         </View>
 
         <View style={styles.iconWrapper}>
@@ -78,31 +95,19 @@ const ForgetPassword: React.FC = () => {
 
       {/* Email Contact */}
       <TouchableOpacity
-        style={[
-          styles.contactMethodContainer,
-          selectedMethod === "email" && styles.selectedContainer
-        ]}
+        style={[styles.contactMethodContainer, selectedMethod === "email" && styles.selectedContainer]}
         onPress={() => setSelectedMethod("email")}
         activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
-          <View
-            style={[
-              styles.bigCircle,
-              { opacity: selectedMethod === "email" ? 1 : 0.2 },
-            ]}
-          >
+          <View style={[styles.bigCircle, { opacity: selectedMethod === "email" ? 1 : 0.2 }]}>
             <View style={styles.smallCircle} />
           </View>
         </View>
 
         <View style={styles.textContainer}>
           <Text style={styles.viaSmsText}>via E-Mail</Text>
-          <Text
-            style={styles.phoneText}
-          >
-            abc123@gmail.com
-          </Text>
+          <Text style={styles.phoneText}>{email ? email : "abc123@gmail.com"}</Text>
         </View>
 
         <View style={styles.iconWrapper}>
@@ -137,11 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
   },
-  backButton: {
-    position: "absolute",
-    left: scale(0),
-    top: verticalScale(6),
-  },
+  backButton: { position: "absolute", left: scale(0), top: verticalScale(6) },
   heading: {
     fontFamily: "Kollektif-Bold",
     fontWeight: "700",
@@ -172,10 +173,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(16),
     marginBottom: verticalScale(20),
   },
-  circleWrapper: {
-    marginRight: 0,
-    marginLeft: 0,
-  },
+  circleWrapper: { marginRight: 0, marginLeft: 0 },
   bigCircle: {
     width: scale(18),
     height: scale(18),
@@ -192,13 +190,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#223F61",
     borderRadius: scale(4.5),
   },
-  textContainer: {
-    flex: 1,
-  },
-  selectedContainer: {
-    borderWidth: scale(1.5),
-    borderColor: "#223F61",
-  },
+  textContainer: { flex: 1 },
+  selectedContainer: { borderWidth: scale(1.5), borderColor: "#223F61" },
   viaSmsText: {
     fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
@@ -228,4 +221,3 @@ const styles = StyleSheet.create({
 });
 
 export default ForgetPassword;
-

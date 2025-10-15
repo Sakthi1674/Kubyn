@@ -6,25 +6,27 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useNavigation, NavigationProp, useRoute, RouteProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
 import ButtonComp from "../../components/common/ButtonComp";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
  
-// Define your route types
 type RootStackParamList = {
   NumVerify: undefined;
-  NumOtp: undefined;
-  CreateAccount: undefined;
+  NumOtp: { phone: string }; // Correct
+  CreateAccount: { number: string }; // Keep number param
   LoginSuccess: undefined;
 };
+
  
-const LoginNumOtp: React.FC = () => {
+const NumOtp: React.FC = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [error, setError] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const inputsRef = useRef<TextInput[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList, "NumOtp">>();
+const phone = route.params?.phone || ""; // receive phone
  
   const handleChange = (text: string, index: number) => {
     if (/^\d$/.test(text) || text === "") {
@@ -49,7 +51,7 @@ const LoginNumOtp: React.FC = () => {
     if (enteredOtp.length === 4 && /^\d{4}$/.test(enteredOtp)) {
       setError(false);
       console.log("Entered OTP:", enteredOtp);
-      navigation.navigate("CreateAccount");
+      navigation.navigate("CreateAccount", { number: phone });
     } else {
       setError(true);
     }
@@ -231,6 +233,6 @@ const styles = StyleSheet.create({
   },
 });
  
-export default LoginNumOtp;
+export default NumOtp;
  
  
