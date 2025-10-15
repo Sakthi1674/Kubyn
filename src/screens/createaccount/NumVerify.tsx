@@ -5,29 +5,36 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
+  Platform,
 } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, RouteProp, useRoute } from "@react-navigation/native";
 import ButtonComp from "../../components/common/ButtonComp";
 import BackWard from "../../assets/icons/BackWard";
 import Flag from "../../assets/icons/IndianFlag";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
+const API_BASE_URL =
+  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
+
 type RootStackParamList = {
   NumVerify: undefined;
   NumOtp: { phone: string };
+  CreateAccount: { number: string }; // ✅ Add this
 };
- 
+
 type NumVerifyNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "NumVerify"
 >;
- 
+
 const NumVerify: React.FC = () => {
   const navigation = useNavigation<NumVerifyNavigationProp>();
   const [phone, setPhone] = useState("");
   const [error, setError] = useState(false);
- const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
   const handlePhoneChange = (text: string) => {
     const numericText = text.replace(/[^0-9]/g, "");
     const limitedText = numericText.slice(0, 10);
@@ -38,18 +45,22 @@ const NumVerify: React.FC = () => {
     setPhone(formatted);
     if (error) setError(false);
   };
- 
+
   const handleConfirm = () => {
     const rawPhone = phone.replace(/\s/g, "");
+
     if (rawPhone.length !== 10) {
       setError(true);
-    } else {
-      setError(false);
-      console.log("Phone Number:", rawPhone);
-      navigation.navigate("NumOtp", { phone: rawPhone });
+      return;
     }
+
+    setError(false);
+    navigation.navigate("NumOtp", { phone: rawPhone });
   };
- 
+
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -61,46 +72,46 @@ const NumVerify: React.FC = () => {
         </TouchableOpacity>
         <Text style={styles.heading}>Verify your phone number</Text>
       </View>
- 
+
       <Text style={styles.description}>
         Enter your phone number. We will be sending an SMS with a code to the
         number
       </Text>
- 
+
       <Text style={styles.label}>Phone Number</Text>
- 
+
       <View style={styles.phoneContainer}>
-        <View style={{ marginRight: 10}}>
-          <Flag width={30} height={23}  />
+        <View style={{ marginRight: 10 }}>
+          <Flag width={30} height={23} />
         </View>
         <View style={[styles.countryBox, { marginRight: 10 }]}>
           <Text style={styles.countryText}>+91</Text>
         </View>
         <TextInput
-  style={[
-    styles.phoneInput,
-    isFocused && !error && {
-      borderColor: "rgba(34,63,97,0.35)",
-      backgroundColor: "#E3E9F1CC",
-    },
-    error && {
-      borderColor: "rgba(231,76,60,0.35)",
-      backgroundColor: "#FBFDFF",
-    },
-  ]}
-  keyboardType="number-pad"
-  placeholder="00000 00000"
-  placeholderTextColor={
-    error ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
-  }
-  value={phone}
-  onChangeText={handlePhoneChange}
-  onFocus={() => setIsFocused(true)}
-  onBlur={() => setIsFocused(false)}
-/>
+          style={[
+            styles.phoneInput,
+            isFocused && !error && {
+              borderColor: "rgba(34,63,97,0.35)",
+              backgroundColor: "#E3E9F1CC",
+            },
+            error && {
+              borderColor: "rgba(231,76,60,0.35)",
+              backgroundColor: "#FBFDFF",
+            },
+          ]}
+          keyboardType="number-pad"
+          placeholder="00000 00000"
+          placeholderTextColor={
+            error ? "rgba(231,76,60,0.35)" : "rgba(34,63,97,0.35)"
+          }
+          value={phone}
+          onChangeText={handlePhoneChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
       </View>
- 
-    <View style={styles.errorContainer}>
+
+      <View style={styles.errorContainer}>
         {error ? (
           <Text style={styles.errorText}>
             *Please enter your mobile number
@@ -109,7 +120,7 @@ const NumVerify: React.FC = () => {
           <Text style={styles.errorTextInvisible}>placeholder</Text>
         )}
       </View>
- 
+
       <ButtonComp
         title="Confirm"
         onPress={handleConfirm}
@@ -124,6 +135,7 @@ const NumVerify: React.FC = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,29 +144,24 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(90),
     alignItems: "center",
   },
-
   headerContainer: {
     width: "100%",
     alignItems: "center",
     marginBottom: verticalScale(40),
   },
-
   backButton: {
     position: "absolute",
     left: scale(0),
     top: verticalScale(5),
   },
-
   heading: {
-    fontFamily: "Kollekti-Bold",
+    fontFamily: "Kollektif-Bold", // ✅ Fixed typo: was "Kollekti-Bold"
     fontWeight: "700",
     fontSize: moderateScale(20),
     lineHeight: verticalScale(26),
     color: "#121212",
     textAlign: "center",
-    justifyContent:"center",
   },
-
   description: {
     fontFamily: "Avenir LT Std 45 Book",
     fontWeight: "400",
@@ -165,7 +172,6 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: verticalScale(35),
   },
-
   label: {
     fontFamily: "Kollektif-Regular",
     fontWeight: "400",
@@ -175,16 +181,13 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: verticalScale(17),
   },
-
   phoneContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
     gap: scale(8),
-    
   },
-
   countryBox: {
     width: scale(46),
     height: verticalScale(54),
@@ -194,9 +197,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#E3E9F1CC",
-    
   },
-
   countryText: {
     fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
@@ -204,9 +205,7 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(20),
     color: "#223F61",
     textAlign: "center",
-    
   },
-
   phoneInput: {
     flex: 1,
     height: verticalScale(54),
@@ -220,17 +219,14 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(20),
     color: "#223F61",
     backgroundColor: "#E3E9F1CC",
-   
   },
-
   errorContainer: {
-    height: verticalScale(20), // adjust to fit error text height
+    height: verticalScale(20),
     justifyContent: "center",
     alignItems: "flex-end",
     width: "100%",
     marginTop: verticalScale(5),
   },
-
   errorText: {
     fontFamily: "Avenir LT Std 55 Roman",
     fontWeight: "400",
@@ -238,7 +234,6 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(18),
     color: "#E74C3C",
   },
-
   errorTextInvisible: {
     opacity: 0,
     fontFamily: "Avenir LT Std 55 Roman",
@@ -247,7 +242,5 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(18),
   },
 });
- 
+
 export default NumVerify;
- 
- 

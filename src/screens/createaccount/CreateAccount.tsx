@@ -9,7 +9,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useNavigation, NavigationProp, useRoute, RouteProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
 import ButtonComp from "../../components/common/ButtonComp";
 import GoogleIcon from "../../assets/icons/GoogleIcon";
@@ -18,20 +18,23 @@ import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 const API_BASE_URL =
-  Platform.OS === "android"
-    ? "http://10.0.2.2:5000"
-    : "http://localhost:5000";
+  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
 
 type RootStackParamList = {
   NumOtp: undefined;
-  CreateAccount: undefined;
   Login: undefined;
   ProfileScreen: undefined;
-};
+  CreateAccount: { number: string };
 
+};
+type CreateAccountRouteProp = RouteProp<RootStackParamList, "CreateAccount">;
 const CreateAccount: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const route = useRoute<RouteProp<RootStackParamList, "CreateAccount">>();
+  const phone = route.params?.number || "";
+  console.log("Received phone:", phone); // Debug
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,11 +46,10 @@ const CreateAccount: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [showError, setShowError] = useState(false);
-
- // ✅ Handle Create Account
   const handleCreateAccount = async () => {
-    if (!userName || !email || !password || !confirmPassword || !isChecked) {
+    if (!userName || !email || !password || !confirmPassword || !phone || !isChecked) {
       setShowError(true);
+      console.log("Missing field:", { userName, email, password, confirmPassword, phone, isChecked });
       return;
     }
 
@@ -60,8 +62,14 @@ const CreateAccount: React.FC = () => {
       const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName, email, password }),
+        body: JSON.stringify({
+          userName,
+          email,
+          password,
+          phoneNumber: phone,
+        }),
       });
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -69,16 +77,14 @@ const CreateAccount: React.FC = () => {
         return;
       }
 
-      console.log("✅ User registered:", data);
       Alert.alert("Success", "Account created successfully");
       navigation.navigate("ProfileScreen");
     } catch (err) {
-      console.error("❌ Register request failed:", err);
+      console.error(err);
       Alert.alert("Error", "Unable to reach server");
     }
   };
 
-  const isFieldEmpty = (field: string) => field === "";
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -101,13 +107,13 @@ const CreateAccount: React.FC = () => {
             styles.inputBox,
             {
               borderColor: showError && userName === ""
-                ? "rgba(231,76,60,0.35)"   
+                ? "rgba(231,76,60,0.35)"
                 : focusedField === "userName"
-                  ? "rgba(34,63,97,0.35)"     
-                  : "#E3E9F1CC",             
+                  ? "rgba(34,63,97,0.35)"
+                  : "#E3E9F1CC",
               backgroundColor: showError && userName === ""
-                ? "#FBFDFF"                
-                : "#E3E9F1CC",              
+                ? "#FBFDFF"
+                : "#E3E9F1CC",
             },
           ]}
           placeholder="User Name"
@@ -368,12 +374,12 @@ const styles = StyleSheet.create({
     color: "#223F61",
     paddingHorizontal: scale(15),
   },
-  
+
   eyeIcon: {
     position: "absolute",
     right: scale(20),
     top: "50%",
-    transform: [{ translateY: -moderateScale(5) }], 
+    transform: [{ translateY: -moderateScale(5) }],
   },
 
   termsErrorContainer: {
@@ -437,7 +443,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     opacity: 0.25,
     borderColor: "#121212",
-    backgroundColor:"rgba(18, 18, 18, 0.25)",
+    backgroundColor: "rgba(18, 18, 18, 0.25)",
   },
   orText: {
     fontFamily: "Avenir LT Std 55 Roman",
