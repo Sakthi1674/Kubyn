@@ -20,7 +20,7 @@ type RootStackParamList = {
   Login: undefined;
   CreateAccount: undefined;
   LoginNumOtp: undefined;
-  ForgetPassword: undefined;
+  ForgetPassword: { phoneNumber: string };
 };
 
 const Login: React.FC = () => {
@@ -193,11 +193,37 @@ const Login: React.FC = () => {
       />
 
 
-      {/* Forgot password */}
-      <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
+      <TouchableOpacity
+        onPress={async () => {
+          const digitsOnly = phone.replace(/\s/g, "");
+          if (digitsOnly.length !== 10) {
+            setErrorMessage("* Enter valid phone number before continuing");
+            return;
+          }
+
+          try {
+            const response = await fetch("http://10.0.2.2:5000/api/forget-password", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ phoneNumber: digitsOnly }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+              // ✅ phone found → go to ForgetPassword
+              navigation.navigate("ForgetPassword", { phoneNumber: digitsOnly });
+            } else {
+              // ❌ not found
+              setErrorMessage("Phone number not found");
+            }
+          } catch (err) {
+            console.error("Error verifying phone:", err);
+            setErrorMessage("Server error, try again");
+          }
+        }}>
         <Text style={styles.forgotText}>Forgot password?</Text>
       </TouchableOpacity>
-
 
       {/* OR Continue with */}
       <View style={styles.orContainer}>
