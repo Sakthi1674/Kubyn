@@ -5,23 +5,20 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Alert,
   Platform,
 } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation, RouteProp, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import ButtonComp from "../../components/common/ButtonComp";
 import BackWard from "../../assets/icons/BackWard";
 import Flag from "../../assets/icons/IndianFlag";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-
-const API_BASE_URL =
-  Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
+import auth from '@react-native-firebase/auth';
 
 type RootStackParamList = {
   NumVerify: undefined;
-  NumOtp: { phone: string };
-  CreateAccount: { number: string }; // ✅ Add this
+  NumOtp: { phone: string; confirmResult: any };
+  CreateAccount: { number: string };
 };
 
 type NumVerifyNavigationProp = NativeStackNavigationProp<
@@ -34,6 +31,7 @@ const NumVerify: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handlePhoneChange = (text: string) => {
     const numericText = text.replace(/[^0-9]/g, "");
@@ -46,20 +44,29 @@ const NumVerify: React.FC = () => {
     if (error) setError(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     const rawPhone = phone.replace(/\s/g, "");
 
-    if (rawPhone.length !== 10) {
+    if (!/^([6-9]\d{9})$/.test(rawPhone)) {
       setError(true);
       return;
     }
 
     setError(false);
-    navigation.navigate("NumOtp", { phone: rawPhone });
+    setLoading(true);
+
+    const fullPhone = `+91${rawPhone}`;
+
+    try {
+      const confirmResult = await auth().signInWithPhoneNumber(fullPhone);
+      setLoading(false);
+      navigation.navigate("NumOtp", { phone: fullPhone, confirmResult });
+    } catch (err: any) {
+      setLoading(false);
+      console.error("Firebase phone auth error:", err);
+      setError(true);
+    }
   };
-
-
-
 
   return (
     <View style={styles.container}>
@@ -114,24 +121,24 @@ const NumVerify: React.FC = () => {
       <View style={styles.errorContainer}>
         {error ? (
           <Text style={styles.errorText}>
-            *Please enter your mobile number
+            *Please enter a valid mobile number
           </Text>
         ) : (
           <Text style={styles.errorTextInvisible}>placeholder</Text>
         )}
       </View>
 
-      <ButtonComp
-        title="Confirm"
-        onPress={handleConfirm}
-        style={{
-          backgroundColor: "#223F61",
-          marginTop: 29,
-        }}
-        textStyle={{
-          color: "#FAF8F5",
-        }}
-      />
+    <ButtonComp
+  title={loading ? "Sending..." : "Confirm"}
+  onPress={handleConfirm}
+  style={{
+    backgroundColor: "#223F61",
+    marginTop: 29,
+  }}
+  textStyle={{
+    color: "#FAF8F5",
+  }}
+/>
     </View>
   );
 };
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
     top: verticalScale(5),
   },
   heading: {
-    fontFamily: "Kollektif-Bold", // ✅ Fixed typo: was "Kollekti-Bold"
+    fontFamily: "Kollektif-Bold",
     fontWeight: "700",
     fontSize: moderateScale(20),
     lineHeight: verticalScale(26),
