@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BackWard from '../../../assets/icons/BackWard';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 
 const MySubscriptions = () => {
-  const [selectedMethod, setSelectedMethod] = useState('free'); // "free", "basic", etc.
+  const [selectedMethod, setSelectedMethod] = useState('free');
+    const navigation = useNavigation<NavigationProp<any>>();
+
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.iconBack}>
+        <TouchableOpacity style={styles.iconBack}  onPress={() => navigation.navigate('AccountScreen')}>
           <BackWard width={15} height={15} />
         </TouchableOpacity>
         <Text style={styles.title}>My Subscriptions</Text>
@@ -105,92 +110,90 @@ const MySubscriptions = () => {
 
 export default MySubscriptions;
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20,
+    paddingTop: verticalScale(50),
+    paddingHorizontal: scale(20),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 55,
+    // marginTop: verticalScale(50),
   },
   title: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
     color: '#1e3354',
-    marginLeft: 30,
-    letterSpacing:3,
-    fontFamily:'Kollektif',
-    // marginBottom:40,
+    marginLeft: scale(30),
+    letterSpacing: scale(2),
+    fontFamily: 'Kollektif',
   },
   iconBack: {
-    padding: 5,
-    top:4,
+    padding: scale(5),
+    top: scale(4),
   },
-   card1: {
+  card1: {
     backgroundColor: '#e9eef6',
-    borderRadius: 15,
-    height: 110,
-    marginBottom: 30,
-    padding: 15,
+    borderRadius: moderateScale(15),
+    height: verticalScale(90),
+    marginBottom: verticalScale(10),
+    padding: scale(15),
     justifyContent: 'center',
-    marginTop:60,
+    marginTop: verticalScale(40),
   },
   card: {
     backgroundColor: '#e9eef6',
-    borderRadius: 15,
-    height: 150,
-    marginBottom: 30,
-    padding: 15,
+    borderRadius: moderateScale(15),
+    height: verticalScale(120),
+    marginBottom: verticalScale(10),
+    padding: scale(15),
     justifyContent: 'center',
-    marginTop:10,
+    marginTop: verticalScale(10),
   },
   badge1: {
     position: 'absolute',
-    bottom: 97,
-    right: 15,
+    bottom: verticalScale(77),
+    right: scale(15),
     backgroundColor: '#1e3354',
-    borderRadius: 8,
-    paddingHorizontal: 23,
-    paddingVertical: 6,
-    fontFamily:"Avenir LT Std",
+    borderRadius: moderateScale(8),
+    paddingHorizontal: scale(23),
+    paddingVertical: verticalScale(6),
   },
   badge: {
     position: 'absolute',
-    bottom: 135,
-    right: 15,
+    bottom: verticalScale(105),
+    right: scale(15),
     backgroundColor: '#1e3354',
-    borderRadius: 8,
-    paddingHorizontal: 23,
-    paddingVertical: 6,
-      fontFamily:"Avenir LT Std",
+    borderRadius: moderateScale(8),
+    paddingHorizontal: scale(23),
+    paddingVertical: verticalScale(6),
   },
   badgeText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: moderateScale(12),
   },
   circleWrapper: {
     position: 'absolute',
-    top: 15,
-    left: 15,
+    top: verticalScale(15),
+    left: scale(15),
   },
   bigCircle: {
-    width: 18,
-    height: 18,
-    borderWidth: 2,
+    width: scale(18),
+    height: scale(18),
+    borderWidth: scale(2),
     borderColor: '#223F61',
-    borderRadius: 9,
+    borderRadius: scale(9),
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 26,
   },
   smallCircle: {
-    width: 9,
-    height: 9,
+    width: scale(9),
+    height: scale(9),
     backgroundColor: '#223F61',
-    borderRadius: 4.5,
+    borderRadius: scale(5),
   },
 });
