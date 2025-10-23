@@ -62,7 +62,7 @@ export default function DemoGraphicQues() {
         return false;
     }
   };
-
+//changes were made
   // Render input for steps 1-3 or gender/slider for others
   const renderInputOrSelection = () => {
     switch (step) {
