@@ -10,6 +10,8 @@ import {
 import BackWard from '../../../assets/icons/BackWard';
 import EyeIcon from '../../../assets/icons/EyeIcon';
 import ButtonComp from '../../../components/common/ButtonComp';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 const CurrentPassword = () => {
   return (
@@ -97,62 +99,62 @@ const CurrentPassword = () => {
 export default CurrentPassword;
 
 const styles = StyleSheet.create({
-  container: {
+   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: scale(20),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 90,
+    marginTop: verticalScale(50),
   },
   title: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '700',
-    marginLeft: 19,
+    marginLeft: scale(19),
     color: '#000',
-    letterSpacing:2,
+    letterSpacing:scale(3),
     fontFamily:'Kollektif',
   },
   form: {
-    marginTop: 80,
+    marginTop: verticalScale(40),
   },
   label: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#223F61',
-    marginBottom: 10,
-    left:17,
+    marginBottom: verticalScale(10),
+    left:scale(17),
     fontFamily:"Avenir LT Std",
-    letterSpacing:1,
+    letterSpacing:scale(1),
   },
   inputWrapper: {
     backgroundColor: '#EDF1F7',
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginBottom: 16,
+    borderRadius: moderateScale(10),
+    paddingHorizontal: scale(16),
+    paddingVertical: verticalScale(8),
+    marginBottom: verticalScale(10),
     flexDirection: 'row',
     alignItems: 'center',
     width:'90%',
-    left:15,
+    left:scale(15),
   },
   input: {
     flex: 1,
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#000',
   },
   iconRight: {
-    marginLeft: 10,
+    marginLeft: scale(10),
   },
   forgotText: {
     alignSelf: 'flex-end',
-    marginBottom: 18,
-    fontSize: 12,
+    marginBottom: verticalScale(18),
+    fontSize: moderateScale(10),
     color: '#223F61',
-    right:22,
+    right:scale(22),
     fontFamily:"Avenir LT Std",
-    letterSpacing:1,
+    letterSpacing:scale(1),
   },
   
 });

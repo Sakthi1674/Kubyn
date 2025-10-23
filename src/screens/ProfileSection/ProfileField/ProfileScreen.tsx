@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 import GalleryIcon from '../../../assets/icons/GalleryIcon';
 import EditIcon from '../../../assets/icons/EditIcon';
@@ -14,6 +16,7 @@ import LogoutIcon from '../../../assets/icons/LogOutIcon';
 import LogoutScreen from '../ProfilePopup/LogoutScreen';
 import UserName from '../ProfilePopup/UserName';
 import UserProfile from '../ProfilePopup/UserProfile';
+
 
 // ✅ Define navigation type for safety
 type RootStackParamList = {
@@ -134,46 +137,45 @@ const ProfileScreen: React.FC = () => {
 };
 
 export default ProfileScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#183153',
-    paddingHorizontal: 30,
-    paddingVertical: 40,
+    paddingHorizontal: scale(30),
+    paddingVertical: verticalScale(40),
     justifyContent: 'space-between',
     width: '85%',
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
+    borderTopRightRadius: verticalScale(30),
+    borderBottomRightRadius: verticalScale(30),
   },
   profileContainer: {
     alignItems: 'center',
-    marginTop: 60,
+    marginTop: verticalScale(40),
   },
   imageWrapper: {
     position: 'relative',
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    borderWidth: 2,
+    width: scale(110),
+    height: verticalScale(95),
+    borderRadius: moderateScale(70),
+    borderWidth: scale(1),
     borderColor: '#fff',
   },
   galleryIconWrapper: {
     position: 'absolute',
-    bottom: 0,
-    left: 30,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    bottom: verticalScale(0),
+    left: scale(35),
+    width: scale(36),
+    height: verticalScale(36),
+    borderRadius: moderateScale(18),
     alignItems: 'center',
     justifyContent: 'center',
   },
   iconBackground: {
-    width: '100%',
+    width: '120%',
     height: '100%',
-    borderRadius: 18,
+    borderRadius: moderateScale(18),
     backgroundColor: 'rgba(255,255,255,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -181,37 +183,38 @@ const styles = StyleSheet.create({
   usernameContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: verticalScale(6),
+    left:scale(6),
+    marginBottom:verticalScale(24),
   },
   username: {
     backgroundColor: '#fff',
-    paddingHorizontal: 30,
-    paddingVertical: 8,
-    borderRadius: 20,
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(6),
+    borderRadius: moderateScale(20),
     fontWeight: 'bold',
     color: '#183153',
-    marginRight: 8,
+    marginRight: scale(8),
     fontFamily: 'Kollektif',
-    letterSpacing: 2,
+    letterSpacing: scale(2),
   },
   menuContainer: {
-    marginBottom: 160,
-    marginLeft: 40,
+    marginBottom: verticalScale(160),
+    marginLeft: scale(40),
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 18,
+    marginVertical: verticalScale(14),
   },
   menuText: {
     color: '#fff',
-    marginLeft: 20,
-    letterSpacing: 3,
+    marginLeft: scale(20),
+    letterSpacing: scale(3),
     fontFamily: 'Kollektif',
     fontWeight: '400',
   },
   logoutContainer: {
     alignItems: 'flex-start',
-    marginBottom: 10,
   },
 });

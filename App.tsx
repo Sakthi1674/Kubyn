@@ -43,7 +43,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={SplashScreen}
+          component={ProfileScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

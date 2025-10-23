@@ -6,19 +6,24 @@ import {
     TouchableOpacity,
     Platform,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import BackWard from '../../../assets/icons/BackWard';
 import ArrowDown from '../../../assets/icons/ArrowDown';
 import Toggle from '../../../assets/icons/Toggle';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 
 export default function AppSettingsScreen() {
+      const navigation = useNavigation<NativeStackNavigationProp<any>>();
+    
     const [selectedMethod, setSelectedMethod] = useState('light'); // "light" or "dark"
 
     return (
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <BackWard width={20} height={20} />
+                <BackWard width={20} height={20} onPress={()=>navigation.navigate('ProfileScreen')}/>
                 <Text style={styles.headerTitle}>App Setting</Text>
             </View>
 
