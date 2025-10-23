@@ -33,6 +33,8 @@ import ForgetPin from './src/screens/ProfileSection/Security/PinLock/ForgetPin';
 import AppSettingsScreen from './src/screens/ProfileSection/AppSetting/AppSetting';
 import LegalPolicies from './src/screens/ProfileSection/AppSetting/LegalandPolicies';
 import HelpCentreScreen from './src/screens/ProfileSection/AppSetting/HelpCenter';
+import HeyScreen from './src/screens/Questions/HeyScreen';
+import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
 
 
 const Stack = createNativeStackNavigator();
@@ -43,7 +45,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={SplashScreen}
+          component={HeyScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -99,6 +101,11 @@ const App = () => {
         <Stack.Screen
           name="ForgetPasswordSuccess"
           component={ForgetPasswordSuccess}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="HeyScreen"
+          component={HeyScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -194,6 +201,11 @@ const App = () => {
         <Stack.Screen
           name="ProfileScreen"
           component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DemoGraphicQues"
+          component={DemoGraphicQues}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
