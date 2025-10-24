@@ -8,8 +8,13 @@ import EmailIcon from "../../assets/icons/EmailIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 type RootStackParamList = {
-  ForgetPassword: { phoneNumber: string };
-  ForgetPasswordOtp: { method: "sms" | "email"; contact: string };
+  ForgetPasswordOtp: {
+    method: "sms" | "email";
+    contact: string;
+    userId: string;
+    phone: string;
+    email: string;
+  };
 };
 
 const ForgetPassword: React.FC = () => {
@@ -18,12 +23,11 @@ const ForgetPassword: React.FC = () => {
   const [selectedMethod, setSelectedMethod] = useState<"sms" | "email">("sms");
   const [phone, setPhone] = useState<string>(route.params?.phoneNumber || "");
   const [email, setEmail] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
 
-  // Fetch user data from backend
   useEffect(() => {
     const fetchUserData = async () => {
       if (!phone) return;
-
       try {
         const response = await fetch("http://10.0.2.2:5000/api/forget-password", {
           method: "POST",
@@ -35,29 +39,30 @@ const ForgetPassword: React.FC = () => {
         if (response.ok) {
           setEmail(data.email);
           setPhone(data.phoneNumber);
+          setUserId(data.userId);
         } else {
-          console.log("Error fetching user data:", data.message);
+          console.log("Error:", data.message);
         }
       } catch (err) {
         console.error("Server error:", err);
       }
     };
-
     fetchUserData();
   }, [phone]);
 
   const handleVerify = () => {
     const contactInfo = selectedMethod === "sms" ? phone : email;
-
     navigation.navigate("ForgetPasswordOtp", {
       method: selectedMethod,
       contact: contactInfo,
+      userId,
+      phone,
+      email,
     });
   };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <BackWard width={10} height={16} color="#223F61" />
@@ -65,159 +70,77 @@ const ForgetPassword: React.FC = () => {
         <Text style={styles.heading}>Forget Password</Text>
       </View>
 
-      <Text style={styles.infoText}>
-        Select which contact detail should we use to reset your password:
-      </Text>
+      <Text style={styles.infoText}>Select how we should reset your password:</Text>
 
-      {/* SMS Contact */}
+      {/* SMS Option */}
       <TouchableOpacity
         style={[styles.contactMethodContainer, selectedMethod === "sms" && styles.selectedContainer]}
         onPress={() => setSelectedMethod("sms")}
-        activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
           <View style={[styles.bigCircle, { opacity: selectedMethod === "sms" ? 1 : 0.2 }]}>
             <View style={styles.smallCircle} />
           </View>
         </View>
-
         <View style={styles.textContainer}>
           <Text style={styles.viaSmsText}>via SMS</Text>
-          <Text style={styles.phoneText}>{phone ? phone : "+91 ***** **234"}</Text>
+          <Text style={styles.phoneText}>{phone || "+91 ***** **234"}</Text>
         </View>
-
         <View style={styles.iconWrapper}>
-          <View style={{ opacity: 0.25 }}>
-            <MobileIcon />
-          </View>
+          <MobileIcon />
         </View>
       </TouchableOpacity>
 
-      {/* Email Contact */}
+      {/* Email Option */}
       <TouchableOpacity
         style={[styles.contactMethodContainer, selectedMethod === "email" && styles.selectedContainer]}
         onPress={() => setSelectedMethod("email")}
-        activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
           <View style={[styles.bigCircle, { opacity: selectedMethod === "email" ? 1 : 0.2 }]}>
             <View style={styles.smallCircle} />
           </View>
         </View>
-
         <View style={styles.textContainer}>
-          <Text style={styles.viaSmsText}>via E-Mail</Text>
-          <Text style={styles.phoneText}>{email ? email : "abc123@gmail.com"}</Text>
+          <Text style={styles.viaSmsText}>via Email</Text>
+          <Text style={styles.phoneText}>{email || "example@gmail.com"}</Text>
         </View>
-
         <View style={styles.iconWrapper}>
-          <View style={{ opacity: 0.25 }}>
-            <EmailIcon />
-          </View>
+          <EmailIcon />
         </View>
       </TouchableOpacity>
 
-      {/* Verify Button */}
-      <ButtonComp
-        title="Verify"
-        onPress={handleVerify}
-        style={{ backgroundColor: "#223F61", marginTop: 57 }}
-        textStyle={{ color: "#FAF8F5" }}
-      />
+      <ButtonComp title="Verify" onPress={handleVerify} style={{ backgroundColor: "#223F61", marginTop: 57 }} textStyle={{ color: "#FAF8F5" }} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    paddingHorizontal: scale(40),
-    paddingTop: verticalScale(90),
-    alignItems: "center",
-  },
-  headerContainer: {
-    width: "100%",
-    marginBottom: verticalScale(50),
-    alignItems: "center",
-    position: "relative",
-  },
-  backButton: { position: "absolute", left: scale(0), top: verticalScale(6) },
-  heading: {
-    fontFamily: "Kollektif-Bold",
-    fontWeight: "700",
-    fontSize: moderateScale(32),
-    lineHeight: moderateScale(34),
-    color: "#121212",
-    textAlign: "center",
-  },
-  infoText: {
-    fontFamily: "Avenir LT Std 45 Book",
-    fontWeight: "400",
-    fontSize: moderateScale(14),
-    lineHeight: moderateScale(22),
-    color: "#121212",
-    textAlign: "left",
-    marginBottom: verticalScale(20),
-  },
+  container: { flex: 1, backgroundColor: "#FFF", paddingHorizontal: scale(40), paddingTop: verticalScale(90) },
+  headerContainer: { width: "100%", alignItems: "center", marginBottom: 50 },
+  backButton: { position: "absolute", left: 0 },
+  heading: { fontWeight: "700", fontSize: 32, color: "#121212" },
+  infoText: { fontSize: 14, color: "#121212", marginBottom: 20 },
   contactMethodContainer: {
     width: "100%",
-    height: verticalScale(100),
+    height: 100,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#E3E9F1CC",
-    borderRadius: scale(10),
+    borderRadius: 10,
     borderWidth: 0.5,
     borderColor: "#223F61",
-    paddingVertical: verticalScale(14),
-    paddingHorizontal: scale(16),
-    marginBottom: verticalScale(20),
+    padding: 16,
+    marginBottom: 20,
   },
-  circleWrapper: { marginRight: 0, marginLeft: 0 },
-  bigCircle: {
-    width: scale(18),
-    height: scale(18),
-    borderWidth: scale(2),
-    borderColor: "#223F61",
-    borderRadius: scale(9),
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: scale(10),
-  },
-  smallCircle: {
-    width: scale(9),
-    height: scale(9),
-    backgroundColor: "#223F61",
-    borderRadius: scale(4.5),
-  },
+  selectedContainer: { borderWidth: 2 },
+  circleWrapper: { marginRight: 10 },
+  bigCircle: { width: 18, height: 18, borderWidth: 2, borderColor: "#223F61", borderRadius: 9, justifyContent: "center", alignItems: "center" },
+  smallCircle: { width: 9, height: 9, backgroundColor: "#223F61", borderRadius: 4.5 },
   textContainer: { flex: 1 },
-  selectedContainer: { borderWidth: scale(1.5), borderColor: "#223F61" },
-  viaSmsText: {
-    fontFamily: "Avenir LT Std 65 Medium",
-    fontWeight: "600",
-    fontSize: moderateScale(16),
-    lineHeight: moderateScale(16),
-    color: "#223F61",
-    opacity: 0.52,
-  },
-  phoneText: {
-    fontFamily: "Avenir LT Std 65 Medium",
-    fontWeight: "600",
-    fontSize: moderateScale(16),
-    lineHeight: moderateScale(16),
-    color: "#121212",
-    opacity: 0.75,
-    marginTop: verticalScale(10),
-  },
-  iconWrapper: {
-    width: scale(48),
-    height: scale(48),
-    borderRadius: scale(24),
-    backgroundColor: "#FBFDFF",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: scale(15),
-  },
+  viaSmsText: { fontSize: 16, color: "#223F61", opacity: 0.52 },
+  phoneText: { fontSize: 16, color: "#121212", opacity: 0.75, marginTop: 10 },
+  iconWrapper: { width: 48, height: 48, borderRadius: 24, backgroundColor: "#FBFDFF", justifyContent: "center", alignItems: "center" },
 });
 
 export default ForgetPassword;
