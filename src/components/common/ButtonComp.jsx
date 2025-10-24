@@ -8,13 +8,15 @@ const ButtonComp = ({
   color = '#007BFF',        // default background color
   textColor = '#FBFDFF',    // default text color
   style, 
-  textStyle 
+  textStyle ,
+  disabled = false
 }) => {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: color }, style]}
       onPress={onPress}
       activeOpacity={0.8}
+      disabled={disabled}
     >
       <Text style={[styles.text, { color: textColor }, textStyle]}>
         {title}
