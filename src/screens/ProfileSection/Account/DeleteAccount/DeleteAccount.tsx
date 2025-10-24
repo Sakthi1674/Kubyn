@@ -9,6 +9,8 @@ import {
 import ButtonComp from '../../../../components/common/ButtonComp';
 import BackWard from '../../../../assets/icons/BackWard';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 // Define type for navigation
 type RootStackParamList = {
@@ -65,7 +67,7 @@ export default function DeleteAccount() {
                 onPress={() => navigation.goBack()}
                 style={{
                     backgroundColor: "#E3E9F1",
-                    marginHorizontal: 30,
+                    marginHorizontal: scale(35),
                 }}
                 textStyle={{
                     color: "#223F61",
@@ -79,37 +81,50 @@ const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#ffffff',
-        paddingHorizontal: 20,
-        paddingTop: 80,
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 30,
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#000000',
-        letterSpacing: 4,
-        marginLeft: 30,
-    },
-    confirmTitle: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: '#2e446c',
-        marginBottom: 20,
-        letterSpacing: 3,
-    },
-    paragraph: {
-        fontSize: 11,
-        marginBottom: 15,
-        lineHeight: 20,
-        fontWeight: '400',
-        letterSpacing: 1,
-    },
+    flex: 1,
+    // width: scale(350),
+    // height: verticalScale(500),
+    backgroundColor: '#ffffff',
+    paddingHorizontal: scale(20),
+    paddingTop: verticalScale(60),
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: verticalScale(30),
+  },
+  headerText: {
+    fontSize: moderateScale(20),
+    fontWeight: 'bold',
+    color: '#000000',
+    letterSpacing: moderateScale(5),
+    marginLeft: scale(30),
+  },
+  confirmTitle: {
+    fontSize: moderateScale(16),
+    fontWeight: '700',
+    color: '#2e446c',
+    marginBottom: verticalScale(20),
+    letterSpacing:scale(1.5),
+    lineHeight:verticalScale(19),
+  },
+  paragraph: {
+    fontSize: moderateScale(10),
+    marginBottom: verticalScale(15),
+    lineHeight: verticalScale(15),
+    fontWeight: '500',
+    letterSpacing:scale(1),
+
+  },
+  paragraph1: {
+    fontSize: moderateScale(9),
+    marginBottom: verticalScale(15),
+    lineHeight: verticalScale(15),
+    fontWeight: '500',
+    letterSpacing:scale(1),
+
+  },
+ btn:{
+  position:'absolute',
+ }
 });

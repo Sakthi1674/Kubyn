@@ -4,15 +4,21 @@ import BackWard from '../../../assets/icons/BackWard';
 import ArrowDown from '../../../assets/icons/ArrowDown';
 import UploadIcon from '../../../assets/icons/UploadIcon';
 import ButtonComp from '../../../components/common/ButtonComp';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 
 const DownloadStatements = () => {
+      const navigation = useNavigation<NavigationProp<any>>();
+  
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          <BackWard width={15} height={15} />
+          <BackWard width={15} height={15}  onPress={() => navigation.navigate('AccountScreen')}/>
         </TouchableOpacity>
         <Text style={styles.title}>Download Statements</Text>
       </View>
@@ -58,40 +64,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingHorizontal: scale(20),
+    paddingTop: verticalScale(30),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop:30,
+    marginTop:verticalScale(30),
   },
   backButton: {
-    padding: 10,
-    marginRight: 10,
+    padding: scale(10),
+    marginRight: scale(10),
   },
   title: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '700',
     fontFamily: 'Kollektif',
-    letterSpacing: 4,
+    letterSpacing: scale(3),
   },
   dropdownWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-end',
     justifyContent: 'space-between',
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    borderRadius:moderateScale(20) ,
+    paddingHorizontal: scale(14),
+    paddingVertical: verticalScale(6),
     backgroundColor: '#E3E9F1',
-    marginVertical: 25,
-    width: 140,
-     color: '#223F61',
+    marginVertical: verticalScale(15),
+    width: scale(110),
+    //  color: '#223F61',
+     opacity:0.5,
     
   },
   dropdownText: {
-    fontSize: 14,
+    fontSize: moderateScale(11),
     color: '#223F61',
     fontFamily:"Avenir LT Std",
   },
@@ -99,22 +106,23 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   card: {
-    height: 70,
-    backgroundColor: '#E9EEF6',
-    borderRadius: 15,
-    marginBottom: 15,
+    height: verticalScale(48),
+    backgroundColor: '#E3E9F1',
+    borderRadius: moderateScale(15),
+    marginBottom: verticalScale(15),
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: scale(20),
   },
   icon: {
     position: 'absolute',
-    right: 20,
+    right: scale(20),
   },
   buttonContainer: {
-    marginVertical: 20,
+    marginVertical: verticalScale(30),
+    
   },
   button: {
     backgroundColor: '#223F61',
-    marginHorizontal: 30,
+    marginHorizontal:scale(30) ,
   },
 });

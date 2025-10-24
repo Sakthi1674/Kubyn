@@ -12,6 +12,10 @@ import {
 } from 'react-native';
 import BackWard from '../../../../assets/icons/BackWard';
 import ButtonComp from '../../../../components/common/ButtonComp';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+
 
 const AccountDeleteVerification = () => {
   const [selectedReason, setSelectedReason] = useState('');
@@ -37,6 +41,8 @@ const AccountDeleteVerification = () => {
       setShowOtherInput(reason === 'Other');
     }
   };
+      const navigation = useNavigation<NavigationProp<any>>();
+  
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -50,7 +56,7 @@ const AccountDeleteVerification = () => {
         >
           {/* Header */}
           <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={() => console.log('Back pressed')}>
+            <TouchableOpacity  onPress={() => navigation.navigate('DeleteAccount')} >
               <BackWard width={20} height={20} />
             </TouchableOpacity>
             <Text style={styles.headerText}>Delete Account</Text>
@@ -123,7 +129,7 @@ const AccountDeleteVerification = () => {
 export default AccountDeleteVerification;
 
 const styles = StyleSheet.create({
-  safeArea: {
+   safeArea: {
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -131,81 +137,83 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 40,
+    paddingHorizontal: scale(20),
+    paddingTop: verticalScale(60),
+    paddingBottom: verticalScale(40),
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: verticalScale(40),
   },
   headerText: {
-    fontSize: 25,
+    fontSize: moderateScale(25),
     fontWeight: 'bold',
     color: '#000',
-    letterSpacing: 5,
-    marginLeft: 10,
+    letterSpacing: scale(5),
+    marginLeft: scale(10),
     fontFamily: 'Kollektif',
   },
   confirmationText: {
-    fontSize: 12,
-    marginBottom: 40,
-    letterSpacing: 1.5,
+    fontSize: moderateScale(10),
+    marginBottom: verticalScale(20),
+    letterSpacing: scale(1),
     fontFamily: 'Avenir LT Std',
+    fontWeight:'400',
   },
   questionText: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: moderateScale(20),
+    fontWeight: '700',
     color: '#2e446c',
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
     fontFamily: 'Avenir LT Std',
-    letterSpacing: 1,
+    letterSpacing: scale(1),
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
-    letterSpacing: 2,
-    fontFamily: 'Avenir LT Std',
+    marginBottom: verticalScale(15),
+   
   },
   checkbox: {
-    width: 18,
-    height: 18,
-    borderWidth: 1,
+    width: scale(18),
+    height: verticalScale(18),
+    borderWidth: scale(1),
     borderColor: '#2e446c',
-    marginRight: 10,
+    marginRight: scale(10),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 3,
+    borderRadius: moderateScale(3),
   },
   checkboxChecked: {
     backgroundColor: '#2e446c',
   },
   tick: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: moderateScale(12),
     fontWeight: 'bold',
   },
   checkboxLabel: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#000',
     fontFamily: 'Avenir LT Std',
     fontWeight: '400',
+    letterSpacing:scale(1),
+
   },
   textInput: {
-    height: 100,
-    borderRadius: 8,
+    height: verticalScale(100),
+    borderRadius: moderateScale(8),
     backgroundColor: '#f0f2f5',
-    padding: 12,
+    padding: scale(12),
     textAlignVertical: 'top',
     color: '#000',
-    marginBottom: 20,
+    marginBottom: verticalScale(20),
   },
   buttonWrapper: {
    width: '90%',
     position: 'absolute',
-    top: 800,
+    top: verticalScale(590),
     
   },
 });

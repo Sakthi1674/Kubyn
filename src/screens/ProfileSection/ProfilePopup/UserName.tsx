@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Wrong from '../../../assets/icons/Wrong';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 interface ChangeNamePopupProps {
   visible: boolean;
@@ -66,85 +67,80 @@ export default UserName;
 
 const styles = StyleSheet.create({
   overlay: {
-    
     flex: 1,
-  width: '85%',       
-  height: '100%',      
-  backgroundColor: '#E3E9F1CC',
-  justifyContent: 'center',
-  alignItems: 'center',
-     
-     
-     
+    width: scale(340), // instead of '85%'
+    height: '100%',
+    backgroundColor: '#E3E9F1CC',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   popupContainer: {
     backgroundColor: '#102B4C',
-    borderRadius: 20,
-    padding: 25,
-    width: 340,
-    height:220,
+    borderRadius: moderateScale(20),
+    padding: moderateScale(25),
+    width: scale(300),
+    height: verticalScale(190),
     alignItems: 'center',
-    left:30,
+    // left: scale(10),
   },
   input: {
     width: '80%',
     backgroundColor: '#fff',
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginTop: 15,
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(12),
+    marginTop: verticalScale(10),
     color: '#223F61',
     textAlign: 'center',
-    fontFamily:'Kollektif',
+    fontFamily: 'Kollektif',
   },
   popupText: {
     color: '#fff',
-    fontSize: 13,
-    marginTop: 25,
+    fontSize: moderateScale(14),
+    marginTop: verticalScale(20),
     textAlign: 'center',
-    letterSpacing:2,
-    fontFamily:'Avenir LT Std',
+    letterSpacing: moderateScale(2),
+    fontFamily: 'Avenir LT Std',
+    fontWeight:600,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '65%',
+    width: '75%',
   },
   yesButton: {
     backgroundColor: '#E3E9F1CC',
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 18,
-    width:90,
-      marginTop: 25,
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(18),
+    width: scale(90),
+    marginTop: verticalScale(25),
   },
   yesText: {
     color: '#183153',
-    fontWeight: 700,
-    fontSize:12,
-    textAlign:'center',
-    fontFamily:'Kollektif',
-    letterSpacing:2,
-    
+    fontWeight: '700',
+    fontSize: moderateScale(12),
+    textAlign: 'center',
+    fontFamily: 'Kollektif',
+    letterSpacing: moderateScale(2),
   },
   noButton: {
     backgroundColor: '#F2F4F7',
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 18,
-     width:90,
-       marginTop: 25,
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(18),
+    width: scale(90),
+    marginTop: verticalScale(25),
   },
   noText: {
     color: '#183153',
-    letterSpacing:2,
-    textAlign:'center',
-    fontFamily:'Kollektif',
-     fontWeight: 700,
-    fontSize:12,
-
+    letterSpacing: moderateScale(2),
+    textAlign: 'center',
+    fontFamily: 'Kollektif',
+    fontWeight: '700',
+    fontSize: moderateScale(12),
   },
-  wrong:{
-    left:140,
-  }
+  wrong: {
+    left: scale(120),
+  },
 });

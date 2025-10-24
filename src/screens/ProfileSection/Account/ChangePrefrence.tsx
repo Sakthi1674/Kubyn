@@ -3,6 +3,12 @@ import { View, Text, StyleSheet, SafeAreaView,TouchableOpacity, StatusBar, Scrol
 import BackWard from '../../../assets/icons/BackWard';
 import MicIcon from '../../../assets/icons/MicIcon';
 import CalendarIcon from '../../../assets/icons/CalendarIcon';
+import { useNavigation } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 
 const preferenceData = [
   { question: "What’s your name?" ,answer: "John" },
@@ -35,14 +41,15 @@ const preferenceData = [
     answer: "Build a ₹2–3 crore portfolio by early 40s that generates ₹50k–1L monthly passive income – giving the freedom to slow down, travel, or pursue passion projects." 
   },
 ];
-
 const ChangePreferenceScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  
   return (
     <SafeAreaView 
     style={styles.container}>
       <View style={styles.headerWrapper}>
-      <TouchableOpacity>
-      <BackWard/>
+      <TouchableOpacity onPress={()=>navigation.navigate('AccountScreen')} >
+      <BackWard  />
        </TouchableOpacity>
       <Text style={styles.header}>Change Preference</Text>
       </View>
@@ -78,75 +85,76 @@ const ChangePreferenceScreen = () => {
 export default ChangePreferenceScreen;
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: 20,
+    paddingTop: verticalScale(12),
+    paddingHorizontal: scale(20),
   },
   scrollContainer: {
     // paddingBottom: 40,
   },
   header: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '700',
-    marginLeft:22,
+    marginLeft:scale(22),
     color: '#222',
-    letterSpacing:2,
+    letterSpacing:scale(2),
     fontFamily:'Kollektif',
   
   },
   questionBlock: {
-    marginBottom: 18,
+    marginBottom: verticalScale(18),
   
     // paddingBottom: 10,
     left:10,
   },
   question: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '800',
     color: '#000000',
     fontFamily:'Kollektif'
   },
   answer: {
-    fontSize: 16,
+    fontSize: moderateScale(14),
     fontWeight: '700',
     color: '#000000',
-    marginTop: 4,
+    marginTop: verticalScale(8),
     opacity:0.28,
     fontFamily:'Avenir LT Std',
-    lineHeight:30,
+    lineHeight:verticalScale(20),
   },
    inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
+    borderWidth: scale(1),
     borderColor: "#E3E9F1",
     backgroundColor: "#E3E9F1",
-    borderRadius: 16,
+    borderRadius: moderateScale(16),
     // paddingHorizontal: 10,
-    paddingVertical: 14,
-    marginTop: 78,
-    bottom:39,
+    paddingVertical: verticalScale(10),
+    marginTop: verticalScale(78),
+    bottom:verticalScale(39),
 
   },
   inputIcon: {
-    marginRight: 8,
+    marginRight: scale(8),
   },
   inputField: {
     flex: 1,
-    fontSize: 13,
+    fontSize: moderateScale(13),
     opacity:0.5,
     fontFamily:'Avenir LT Std',
-    paddingVertical: 6,
+    paddingVertical: verticalScale(4),
    
   },
   headerWrapper:{
       flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 55,
-    marginTop:60,
+    marginBottom: verticalScale(55),
+    marginTop:verticalScale(60),
   },
   micWrapper:{
-    right:10,
+    right:scale(10),
   }
 });
