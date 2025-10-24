@@ -113,7 +113,7 @@ const AccountDeleteVerification = () => {
               onPress={() => console.log('Submit pressed')}
               style={{
                 backgroundColor: '#223F61',
-                marginHorizontal: 30,
+                marginHorizontal: scale(30),
               }}
               textStyle={{
                 textColor: '#FAF8F5',

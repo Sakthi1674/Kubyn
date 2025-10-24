@@ -1,14 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import BackWard from '../../../assets/icons/BackWard';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+
+
 
 const LoginActivity = () => {
+      const navigation = useNavigation<NavigationProp<any>>();
+    
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.content}>
                 <View style={styles.header}>
-                    <TouchableOpacity>
-                        <BackWard width={18} height={20} />
+                    <TouchableOpacity  onPress={() => navigation.navigate('SecurityScreen')}>
+                        <BackWard width={15} height={18} />
                     </TouchableOpacity>
                     <Text style={styles.title}>Login Activity</Text>
                 </View>
@@ -43,65 +49,66 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     content: {
-        padding: 20,
+        padding: scale(20),
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 60,
+        marginTop: verticalScale(50),
     },
     title: {
+        
         fontFamily: 'Kollektif',
         fontWeight: 700,
-        letterSpacing: 2.5,
-        fontSize: 24,
-        left: 20,
+        letterSpacing: scale(2),
+        fontSize: moderateScale(20),
+        left: scale(20),
 
 
     },
     sectionTitle: {
-        fontSize: 18,
+        fontSize: moderateScale(18),
         fontWeight: '700',
-        marginTop: 30,
-        marginBottom: 12,
+        // marginTop: verticalScale(20),
+        marginBottom: verticalScale(12),
         fontFamily: 'Avenir LT Std',
-        letterSpacing: 2,
+        letterSpacing: scale(2),
     },
     sessionBox: {
         backgroundColor: '#e5eaf3',
-        padding: 16,
-        borderRadius: 10,
-        marginBottom: 26,
-        marginTop: 50,
+        padding: scale(16),
+        borderRadius: moderateScale(10),
+        marginBottom: verticalScale(26),
+        marginTop: verticalScale(30),
     },
     sessionBox1: {
         backgroundColor: '#e5eaf3',
-        padding: 16,
-        borderRadius: 10,
+        padding: scale(16),
+        borderRadius: moderateScale(10),
         // marginBottom: 26,
-        marginTop: 20,
+        // marginTop: verticalScale(20),
     },
     deviceName: {
-        fontSize: 15,
+        fontSize: moderateScale(10),
         fontWeight: '700',
-        marginBottom: 6,
+        marginBottom: verticalScale(6),
         fontFamily: 'Avenir LT Std',
-        letterSpacing: 2,
+        letterSpacing: scale(2),
 
     },
     location: {
-        fontSize: 13,
+        fontSize: moderateScale(10),
         color: '#121212',
         fontStyle: 'italic',
-        marginBottom: 4,
+        marginBottom: verticalScale(4),
         fontFamily: 'Avenir LT Std',
         fontWeight: 400,
-        letterSpacing: 2,
+        letterSpacing: scale(2),
     },
     time: {
-        fontSize: 13,
+        fontSize: moderateScale(10),
         color: '#121212',
-        letterSpacing: 2,
+        letterSpacing: scale(2),
         fontWeight: 600,
         fontFamily: 'Avenir LT Std',
     },
@@ -110,9 +117,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     thisDevice: {
-        fontSize: 13,
+        fontSize: moderateScale(10),
         color: '#223F61',
         fontWeight: '400',
+        fontFamily:'Avenir LT Std',
     },
 });
 
