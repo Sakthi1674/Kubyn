@@ -18,13 +18,13 @@ type RootStackParamList = {
 };
 
 export default function DeleteAccount() {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NavigationProp<any>>();
 
     return (
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity  onPress={() => navigation.navigate('AccountScreen')}>
                     <BackWard width={15} height={15} />
                 </TouchableOpacity>
                 <Text style={styles.headerText}>Delete Account</Text>
@@ -46,33 +46,42 @@ export default function DeleteAccount() {
                 information. Once deleted, your account cannot be restored.
             </Text>
 
-            {/* Delete Button */}
-            <ButtonComp
+            
+            
+   <View style={styles.btn}>
+        <ButtonComp
+                
                 title="Delete Account"
-                onPress={() => navigation.navigate('AccountDeleteVerification')}
-                style={{
-                    backgroundColor: "#223F61",
-                    marginTop: 380,
-                    marginBottom: 20,
-                    marginHorizontal: 30,
-                }}
-                textStyle={{
+              
+               onPress={() => navigation.navigate('AccountDeleteVerification')}
+                 style={{
+                       backgroundColor: "#223F61",
+                       marginTop: verticalScale(545),        
+                       marginBottom: verticalScale(20),     
+                       marginHorizontal: scale(35),
+                 }}
+                  textStyle={{
                     color: "#FAF8F5",
+                    
                 }}
-            />
-
-            {/* Cancel Button */}
-            <ButtonComp
+             />
+             
+            
+     
+     <ButtonComp
+       
                 title="Cancel"
-                onPress={() => navigation.goBack()}
-                style={{
-                    backgroundColor: "#E3E9F1",
-                    marginHorizontal: scale(35),
-                }}
-                textStyle={{
+                // onPress={goToHome}
+                onPress={() => {'../deleteaccount/AccountDeleteVerification'}}
+                 style={{
+                       backgroundColor: "#E3E9F1",     
+                       marginHorizontal: scale(35),
+                 }}
+                  textStyle={{
                     color: "#223F61",
                 }}
             />
+            </View>
         </View>
     );
 }

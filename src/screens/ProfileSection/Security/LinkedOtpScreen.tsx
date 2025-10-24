@@ -8,14 +8,19 @@ import {
 } from 'react-native';
 import ButtonComp from '../../../components/common/ButtonComp';
 import BackWard from '../../../assets/icons/BackWard';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
 const LinkedOtpScreen: React.FC = () => {
+    const navigation = useNavigation<NavigationProp<any>>();
+  
   return (
     <SafeAreaView style={styles.safeArea}>
       {/* Header */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => navigation.navigate('LinkedScreen')}  >
           <BackWard width={20} height={20} />
         </TouchableOpacity>
       </View>
@@ -37,7 +42,7 @@ const LinkedOtpScreen: React.FC = () => {
         </View>
             
         {/* Verify Button */}
-        <View>
+<View>
         <ButtonComp
        
                 title="Verify"
@@ -67,14 +72,14 @@ const LinkedOtpScreen: React.FC = () => {
                 onPress={() => {''}}
                  style={{
                        backgroundColor: "#223F61",     
-                       marginHorizontal: 30,
+                       marginHorizontal: scale(30),
                         opacity:0.35,
                  }}
                   textStyle={{
                     color: "#FBFDFF",
                      fontWeight: '600',
                   fontFamily:"Avenir LT Std",
-                  letterSpacing:2,
+                  letterSpacing:scale(2),
                 }}
             />
       </View>
@@ -94,61 +99,61 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 80,
-    marginLeft: 50,
+    marginTop: verticalScale(60),
+    marginLeft: scale(50),
   },
   cardContainer: {
     width: '85%',
-    backgroundColor: '#f4f7fb',
-    borderRadius: 22,
-    paddingVertical: 50,
+    backgroundColor: '#E3E9F1',
+    borderRadius: moderateScale(22),
+    paddingVertical: verticalScale(10),
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: verticalScale(100),
   },
   title: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#000',
     fontFamily: 'Avenir LT Std',
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
   
   },
   subText: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#2e446c',
     textAlign: 'center',
-    marginBottom: 25,
+    marginBottom: verticalScale(25),
     fontFamily: 'Avenir LT Std',
-    lineHeight: 18,
+    lineHeight: verticalScale(18),
   },
   otpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 30,
+    marginBottom: verticalScale(30),
   },
   otpBox: {
-    width: 60,
-    height: 60,
+    width: scale(50),
+    height: verticalScale(50),
     backgroundColor: '#fff',
-    borderRadius: 8,
-    marginHorizontal: 8,
+    borderRadius: moderateScale(8),
+    marginHorizontal: scale(8),
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: scale(1),
     borderColor: '#E0E6ED',
   },
   otpText: {
-    fontSize: 20,
+    fontSize: moderateScale(24),
     fontWeight: '600',
     color: '#223F61',
-    opacity:0.35,
+    opacity:scale(0.35),
   },
   updateWrapper: {
     position: 'absolute',
-    bottom: 40,
+    bottom: verticalScale(40),
     width: '90%',
     alignItems: 'center',
   },
 
  
-});
+});;

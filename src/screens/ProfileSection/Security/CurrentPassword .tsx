@@ -11,15 +11,18 @@ import BackWard from '../../../assets/icons/BackWard';
 import EyeIcon from '../../../assets/icons/EyeIcon';
 import ButtonComp from '../../../components/common/ButtonComp';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 
 const CurrentPassword = () => {
+      const navigation = useNavigation<NavigationProp<any>>();
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
-          <BackWard/>
+        <TouchableOpacity onPress={() => navigation.navigate('SecurityScreen')}>
+          <BackWard />
         </TouchableOpacity>
         <Text style={styles.title}>Change Password</Text>
       </View>
@@ -82,14 +85,14 @@ const CurrentPassword = () => {
         onPress={() => console.log('Submit pressed')}
         style={{
           backgroundColor: '#223F61',
-          marginTop: 300,
-          marginHorizontal: 30,
+          marginTop: verticalScale(270),
+          marginHorizontal: scale(30),
         }}
         textStyle={{
           textColor: '#FAF8F5',
             fontfamily:"Avenir LT Std",
            fontweight:100,
-           letterspacing:2,
+           letterspacing:scale(2),
         }}
       />
     </SafeAreaView>
@@ -99,7 +102,7 @@ const CurrentPassword = () => {
 export default CurrentPassword;
 
 const styles = StyleSheet.create({
-   container: {
+  container: {
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: scale(20),
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
     letterSpacing:scale(1),
   },
   inputWrapper: {
-    backgroundColor: '#EDF1F7',
+    backgroundColor: '#E3E9F1CC',
     borderRadius: moderateScale(10),
     paddingHorizontal: scale(16),
     paddingVertical: verticalScale(8),

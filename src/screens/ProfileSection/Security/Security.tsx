@@ -19,7 +19,7 @@ const SecurityScreen = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity  onPress={() => navigation.navigate('ProfileScreen')}>
           <BackWard width={15} height={15} />
         </TouchableOpacity>
         <Text style={styles.header}>Security</Text>

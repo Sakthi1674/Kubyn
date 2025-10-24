@@ -2,6 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 import OpenEye from '../../../assets/icons/OpenEye';
 import BackWard from '../../../assets/icons/BackWard';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+
 
 
 const PolicyButton = ({ title }: { title: string }) => (
@@ -12,13 +17,15 @@ const PolicyButton = ({ title }: { title: string }) => (
 );
 
 const LegalPolicies = () => {
+          const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="#F5F5F5" /> */}
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ProfileScreen')}>
      <BackWard/>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Legal & Policies</Text>
@@ -43,42 +50,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
-    paddingHorizontal: 20,
+    paddingHorizontal: scale(20),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 90,
+    marginTop: verticalScale(50),
    
    
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '700',
-    letterSpacing: 3,
+    letterSpacing: scale(4),
     color: '#000',
-    marginLeft: 10,
-   left:20,
+    marginLeft: scale(10),
+   left:scale(20),
    fontFamily:'Avenir LT Std',
     
   },
   content: {
-    marginTop: 30,
-    gap: 15,
-    height:90,
+    marginTop: verticalScale(30),
+    gap: scale(15),
+    height:verticalScale(50),
   },
   policyButton: {
-    backgroundColor: '#EAF0F8',
-    borderRadius: 10,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    backgroundColor: 'rgba(227, 233, 241, 1)',
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: scale(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // alignItems: 'center',
+  //  opacity:0.9
   },
   policyText: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: moderateScale(12),
+    fontWeight: '400',
     color: '#111',
+    fontFamily:'#223F6140'
   },
 });
