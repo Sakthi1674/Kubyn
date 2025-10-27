@@ -10,7 +10,9 @@ import BackWard from '../../../../assets/icons/BackWard';
 import ButtonComp from '../../../../components/common/ButtonComp';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
+type RootStackParamList = {
+  ForgetPin: undefined;
+}
 const CurrentPin = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 

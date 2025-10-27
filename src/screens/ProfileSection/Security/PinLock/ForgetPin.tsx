@@ -1,78 +1,35 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import { useNavigation, NavigationProp, RouteProp, useRoute } from "@react-navigation/native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import BackWard from "../../../../assets/icons/BackWard";
 import MobileIcon from "../../../../assets/icons/MobileIcon";
 import EmailIcon from "../../../../assets/icons/EmailIcon";
 import ButtonComp from "../../../../components/common/ButtonComp";
 
-// Define the navigation stack types
 type RootStackParamList = {
-  ForgetPin: undefined;
-  SetPin: {
+  ForgetPasswordOtp: {
     method: "sms" | "email";
     contact: string;
     userId: string;
     phone: string;
     email: string;
   };
-  // Add other screens if needed
 };
-
-// Define route params type if coming from previous screen
-type ForgetPinRouteProp = RouteProp<any, any>;
 
 const ForgetPin: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const route = useRoute<ForgetPinRouteProp>();
-
   const [selectedMethod, setSelectedMethod] = useState<"sms" | "email">("sms");
-  const [phone, setPhone] = useState<string>(route.params?.phoneNumber || "+91 ***** **234");
-  const [email, setEmail] = useState<string>(route.params?.email || "example@gmail.com");
-  const [userId, setUserId] = useState<string>(route.params?.userId || "");
-  const [loading, setLoading] = useState(false);
 
-  // Fetch user data if phone exists
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!phone) return;
-      setLoading(true);
-      try {
-        const response = await fetch("http://10.0.2.2:5000/api/forget-password", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phoneNumber: phone }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          setEmail(data.email || email);
-          setPhone(data.phoneNumber || phone);
-          setUserId(data.userId || userId);
-        } else {
-          console.log("Error fetching user data:", data.message);
-        }
-      } catch (err) {
-        console.error("Server error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [phone]);
+  // Static placeholder data (no backend)
+  const phone = "+91 ***** **234";
+  const email = "example@gmail.com";
+  const userId = "static_user_001";
 
   const handleVerify = () => {
     const contactInfo = selectedMethod === "sms" ? phone : email;
-
-    navigation.navigate("SetPin", {
+    navigation.navigate("ForgetPasswordOtp", {
       method: selectedMethod,
       contact: contactInfo,
       userId,
@@ -80,14 +37,6 @@ const ForgetPin: React.FC = () => {
       email,
     });
   };
-
-  if (loading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#223F61" />
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -99,7 +48,7 @@ const ForgetPin: React.FC = () => {
         <Text style={styles.heading}>Forget Password</Text>
       </View>
 
-      <Text style={styles.infoText}>Select how we should reset your password:</Text>
+      <Text style={styles.infoText}>Select which contact detail should we use to reset your password</Text>
 
       {/* SMS Option */}
       <TouchableOpacity
@@ -117,8 +66,8 @@ const ForgetPin: React.FC = () => {
           </View>
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.viaText}>via SMS</Text>
-          <Text style={styles.contactText}>{phone}</Text>
+          <Text style={styles.viaSmsText}>via SMS</Text>
+          <Text style={styles.phoneText}>{phone}</Text>
         </View>
         <View style={styles.iconWrapper}>
           <MobileIcon />
@@ -141,11 +90,11 @@ const ForgetPin: React.FC = () => {
           </View>
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.viaText}>via Email</Text>
-          <Text style={styles.contactText}>{email}</Text>
+          <Text style={styles.viaSmsText}>via Email</Text>
+          <Text style={styles.phoneText}>{email}</Text>
         </View>
         <View style={styles.iconWrapper}>
-          <EmailIcon />
+          <EmailIcon/>
         </View>
       </TouchableOpacity>
 
@@ -153,8 +102,13 @@ const ForgetPin: React.FC = () => {
       <ButtonComp
         title="Verify"
         onPress={handleVerify}
-        style={{ backgroundColor: "#223F61", marginTop: 30 }}
-        textStyle={{ color: "#FAF8F5" }}
+        style={{
+          backgroundColor: "#223F61",
+          marginTop: verticalScale(37),
+        }}
+        textStyle={{
+          color: "#FAF8F5",
+        }}
       />
     </View>
   );
@@ -166,53 +120,83 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    paddingHorizontal: 30,
-    paddingTop: 60,
-  },
-  loaderContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingHorizontal: scale(40),
+    paddingTop: verticalScale(90),
   },
   headerContainer: {
     width: "100%",
     alignItems: "center",
-    marginBottom: 50,
+    marginBottom: verticalScale(50),
   },
-  backButton: { position: "absolute", left: 0 },
-  heading: { fontWeight: "700", fontSize: 28, color: "#121212" },
-  infoText: { fontSize: 14, color: "#121212", marginBottom: 20 },
+  backButton: {
+    position: "absolute",
+    left: scale(0),
+    top: verticalScale(12),
+  },
+  heading: {
+    fontWeight: "700",
+    fontSize: moderateScale(32),
+    color: "#121212",
+  },
+  infoText: {
+    fontSize: moderateScale(14),
+    color: "#121212",
+    marginBottom: verticalScale(20),
+    fontFamily:'Avenir LT Std',
+    fontWeight:300,
+    lineHeight:verticalScale(20),
+  },
   contactMethodContainer: {
     width: "100%",
-    height: 100,
+    height: verticalScale(100),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#E3E9F1CC",
-    borderRadius: 10,
+    borderRadius: moderateScale(10),
     borderWidth: 0.5,
-    borderColor: "#223F61",
-    padding: 16,
-    marginBottom: 20,
+    borderColor: "rgba(227, 233, 241, 0.8)",
+    padding: scale(16),
+    marginBottom: verticalScale(20),
   },
-  selectedContainer: { borderWidth: 2 },
-  circleWrapper: { marginRight: 10 },
+  selectedContainer: {
+    borderWidth: 2,
+  },
+  circleWrapper: {
+    marginRight: scale(10),
+  },
   bigCircle: {
-    width: 18,
-    height: 18,
+    width: scale(18),
+    height: scale(18),
     borderWidth: 2,
     borderColor: "#223F61",
-    borderRadius: 9,
+    borderRadius: scale(9),
     justifyContent: "center",
     alignItems: "center",
   },
-  smallCircle: { width: 9, height: 9, backgroundColor: "#223F61", borderRadius: 4.5 },
-  textContainer: { flex: 1 },
-  viaText: { fontSize: 16, color: "#223F61", opacity: 0.52 },
-  contactText: { fontSize: 16, color: "#121212", opacity: 0.75, marginTop: 10 },
+  smallCircle: {
+    width: scale(9),
+    height: scale(9),
+    backgroundColor: "#223F61",
+    borderRadius: scale(4.5),
+  },
+  textContainer: {
+    flex: 1,
+  },
+  viaSmsText: {
+    fontSize: moderateScale(16),
+    color: "#223F61",
+    opacity: 0.52,
+  },
+  phoneText: {
+    fontSize: moderateScale(16),
+    color: "#121212",
+    opacity: 0.75,
+    marginTop: verticalScale(10),
+  },
   iconWrapper: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: scale(48),
+    height: scale(48),
+    borderRadius: scale(24),
     backgroundColor: "#FBFDFF",
     justifyContent: "center",
     alignItems: "center",
