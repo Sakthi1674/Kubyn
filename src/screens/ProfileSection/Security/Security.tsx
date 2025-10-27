@@ -59,7 +59,7 @@ const SecurityScreen = () => {
             <Text style={styles.text}>PIN Lock</Text>
           </View>
          <Toggle />
-        </TouchableOpacity>
+ .        </TouchableOpacity>
          <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('LoginActivity')}>
           <View style={styles.leftSection}>
             <Activity width={22} height={22} />
