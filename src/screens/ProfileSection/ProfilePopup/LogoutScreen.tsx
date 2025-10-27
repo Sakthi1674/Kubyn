@@ -7,6 +7,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 interface LogoutPopupProps {
   visible: boolean;
@@ -48,6 +50,7 @@ const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout 
 export default LogoutScreen;
 
 const styles = StyleSheet.create({
+
   overlay: {
     flex: 1,
     backgroundColor: '#E3E9F1CC',
@@ -57,21 +60,22 @@ const styles = StyleSheet.create({
   },
   popupContainer: {
     backgroundColor: '#223F61',
-    borderRadius: 20,
-    padding: 25,
-      width: 340,
-      height:180,
+    borderRadius: verticalScale(20),
+    padding: scale(25),
+      width: scale(300),
+      height:verticalScale(150),
     alignItems: 'center',
-    left:20,
+    left:scale(20),
   },
   popupText: {
-    color: '#fff',
-    fontSize: 16,
-    marginBottom: 25,
+    color: '#FBFDFF',
+    fontSize: moderateScale(16),
+    marginBottom: verticalScale(25),
     textAlign: 'center',
     fontFamily:'Avenir LT Std',
-    letterSpacing:2,
+    letterSpacing:scale(2),
     fontWeight:600,
+    lineHeight:verticalScale(20),
 
   },
   buttonContainer: {
@@ -81,9 +85,9 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     backgroundColor: '#E3E9F1CC',
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 18,
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(18),
    
 
   },
@@ -91,19 +95,22 @@ const styles = StyleSheet.create({
     color: '#223F61',
      fontFamily:"Kollektif",
     fontWeight:700,
-    letterSpacing:2,
+    letterSpacing:scale(2),
+    fontSize:moderateScale(12),
+    
 
   },
   logoutButton: {
-    backgroundColor: '#F2F4F7',
-    borderRadius: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 18,
+    backgroundColor: '#FBFDFF',
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(18),
   },
   logoutText: {
     color: '#223F61',
      fontFamily:"Kollektif",
     fontWeight:700,
-    letterSpacing:2,
+    letterSpacing:scale(2),
+    fontSize:moderateScale(12),
   },
 });

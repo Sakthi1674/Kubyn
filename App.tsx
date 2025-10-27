@@ -48,7 +48,7 @@ const App = () => {
           component={SplashScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Details"
           component={WelcomePage}
           options={{ headerShown: false }}
@@ -107,7 +107,7 @@ const App = () => {
           name="HeyScreen"
           component={HeyScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="AccountScreen"
           component={AccountScreen}

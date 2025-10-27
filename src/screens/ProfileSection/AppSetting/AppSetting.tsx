@@ -6,19 +6,26 @@ import {
     TouchableOpacity,
     Platform,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import BackWard from '../../../assets/icons/BackWard';
 import ArrowDown from '../../../assets/icons/ArrowDown';
 import Toggle from '../../../assets/icons/Toggle';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 
 export default function AppSettingsScreen() {
+      const navigation = useNavigation<NativeStackNavigationProp<any>>();
+    
     const [selectedMethod, setSelectedMethod] = useState('light'); // "light" or "dark"
 
     return (
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <BackWard width={20} height={20} />
+                <BackWard width={20} height={20} onPress={()=>navigation.navigate('ProfileScreen')}/>
                 <Text style={styles.headerTitle}>App Setting</Text>
             </View>
 
@@ -84,7 +91,7 @@ export default function AppSettingsScreen() {
 
             {/* Language Preferences */}
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Language Preferences</Text>
+                <Text style={styles.sectionTitle1}>Language Preferences</Text>
                 <TouchableOpacity style={styles.languageButton}>
                     <Text style={styles.languageText}>English</Text>
                     <ArrowDown width={14} height={14} />
@@ -93,7 +100,7 @@ export default function AppSettingsScreen() {
 
             {/* App Information */}
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>App Information</Text>
+                <Text style={styles.sectionTitle1}>App Information</Text>
                 <TouchableOpacity>
                     <Text style={styles.linkText}>Beta Testing</Text>
                 </TouchableOpacity>
@@ -106,48 +113,57 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F9FBFF',
-        paddingHorizontal: 24,
-        paddingTop: Platform.OS === 'ios' ? 60 : 40,
+        paddingHorizontal: scale(24),
+        // paddingTop: Platform.OS === 'ios' ? 60 : 40,
+        // Top:verticalScale(20),
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 75,
-        marginTop: 45,
+        marginBottom: verticalScale(75),
+        marginTop: verticalScale(45),
     },
     headerTitle: {
-        fontSize: 22,
+        fontSize: moderateScale(22),
         fontWeight: '700',
-        marginLeft: 10,
+        marginLeft: scale(10),
         color: '#121212',
-        letterSpacing: 4,
+        letterSpacing: scale(4),
         fontFamily: 'Avenir LT Std',
     },
     section: {
-        marginBottom: 38,
+        // marginBottom: verticalScale(38),
     },
     sectionTitle: {
-        fontSize: 15,
+        fontSize: moderateScale(15),
         fontWeight: '800',
         color: '#223F61',
-        marginBottom: 18,
+        marginBottom: verticalScale(10),
         fontFamily: 'Avenir LT Std',
+    },
+     sectionTitle1: {
+        fontSize: moderateScale(15),
+        fontWeight: '800',
+        color: '#223F61',
+        marginBottom: verticalScale(18),
+        fontFamily: 'Avenir LT Std',
+        marginTop:verticalScale(19),
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: verticalScale(14),
     },
     label: {
-        fontSize: 15,
+        fontSize: moderateScale(15),
         color: '#0D2040',
-        marginBottom: 14,
+        marginBottom: verticalScale(14),
         fontFamily: 'Avenir LT Std',
         fontWeight: 400,
     },
     label1: {
-        fontSize: 15,
+        fontSize: moderateScale(15),
         color: '#0D2040',
     },
     radioRow: {
@@ -158,21 +174,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between', // push label and circle apart
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: verticalScale(10),
     },
     languageButton: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#F0F4FA',
-        borderRadius: 10,
-        paddingVertical: 8,
-        paddingHorizontal: 14,
-        width: 120,
+        borderRadius: moderateScale(10),
+        paddingVertical: verticalScale(8),
+        paddingHorizontal: scale(14),
+        width: scale(120),
         //  opacity:0.4,
     },
     languageText: {
-        fontSize: 15,
+        fontSize: moderateScale(15),
         color: '#223F61',
         opacity: 0.4,
     },
@@ -186,18 +202,18 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     bigCircle: {
-        width: 18,
-        height: 18,
-        borderWidth: 2,
+        width: scale(18),
+        height: scale(18),
+        borderWidth: scale(2),
         borderColor: '#223F61',
-        borderRadius: 9,
+        borderRadius: moderateScale(9),
         justifyContent: 'center',
         alignItems: 'center',
     },
     smallCircle: {
-        width: 9,
-        height: 9,
+        width: scale(9),
+        height: verticalScale(9),
         backgroundColor: '#223F61',
-        borderRadius: 4.5,
+        borderRadius: moderateScale(4.5),
     },
 });

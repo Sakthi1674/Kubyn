@@ -9,6 +9,8 @@ import Linked from '../../../assets/icons/Linked';
 import Authentication from '../../../assets/icons/Authentication';
 import Lock from '../../../assets/icons/Lock';
 import Activity from '../../../assets/icons/Activity';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 const SecurityScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -17,7 +19,7 @@ const SecurityScreen = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity  onPress={() => navigation.navigate('ProfileScreen')}>
           <BackWard width={15} height={15} />
         </TouchableOpacity>
         <Text style={styles.header}>Security</Text>
@@ -72,51 +74,47 @@ const SecurityScreen = () => {
 export default SecurityScreen;
 
 const styles = StyleSheet.create({
-  container: {
+ container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 24,
-    paddingTop: 60,
+    paddingHorizontal: scale(24),
+    paddingTop: verticalScale(60),
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: verticalScale(10),
   },
   header: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     fontWeight: '700',
-    marginLeft: 30,
+    marginLeft: scale(30),
     fontFamily:"Kollektif",
-    letterSpacing:4,
+    letterSpacing:scale(4),
   },
   list: {
-    marginTop: 15,
+    marginTop: verticalScale(15),
   },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 16,
-    
-  },
+    paddingVertical: verticalScale(8),
+    },
   leftSection: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   text: {
-    fontSize: 15,
-    marginLeft: 24,
-    // color: '#000',
+    fontSize: moderateScale(13),
+    marginLeft: scale(24),
     fontFamily:'Avenir LT Std',
-    letterSpacing:2,
+    letterSpacing:scale(2),
     fontWeight:600,
-    
-  
-  },
+    },
   arrow: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     color: '#999',
-    marginRight: 5,
+    marginRight: scale(5),
   },
 });

@@ -11,6 +11,8 @@ import Camera from '../../../assets/icons/Camera';
 import GalleryPopup from '../../../assets/icons/GalleryPopup';
 import Wrong from '../../../assets/icons/Wrong';
 import RemoveIcon from '../../../assets/icons/RemoveIcon';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 
 interface GalleryPopupProps {
   visible: boolean;
@@ -32,7 +34,7 @@ const UserProfile: React.FC<GalleryPopupProps> = ({ visible, onClose }) => {
             >
                 <TouchableOpacity style={styles.wrong}
                 onPress={onClose}>
-                <Wrong/>
+                <Wrong />
                 </TouchableOpacity>
               <Text style={styles.popupTitle}>Change Profile Photo </Text>
 
@@ -77,54 +79,55 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width:'85%',
+    height:'180%',
   },
   popupBox: {
-    width: 330,
-    height:320,
+    width: scale(300),
+    height:verticalScale(230),
     backgroundColor: '#223F61',
-    borderRadius: 25,
-    padding: 20,
-    marginTop:70,
-    marginLeft:50,
+    borderRadius: moderateScale(25),
+    padding: scale(20),
+    marginTop:verticalScale(70),
+    marginLeft:scale(50),
     
   
   },
   popupTitle: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: '700',
     textAlign: 'center',
     color: '#FBFDFF',
-    marginTop:20,
-    right:15,
+    // marginTop:verticalScale(10),
+    right:scale(15),
     fontFamily:'Avenir LT Std',
-    letterSpacing:2,
+    letterSpacing:scale(2),
   },
   popupButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
- borderRadius: 8,
- height:50,
-    width:250,
-    marginTop:20,
-    left:20,
+ borderRadius: moderateScale(8),
+ height:verticalScale(40),
+    width:scale(235),
+    marginTop:verticalScale(15),
+    left:scale(10),
   
    
   },
   popupText: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     textAlign: 'center',
     color: '#223F61',
-    left:25,
+    left:scale(25),
     fontFamily:'Kollektif',
-    letterSpacing:2,
-    fontWeight:400,
+    letterSpacing:scale(2),
+    fontWeight:600,
 
   },
 icon:{
-    left:10,
+    left:scale(10),
 },
 wrong:{
-left:270,
+left:scale(250),
 } 
 });
