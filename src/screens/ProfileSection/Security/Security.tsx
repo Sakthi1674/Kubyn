@@ -35,7 +35,7 @@ const SecurityScreen = () => {
           <Front width={24} height={24} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('LinkedScreen')}>
+        <TouchableOpacity style={styles.item}onPress={() => navigation.navigate('LinkedScreen')}>
           <View style={styles.leftSection}>
             <Linked width={22} height={22} />
             <Text style={styles.text}>Linked Email and Mobile Number</Text>
