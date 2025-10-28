@@ -8,6 +8,7 @@ import {
   ScrollView,
   Platform,
   Alert,
+  useColorScheme,
 } from "react-native";
 import { useNavigation, NavigationProp, useRoute, RouteProp } from "@react-navigation/native";
 import BackWard from "../../assets/icons/BackWard";
@@ -16,6 +17,7 @@ import GoogleIcon from "../../assets/icons/GoogleIcon";
 import AppleIcon from "../../assets/icons/Ios";
 import EyeIcon from "../../assets/icons/EyeIcon";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import colors from "../../theme/color";
 
 const API_BASE_URL =
   Platform.OS === "android" ? "http://10.0.2.2:5000" : "http://localhost:5000";
@@ -44,6 +46,9 @@ const CreateAccount: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme || "light"];
 
   const [showError, setShowError] = useState(false);
   const handleCreateAccount = async () => {
@@ -85,236 +90,256 @@ const CreateAccount: React.FC = () => {
     }
   };
 
+return (
+  <ScrollView
+    contentContainerStyle={[
+      styles.container,
+      { backgroundColor: theme.background },
+    ]}
+  >
+    {/* Header */}
+    <View style={styles.headerContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.backButton}
+      >
+        <BackWard width={10} height={16} color={theme.text} />
+      </TouchableOpacity>
+      <Text style={[styles.heading, { color: theme.text }]}>
+        Create your account
+      </Text>
+    </View>
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <BackWard width={10} height={16} color="#223F61" />
-        </TouchableOpacity>
-        <Text style={styles.heading}>Create your account</Text>
-      </View>
-
-      {/* Input Fields */}
-      <View style={styles.inputContainer}>
-        {/* User Name */}
-        <TextInput
-          style={[
-            styles.inputBox,
-            {
-              borderColor: showError && userName === ""
-                ? "rgba(231,76,60,0.35)"
+    {/* Input Fields */}
+    <View style={styles.inputContainer}>
+      {/* User Name */}
+      <TextInput
+        style={[
+          styles.inputBox,
+          {
+            borderColor:
+              showError && userName === ""
+                ? theme.notification
                 : focusedField === "userName"
-                  ? "rgba(34,63,97,0.35)"
-                  : "#E3E9F1CC",
-              backgroundColor: showError && userName === ""
-                ? "#FBFDFF"
-                : "#E3E9F1CC",
-            },
-          ]}
-          placeholder="User Name"
-          placeholderTextColor={
-            showError && userName === ""
-              ? "rgba(231,76,60,0.35)"
-              : "rgba(34,63,97,0.35)"
-          }
-          value={userName}
-          onChangeText={(text) => {
-            setUserName(text);
-            if (showError && text !== "") setShowError(false); // reset error after typing
-          }}
-          onFocus={() => setFocusedField("userName")}
-          onBlur={() => setFocusedField(null)}
-        />
-
-        {/* Email */}
-        <TextInput
-          style={[
-            styles.inputBox,
-            {
-              borderColor: showError && email === ""
-                ? "rgba(231,76,60,0.35)"    // Error
-                : focusedField === "email"
-                  ? "rgba(34,63,97,0.35)"     // Focus
-                  : "#E3E9F1CC",              // Default
-              backgroundColor: showError && email === ""
-                ? "#FBFDFF"                 // Error background
-                : "#E3E9F1CC",              // Default/focus background
-            },
-          ]}
-          placeholder="Email"
-          placeholderTextColor={
-            showError && email === ""
-              ? "rgba(231,76,60,0.35)"
-              : "rgba(34,63,97,0.35)"
-          }
-          value={email}
-          onChangeText={(text) => {
-            setEmail(text);
-            if (showError && text !== "") setShowError(false); // reset error after typing
-          }}
-          onFocus={() => setFocusedField("email")}
-          onBlur={() => setFocusedField(null)}
-          keyboardType="email-address"
-        />
-
-        {/* Password Field */}
-        {/* Password */}
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={[
-              styles.inputBoxPassword,
-              {
-                borderColor: showError && password === ""
-                  ? "rgba(231,76,60,0.35)"    // Error
-                  : focusedField === "password"
-                    ? "rgba(34,63,97,0.35)"     // Focus
-                    : "#E3E9F1CC",              // Default
-                backgroundColor: showError && password === ""
-                  ? "#FBFDFF"                 // Error background
-                  : "#E3E9F1CC",              // Default/focus background
-              },
-            ]}
-            placeholder="Password"
-            placeholderTextColor={
-              showError && password === ""
-                ? "rgba(231,76,60,0.35)"
-                : "rgba(34,63,97,0.35)"
-            }
-            value={password}
-            onChangeText={(text) => {
-              setPassword(text);
-              if (showError && text !== "") setShowError(false); // reset error after typing
-            }}
-            onFocus={() => setFocusedField("password")}
-            onBlur={() => setFocusedField(null)}
-            secureTextEntry={!showPassword}
-          />
-          <TouchableOpacity
-            style={styles.eyeIcon}
-            onPress={() => setShowPassword(!showPassword)}
-          >
-            <EyeIcon
-              color={showError && password === ""
-                ? "rgba(231,76,60,0.35)"
-                : "#223F61"}
-              opacity={0.35}
-            />
-          </TouchableOpacity>
-        </View>
-
-        {/* Confirm Password */}
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={[
-              styles.inputBoxPassword,
-              {
-                borderColor: showError && confirmPassword === ""
-                  ? "rgba(231,76,60,0.35)"    // Error
-                  : focusedField === "confirmPassword"
-                    ? "rgba(34,63,97,0.35)"     // Focus
-                    : "#E3E9F1CC",              // Default
-                backgroundColor: showError && confirmPassword === ""
-                  ? "#FBFDFF"                 // Error background
-                  : "#E3E9F1CC",              // Default/focus background
-              },
-            ]}
-            placeholder="Confirm Password"
-            placeholderTextColor={
-              showError && confirmPassword === ""
-                ? "rgba(231,76,60,0.35)"
-                : "rgba(34,63,97,0.35)"
-            }
-            value={confirmPassword}
-            onChangeText={(text) => {
-              setConfirmPassword(text);
-              if (showError && text !== "") setShowError(false); // reset error after typing
-            }}
-            onFocus={() => setFocusedField("confirmPassword")}
-            onBlur={() => setFocusedField(null)}
-            secureTextEntry={!showConfirmPassword}
-          />
-          <TouchableOpacity
-            style={styles.eyeIcon}
-            onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-          >
-            <EyeIcon
-              color={showError && confirmPassword === ""
-                ? "rgba(231,76,60,0.35)"
-                : "#223F61"}
-              opacity={0.35}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Terms & Conditions + Error */}
-      <View style={styles.termsErrorContainer}>
-        <View style={styles.termsContainer}>
-          <TouchableOpacity
-            style={[
-              styles.checkbox,
-              isChecked && styles.checkboxChecked,
-              showError && !isChecked && {
-                borderColor: "#E74C3C",
-              },
-            ]}
-            onPress={() => setIsChecked(!isChecked)}
-          >
-            {isChecked && <Text style={styles.tick}>✓</Text>}
-          </TouchableOpacity>
-
-          <Text style={styles.termsText}>Terms and Conditions</Text>
-        </View>
-
-        <View style={styles.errorWrapper}>
-          {showError && (
-            <Text style={styles.errorText}>
-              * Please fill out all required details
-            </Text>
-          )}
-        </View>
-      </View>
-
-      {/* Create Account Button */}
-      <ButtonComp
-        title="Create Account"
-        onPress={handleCreateAccount}
-        style={{ backgroundColor: "#223F61", marginTop: 30 }}
-        textStyle={{ color: "#FAF8F5" }}
+                ? theme.radio
+                : theme.container,
+            backgroundColor: theme.container,
+            color: theme.text,
+          },
+        ]}
+        placeholder="User Name"
+        placeholderTextColor={
+          showError && userName === "" ? theme.notification : theme.textSecondary
+        }
+        value={userName}
+        onChangeText={(text) => {
+          setUserName(text);
+          if (showError && text !== "") setShowError(false);
+        }}
+        onFocus={() => setFocusedField("userName")}
+        onBlur={() => setFocusedField(null)}
       />
 
-      {/* OR Continue with */}
-      <View style={styles.orContainer}>
-        <View style={styles.line} />
-        <Text style={styles.orText}>or Continue with</Text>
-        <View style={styles.line} />
+      {/* Email */}
+      <TextInput
+        style={[
+          styles.inputBox,
+          {
+            borderColor:
+              showError && email === ""
+                ? theme.notification
+                : focusedField === "email"
+                ? theme.radio
+                : theme.container,
+            backgroundColor: theme.container,
+            color: theme.text,
+          },
+        ]}
+        placeholder="Email"
+        placeholderTextColor={
+          showError && email === "" ? theme.notification : theme.textSecondary
+        }
+        value={email}
+        onChangeText={(text) => {
+          setEmail(text);
+          if (showError && text !== "") setShowError(false);
+        }}
+        onFocus={() => setFocusedField("email")}
+        onBlur={() => setFocusedField(null)}
+        keyboardType="email-address"
+      />
+
+      {/* Password */}
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={[
+            styles.inputBoxPassword,
+            {
+              borderColor:
+                showError && password === ""
+                  ? theme.notification
+                  : focusedField === "password"
+                  ? theme.radio
+                  : theme.container,
+              backgroundColor: theme.container,
+              color: theme.text,
+            },
+          ]}
+          placeholder="Password"
+          placeholderTextColor={
+            showError && password === ""
+              ? theme.notification
+              : theme.textSecondary
+          }
+          value={password}
+          onChangeText={(text) => {
+            setPassword(text);
+            if (showError && text !== "") setShowError(false);
+          }}
+          onFocus={() => setFocusedField("password")}
+          onBlur={() => setFocusedField(null)}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity
+          style={styles.eyeIcon}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          <EyeIcon
+            color={
+              showError && password === "" ? theme.notification : theme.radio
+            }
+            opacity={0.35}
+          />
+        </TouchableOpacity>
       </View>
 
-      {/* Social Login */}
-      <View style={styles.socialContainer}>
-        <TouchableOpacity style={styles.socialBox}>
-          <GoogleIcon width={24} height={24} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialBox}>
-          <AppleIcon width={24} height={24} />
+      {/* Confirm Password */}
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={[
+            styles.inputBoxPassword,
+            {
+              borderColor:
+                showError && confirmPassword === ""
+                  ? theme.notification
+                  : focusedField === "confirmPassword"
+                  ? theme.radio
+                  : theme.container,
+              backgroundColor: theme.container,
+              color: theme.text,
+            },
+          ]}
+          placeholder="Confirm Password"
+          placeholderTextColor={
+            showError && confirmPassword === ""
+              ? theme.notification
+              : theme.textSecondary
+          }
+          value={confirmPassword}
+          onChangeText={(text) => {
+            setConfirmPassword(text);
+            if (showError && text !== "") setShowError(false);
+          }}
+          onFocus={() => setFocusedField("confirmPassword")}
+          onBlur={() => setFocusedField(null)}
+          secureTextEntry={!showConfirmPassword}
+        />
+        <TouchableOpacity
+          style={styles.eyeIcon}
+          onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+        >
+          <EyeIcon
+            color={
+              showError && confirmPassword === ""
+                ? theme.notification
+                : theme.radio
+            }
+            opacity={0.35}
+          />
         </TouchableOpacity>
       </View>
+    </View>
 
-      {/* Already have account */}
+    {/* Terms & Conditions + Error */}
+    <View style={styles.termsErrorContainer}>
+      <View style={styles.termsContainer}>
+        <TouchableOpacity
+          style={[
+            styles.checkbox,
+            {
+              borderColor: showError && !isChecked
+                ? theme.notification
+                : theme.radio,
+              backgroundColor: isChecked ? theme.radio : theme.background,
+            },
+          ]}
+          onPress={() => setIsChecked(!isChecked)}
+        >
+          {isChecked && <Text style={{ color: theme.bttext }}>✓</Text>}
+        </TouchableOpacity>
+
+        <Text style={[styles.termsText, { color: theme.textSecondary }]}>
+          Terms and Conditions
+        </Text>
+      </View>
+
+      <View style={styles.errorWrapper}>
+        {showError && (
+          <Text style={[styles.errorText, { color: theme.notification }]}>
+            * Please fill out all required details
+          </Text>
+        )}
+      </View>
+    </View>
+
+    {/* Create Account Button */}
+    <ButtonComp
+      title="Create Account"
+      onPress={handleCreateAccount}
+      style={{ backgroundColor: theme.Button, marginTop: 30 }}
+      textStyle={{ color: theme.bttext }}
+    />
+
+    {/* OR Continue with */}
+    <View style={styles.orContainer}>
+      <View
+        style={[styles.line, { backgroundColor: theme.textSecondary }]}
+      />
+      <Text style={[styles.orText, { color: theme.textSecondary }]}>
+        or Continue with
+      </Text>
+      <View
+        style={[styles.line, { backgroundColor: theme.textSecondary }]}
+      />
+    </View>
+
+    {/* Social Login */}
+    <View style={styles.socialContainer}>
       <TouchableOpacity
-        style={{ flexDirection: "row", marginTop: 30 }}
-        onPress={() => navigation.navigate("Login")}
+        style={[styles.socialBox, { backgroundColor: theme.container }]}
       >
-        <Text style={styles.alreadyText}>Already have an account? </Text>
-        <Text style={styles.loginText}>Log In</Text>
+        <GoogleIcon width={24} height={24} />
       </TouchableOpacity>
-    </ScrollView>
-  );
+      <TouchableOpacity
+        style={[styles.socialBox, { backgroundColor: theme.container }]}
+      >
+        <AppleIcon width={24} height={24} />
+      </TouchableOpacity>
+    </View>
+
+    {/* Already have account */}
+    <TouchableOpacity
+      style={{ flexDirection: "row", marginTop: 30 }}
+      onPress={() => navigation.navigate("Login")}
+    >
+      <Text style={[styles.alreadyText, { color: theme.textSecondary }]}>
+        Already have an account?{" "}
+      </Text>
+      <Text style={[styles.loginText, { color: theme.radio }]}>Log In</Text>
+    </TouchableOpacity>
+  </ScrollView>
+);
+
 };
 
 const styles = StyleSheet.create({
