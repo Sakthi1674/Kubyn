@@ -35,6 +35,9 @@ import LegalPolicies from './src/screens/ProfileSection/AppSetting/LegalandPolic
 import HelpCentreScreen from './src/screens/ProfileSection/AppSetting/HelpCenter';
 import HeyScreen from './src/screens/Questions/HeyScreen';
 import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
+import Introduction from './src/screens/Dashboard/Introduction';
+import Nofication from './src/screens/Notication/Notification';
+import Progress from './src/screens/Notication/Progress';
 
 
 const Stack = createNativeStackNavigator();
@@ -206,6 +209,21 @@ const App = () => {
         <Stack.Screen
           name="DemoGraphicQues"
           component={DemoGraphicQues}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Introduction"
+          component={Introduction}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={Nofication}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Progress"
+          component={Progress}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

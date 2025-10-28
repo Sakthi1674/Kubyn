@@ -10,7 +10,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import BackWard from '../../../assets/icons/BackWard';
 import ArrowDown from '../../../assets/icons/ArrowDown';
-import Toggle from '../../../assets/icons/Toggle';
+import Toggle from '../../../components/Toggle';
+
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';

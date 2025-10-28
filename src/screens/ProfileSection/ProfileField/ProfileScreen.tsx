@@ -18,7 +18,7 @@ import UserName from '../ProfilePopup/UserName';
 import UserProfile from '../ProfilePopup/UserProfile';
 
 
-// ✅ Define navigation type for safety
+//  Define navigation type for safety
 type RootStackParamList = {
   Home: undefined;
   AccountScreen: undefined;
@@ -29,8 +29,6 @@ type RootStackParamList = {
   HelpCentre: undefined;
   LegalPolicies: undefined;
 };
-
-// ✅ Main component
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -47,7 +45,6 @@ const ProfileScreen: React.FC = () => {
             source={require('../../../assets/images/ProfileSection/Profile.jpg')}
             style={styles.profileImage}
           />
-
           {/* Gallery Icon (opens photo popup) */}
           <TouchableOpacity
             style={styles.galleryIconWrapper}
@@ -58,7 +55,6 @@ const ProfileScreen: React.FC = () => {
             </View>
           </TouchableOpacity>
         </View>
-
         {/* Username with edit */}
         <View style={styles.usernameContainer}>
           <Text style={styles.username}>John12</Text>
@@ -67,10 +63,9 @@ const ProfileScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
       </View>
-
       {/* Menu Section */}
       <View style={styles.menuContainer}>
-        {/* ✅ Navigate to Account Screen */}
+        {/*  Navigate to Account Screen */}
         <TouchableOpacity
           style={styles.menuItem}
           onPress={() => navigation.navigate('AccountScreen')}
@@ -158,7 +153,7 @@ const styles = StyleSheet.create({
   profileImage: {
     width: scale(110),
     height: verticalScale(95),
-    borderRadius: moderateScale(70),
+    borderRadius: moderateScale(80),
     borderWidth: scale(1),
     borderColor: '#fff',
   },
@@ -173,9 +168,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconBackground: {
-    width: '120%',
-    height: '100%',
-    borderRadius: moderateScale(18),
+    position: 'absolute',
+    bottom: scale(0),
+    alignSelf: 'center',
+    width: scale(105),
+    height: scale(38),
+    borderBottomLeftRadius: moderateScale(420),
+     borderTopLeftRadius: moderateScale(30),
+    borderBottomRightRadius: moderateScale(290),
+
     backgroundColor: 'rgba(255,255,255,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -184,8 +185,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: verticalScale(6),
-    left:scale(6),
-    marginBottom:verticalScale(24),
+    left: scale(6),
+    marginBottom: verticalScale(24),
   },
   username: {
     backgroundColor: '#fff',

@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -29,14 +32,14 @@ type RootStackParamList = {
   };
 };
 
-const ForgetPassword: React.FC = () => {
+const ForgetPin: React.FC = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const route = useRoute<any>();
   const [selectedMethod, setSelectedMethod] = useState<"sms" | "email">("sms");
-  const [phone, setPhone] = useState<string>(route.params?.phoneNumber || "");
-  const [email, setEmail] = useState<string>("");
-  const [userId, setUserId] = useState<string>("");
 
+  // Static placeholder data (no backend)
+  const phone = "+91 ***** **234";
+  const email = "example@gmail.com";
+  const userId = "static_user_001";
   // ✅ Get theme
   const scheme = useColorScheme();
   const theme = colors[scheme === "dark" ? "dark" : "light"];
@@ -81,6 +84,7 @@ const ForgetPassword: React.FC = () => {
   };
 
   return (
+    <View style={styles.container}>
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Header */}
       <View style={styles.headerContainer}>
@@ -103,6 +107,7 @@ const ForgetPassword: React.FC = () => {
       <TouchableOpacity
         style={[
           styles.contactMethodContainer,
+          selectedMethod === "sms" && styles.selectedContainer,
           {
             backgroundColor: theme.container,
             borderColor:
@@ -113,6 +118,9 @@ const ForgetPassword: React.FC = () => {
       >
         <View style={styles.circleWrapper}>
           <View
+            style={[styles.bigCircle, { opacity: selectedMethod === "sms" ? 1 : 0.2 }]}
+          >
+            <View style={styles.smallCircle} />
             style={[
               styles.bigCircle,
               { borderColor: theme.Button, opacity: selectedMethod === "sms" ? 1 : 0.3 },
@@ -128,6 +136,8 @@ const ForgetPassword: React.FC = () => {
         </View>
 
         <View style={styles.textContainer}>
+          <Text style={styles.viaSmsText}>via SMS</Text>
+          <Text style={styles.phoneText}>{phone}</Text>
           <Text
             style={[
               styles.viaSmsText,
@@ -160,6 +170,7 @@ const ForgetPassword: React.FC = () => {
       <TouchableOpacity
         style={[
           styles.contactMethodContainer,
+          selectedMethod === "email" && styles.selectedContainer,
           {
             backgroundColor: theme.container,
             borderColor:
@@ -170,6 +181,9 @@ const ForgetPassword: React.FC = () => {
       >
         <View style={styles.circleWrapper}>
           <View
+            style={[styles.bigCircle, { opacity: selectedMethod === "email" ? 1 : 0.2 }]}
+          >
+            <View style={styles.smallCircle} />
             style={[
               styles.bigCircle,
               { borderColor: theme.Button, opacity: selectedMethod === "email" ? 1 : 0.3 },
@@ -185,6 +199,8 @@ const ForgetPassword: React.FC = () => {
         </View>
 
         <View style={styles.textContainer}>
+          <Text style={styles.viaSmsText}>via Email</Text>
+          <Text style={styles.phoneText}>{email}</Text>
           <Text
             style={[
               styles.viaSmsText,
@@ -213,10 +229,16 @@ const ForgetPassword: React.FC = () => {
         </View>
       </TouchableOpacity>
 
+      {/* Verify Button */}
       <ButtonComp
         title="Verify"
         onPress={handleVerify}
         style={{
+          backgroundColor: "#223F61",
+          marginTop: verticalScale(57),
+        }}
+        textStyle={{
+          color: "#FAF8F5",
           backgroundColor: theme.Button,
           marginTop: verticalScale(57),
         }}
@@ -228,9 +250,12 @@ const ForgetPassword: React.FC = () => {
   );
 };
 
+export default ForgetPin;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFF",
     paddingHorizontal: scale(40),
     paddingTop: verticalScale(90),
   },
@@ -241,12 +266,18 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
+    left: 0,
     left: scale(0),
     top: verticalScale(12),
   },
   heading: {
     fontWeight: "700",
     fontSize: moderateScale(32),
+    color: "#121212",
+  },
+  infoText: {
+    fontSize: moderateScale(14),
+    color: "#121212",
   },
   infoText: {
     fontSize: moderateScale(14),
@@ -257,6 +288,16 @@ const styles = StyleSheet.create({
     height: verticalScale(100),
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "#E3E9F1CC",
+    borderRadius: moderateScale(10),
+    borderWidth: 0.5,
+    borderColor: "#223F61",
+    padding: scale(16),
+    marginBottom: verticalScale(20),
+  },
+  selectedContainer: {
+    borderWidth: 2,
+  },
     borderRadius: moderateScale(10),
     borderWidth: 1.5,
     padding: scale(16),
@@ -269,6 +310,8 @@ const styles = StyleSheet.create({
     width: scale(18),
     height: scale(18),
     borderWidth: 2,
+    borderColor: "#223F61",
+    borderRadius: scale(9),
     borderRadius: 9,
     justifyContent: "center",
     alignItems: "center",
@@ -276,6 +319,8 @@ const styles = StyleSheet.create({
   smallCircle: {
     width: scale(9),
     height: scale(9),
+    backgroundColor: "#223F61",
+    borderRadius: scale(4.5),
     borderRadius: 4.5,
   },
   textContainer: {
@@ -283,6 +328,13 @@ const styles = StyleSheet.create({
   },
   viaSmsText: {
     fontSize: moderateScale(16),
+    color: "#223F61",
+    opacity: 0.52,
+  },
+  phoneText: {
+    fontSize: moderateScale(16),
+    color: "#121212",
+    opacity: 0.75,
     opacity: 0.7,
   },
   phoneText: {
@@ -293,10 +345,10 @@ const styles = StyleSheet.create({
   iconWrapper: {
     width: scale(48),
     height: scale(48),
+    borderRadius: scale(24),
+    backgroundColor: "#FBFDFF",
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
   },
 });
-
-export default ForgetPassword;

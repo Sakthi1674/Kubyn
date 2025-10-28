@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import BackWard from '../../../assets/icons/BackWard';
 import Front from '../../../assets/icons/Front';
-import Toggle from '../../../assets/icons/Toggle';
+// import Toggle from '../../../assets/icons/Toggle';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import ChangePasswordIcon from '../../../assets/icons/ChangePasswordIcon';
 import Linked from '../../../assets/icons/Linked';
 import Authentication from '../../../assets/icons/Authentication';
 import Lock from '../../../assets/icons/Lock';
 import Activity from '../../../assets/icons/Activity';
+import Toggle from '../../../components/Toggle';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
@@ -35,7 +36,7 @@ const SecurityScreen = () => {
           <Front width={24} height={24} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('LinkedScreen')}>
+        <TouchableOpacity style={styles.item}onPress={() => navigation.navigate('LinkedScreen')}>
           <View style={styles.leftSection}>
             <Linked width={22} height={22} />
             <Text style={styles.text}>Linked Email and Mobile Number</Text>
@@ -48,7 +49,7 @@ const SecurityScreen = () => {
             <Authentication width={22} height={22} />
             <Text style={styles.text}>Two-Factor Authentication</Text>
           </View>
-                 <Toggle  width={30} height={35}/>
+                 <Toggle/>
 
         </TouchableOpacity>
 
@@ -57,8 +58,8 @@ const SecurityScreen = () => {
             <Lock width={22} height={22} />
             <Text style={styles.text}>PIN Lock</Text>
           </View>
-         <Toggle  width={30} height={35}/>
-        </TouchableOpacity>
+         <Toggle />
+ .        </TouchableOpacity>
          <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('LoginActivity')}>
           <View style={styles.leftSection}>
             <Activity width={22} height={22} />
