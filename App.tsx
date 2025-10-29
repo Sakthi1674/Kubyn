@@ -37,6 +37,7 @@ import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
 import Introduction from './src/screens/Dashboard/Introduction';
 import Nofication from './src/screens/Notication/Notification';
 import Progress from './src/screens/Notication/Progress';
+import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,7 +48,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={HeyScreen}
+          component={SplashScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

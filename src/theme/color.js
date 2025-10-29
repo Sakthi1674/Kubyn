@@ -13,7 +13,8 @@ export const lightColors = {
   radio: "#223F61",
   container: "#223F61",
   buttonDisabled:"#98989F",
-  buttondark:"#E3E9F1"
+  buttondark:"#E3E9F1",
+  bar:"#223F61"
 };
 
 // Dark Theme Colors
@@ -28,7 +29,8 @@ export const darkColors = {
   radio: "#E3E9F1",
   container: "#3A3A3A",
   buttonDisabled:"#E3E9F1CC",
-  buttondark:"#3A3A3A"
+  buttondark:"#3A3A3A",
+  bar:"#223F61"
 };
 
 // Combined theme object

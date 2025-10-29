@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
+  useColorScheme,
 } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -23,12 +24,13 @@ import AirplaneIcon from "../../assets/icons/AirplaneIcon";
 import ChatBubbleIcon from "../../assets/icons/ChatBubbleIcon";
 import BagIcon from "../../assets/icons/BagIcon";
 import NetworkIcon from "../../assets/icons/NetworkIcon";
-import DatabaseIcon from "../../assets/icons/DatabaseIcon";
 import HomeIcon from "../../assets/icons/HomeIcon";
 import CrownIcon from "../../assets/icons/CrownIcon ";
 import CoinIcon from "../../assets/icons/CoinIcon";
 import MenuDotsIcon from "../../assets/icons/MenuDotsIcon";
 import DobIcon from "../../assets/icons/Dobcon";
+import DatabaseIcon from "../../assets/icons/DatabaseIcon";
+import colors from "../../theme/color";
 
 
 type RootStackParamList = {
@@ -39,6 +41,9 @@ export default function DemoGraphicQues() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme || "light"];
 
   const handleNext = () => {
     if (step < 27) setStep(step + 1);
@@ -114,9 +119,14 @@ export default function DemoGraphicQues() {
       case 1:
         return (
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                color: theme.text
+              },
+            ]}
             placeholder="Type here ..."
-            placeholderTextColor="rgba(34,63,97,0.5)"
+            placeholderTextColor={theme.textSecondary || theme.text}
             value={answers[step] || ""}
             onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
           />
@@ -124,8 +134,8 @@ export default function DemoGraphicQues() {
 
       case 2:
         const options = [
-          { label: "Male", icon: <MaleIcon width={40} height={40} /> },
-          { label: "Female", icon: <FemaleIcon width={40} height={40} /> },
+          { label: "Male", icon: <MaleIcon width={40} height={40} color={theme.text} /> },
+          { label: "Female", icon: <FemaleIcon width={40} height={40} color={theme.text} /> },
           { label: "Other" },
         ];
 
@@ -138,52 +148,60 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {options.map((option) => (
-              <TouchableOpacity
-                key={option.label}
-                style={[
-                  styles.optionButton,
-                  answers[step] === option.label && styles.optionButtonSelected,
-                  {
-                    flex: 1, // equal width
-                    height: verticalScale(100),
-                    marginHorizontal: scale(5),
-                    justifyContent: "center",
-                    alignItems: "center",
-                  },
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option.label })}
-              >
-                {/* --- Icon --- */}
-                {option.icon && (
-                  <View style={{ marginBottom: verticalScale(10) }}>
-                    {option.icon}
-                  </View>
-                )}
+            {options.map((option) => {
+              const isSelected = answers[step] === option.label;
 
-                {/* --- Label --- */}
-                <Text
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "300",
-                    fontSize: moderateScale(12),
-                    lineHeight: moderateScale(12),
-                    color: "rgba(34, 63, 97, 1)",
-                    opacity: 0.56,
-                    textAlign: "center",
-                    letterSpacing: 0,
-                  }}
+              return (
+                <TouchableOpacity
+                  key={option.label}
+                  style={[
+                    styles.optionButton,
+                    {
+                      flex: 1,
+                      height: verticalScale(100),
+                      marginHorizontal: scale(5),
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      borderColor: isSelected ? theme.Button : theme.text,
+                      borderWidth: 1,
+                      borderRadius: scale(12),
+                    },
+                  ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option.label })}
                 >
-                  {option.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  {/* Icon */}
+                  {option.icon && (
+                    <View style={{ marginBottom: verticalScale(12) }}>
+                      {React.cloneElement(option.icon as React.ReactElement, {
+                        ...(option.icon.props && { color: isSelected ? theme.bttext : theme.text })
+                      })}
+                    </View>
+                  )}
+
+                  {/* Label */}
+                  <Text
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "600",
+                      fontSize: moderateScale(16),
+                      lineHeight: moderateScale(16),
+                      color: isSelected ? theme.bttext : theme.text,
+                      textAlign: "center",
+                    }}
+                  >
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
+
+      // 👇 Case 3 — Date of Birth
       case 3:
         return (
           <View style={{ marginTop: verticalScale(20), width: "100%" }}>
-            {/* Label */}
             <Text
               style={{
                 fontFamily: "Avenir LT Std",
@@ -191,15 +209,14 @@ export default function DemoGraphicQues() {
                 fontStyle: "normal",
                 fontSize: moderateScale(20),
                 lineHeight: moderateScale(24),
-                color: "rgba(34, 63, 97, 1)",
-                opacity: 0.25,
+                color: theme.text,
+                opacity: 0.5,
                 marginBottom: verticalScale(12),
               }}
             >
               DD | MM | YYYY
             </Text>
 
-            {/* Input Boxes */}
             <View
               style={{
                 flexDirection: "row",
@@ -208,30 +225,47 @@ export default function DemoGraphicQues() {
               }}
             >
               {/* Day */}
-              <View style={styles.birthBox}>
-                <Text style={styles.birthBoxText}>01</Text>
+              <View
+                style={[
+                  styles.birthBox,
+                  { backgroundColor: theme.buttondark, borderColor: theme.Button },
+                ]}
+              >
+                <Text style={[styles.birthBoxText, { color: theme.text }]}>01</Text>
               </View>
 
               {/* Month */}
-              <View style={styles.birthBox}>
-                <Text style={styles.birthBoxText}>01</Text>
+              <View
+                style={[
+                  styles.birthBox,
+                  { backgroundColor: theme.buttondark, borderColor: theme.Button },
+                ]}
+              >
+                <Text style={[styles.birthBoxText, { color: theme.text }]}>01</Text>
               </View>
 
               {/* Year */}
-              <View style={[styles.birthBox, { width: scale(90) }]}>
-                <Text style={styles.birthBoxText}>2000</Text>
+              <View
+                style={[
+                  styles.birthBox,
+                  { width: scale(90), backgroundColor: theme.buttondark, borderColor: theme.Button },
+                ]}
+              >
+                <Text style={[styles.birthBoxText, { color: theme.text }]}>2000</Text>
               </View>
 
-              {/* Calendar icon placeholder */}
+              {/* Calendar icon */}
               <TouchableOpacity>
-                {/* Replace with your calendar SVG */}
                 <View style={{ marginTop: 10 }}>
-                  <DobIcon width={24} height={24} />
+                  <DobIcon width={24} height={24} color={theme.text} />
                 </View>
               </TouchableOpacity>
             </View>
           </View>
         );
+
+
+      // 👇 Case 4 — Location type
       case 4:
         const locationOptions = ["Urban", "Semi-Urban", "Semi-Rural", "Rural"];
 
@@ -245,34 +279,46 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {locationOptions.map((option, index) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
-                  {
-                    width: "48%", // ✅ two per row
-                    marginBottom: verticalScale(12),
-                    alignItems: "center",
-                  },
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {locationOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      width: "48%",
+                      marginBottom: verticalScale(12),
+                      alignItems: "center",
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      borderColor: isSelected ? theme.Button : theme.Button,
+                      borderWidth: 1,
+                      borderRadius: scale(10),
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={{
+                      color: isSelected ? theme.bttext : theme.text,
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "600",
+                      fontSize: moderateScale(16),
+                    }}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
+
+
+      // 👇 Case 5 — Marital status
       case 5:
         const marriageOptions = ["Single", "Married", "Choose not to disclose"];
+
         return (
           <View
             style={{
@@ -287,23 +333,36 @@ export default function DemoGraphicQues() {
               const isLastOdd =
                 marriageOptions.length % 2 !== 0 &&
                 index === marriageOptions.length - 1;
+              const isSelected = answers[step] === option;
 
               return (
                 <TouchableOpacity
                   key={option}
                   style={[
                     styles.locationOption,
-                    answers[step] === option && styles.locationOptionSelected,
-                    // 👇 Center the last button if odd number
-                    isLastOdd && { alignSelf: "center", marginTop: verticalScale(10) },
+                    {
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      borderColor: isSelected ? theme.Button : theme.Button,
+                      borderWidth: 1,
+                      borderRadius: scale(10),
+                      width: "48%",
+                      marginBottom: verticalScale(12),
+                      alignItems: "center",
+                      ...(isLastOdd && {
+                        alignSelf: "center",
+                        marginTop: verticalScale(10),
+                      }),
+                    },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
                   <Text
-                    style={[
-                      styles.locationOptionText,
-                      answers[step] === option && { color: "#fff" },
-                    ]}
+                    style={{
+                      color: isSelected ? theme.bttext : theme.text,
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "600",
+                      fontSize: moderateScale(16),
+                    }}
                   >
                     {option}
                   </Text>
@@ -312,6 +371,7 @@ export default function DemoGraphicQues() {
             })}
           </View>
         );
+      // ✅ CASE 6 — Work Options
       case 6:
         const workOptions = ["Private", "Government", "Self-employed", "Student"];
         return (
@@ -324,27 +384,38 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {workOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {workOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      backgroundColor: isSelected
+                        ? theme.Button
+                        : theme.buttondark,
+                      borderColor: isSelected ? theme.Button : theme.Button,
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
+
+
+      // ✅ CASE 7 — Wallet Range
       case 7:
         const walletOptions = ["Under 5L", "5L - 15L", "15L - 30L", "30L Above"];
         return (
@@ -357,40 +428,80 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {walletOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {walletOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      backgroundColor: isSelected
+                        ? theme.Button
+                        : theme.buttondark,
+                      borderColor: isSelected ? theme.text : theme.text,
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
+
+
+      // ✅ CASE 8 — Short Answer Input
       case 8:
-      case 9:
         return (
           <View style={{ marginTop: verticalScale(10), width: "100%" }}>
             <TextInput
-              style={styles.input}
+              style={[
+                styles.input,
+                {
+                  color: theme.text,
+
+                },
+              ]}
               placeholder="Type here ..."
-              placeholderTextColor="rgba(34,63,97,0.5)"
+              placeholderTextColor={theme.text}
               value={answers[step] || ""}
               onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
             />
           </View>
         );
+
+
+      // ✅ CASE 9 — Another Short Answer
+      case 9:
+        return (
+          <View style={{ marginTop: verticalScale(10), width: "100%" }}>
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  color: theme.text,
+
+                },
+              ]}
+              placeholder="Type here ..."
+              placeholderTextColor={theme.text}
+              value={answers[step] || ""}
+              onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
+            />
+          </View>
+        );
+
+
+      // ✅ CASE 10 — Custom Slider (1–5 Scale)
       case 10:
         const activeValue = Number(answers[step]) || 1;
         return (
@@ -401,22 +512,22 @@ export default function DemoGraphicQues() {
               alignItems: "center",
             }}
           >
-            {/* --- Custom Rounded Thick Slider --- */}
+            {/* --- Slider Track --- */}
             <View
               style={{
                 position: "relative",
                 width: scale(288),
-                height: verticalScale(28), // thicker bar
+                height: verticalScale(28),
                 justifyContent: "center",
               }}
             >
-              {/* Background Bar */}
+              {/* Inactive Bar */}
               <View
                 style={{
                   position: "absolute",
                   width: "100%",
                   height: verticalScale(10),
-                  backgroundColor: "#D9D9D9",
+                  backgroundColor: theme.buttonDisabled,
                   borderRadius: 40,
                 }}
               />
@@ -427,25 +538,25 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   width: `${((activeValue - 1) / 4) * 100}%`,
                   height: verticalScale(10),
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                   borderRadius: 40,
                 }}
               />
 
-              {/* Thumb (Dot) */}
+              {/* Thumb */}
               <View
                 style={{
                   position: "absolute",
-                  left: `${((activeValue - 1) / 4) * 100}%`,
+                  left: `${((activeValue - 1) / 4) * 90}%`,
                   transform: [{ translateX: -verticalScale(2) }],
                   width: verticalScale(28),
                   height: verticalScale(28),
                   borderRadius: 50,
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                 }}
               />
 
-              {/* Functional Hidden Slider */}
+              {/* Hidden Slider Functional Control */}
               <Slider
                 style={{
                   position: "absolute",
@@ -464,67 +575,50 @@ export default function DemoGraphicQues() {
               />
             </View>
 
-            {/* --- Numbers --- */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(285),
-                marginTop: verticalScale(10),
-              }}
-            >
-              {[1, 2, 3, 4, 5].map((num) => (
-                <Text
-                  key={num}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "600",
-                    fontSize: moderateScale(14),
-                    color:
-                      num === activeValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
-                  }}
-                >
-                  {num}
-                </Text>
-              ))}
-            </View>
-
             {/* --- Labels --- */}
             <View
               style={{
+                marginTop: verticalScale(10),
                 flexDirection: "row",
                 justifyContent: "space-between",
-                width: scale(288),
-                marginTop: verticalScale(3),
               }}
             >
-              {["Never", "Rarely", "Sometimes", "Often", "Always"].map(
-                (label, i) => (
+              {[1, 2, 3, 4, 5].map((num, index) => (
+                <View key={num} style={{ alignItems: "center", flex: 1 }}>
                   <Text
-                    key={label}
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "600",
+                      fontSize: moderateScale(14),
+                      color:
+                        num === activeValue ? theme.bar : theme.text,
+                    }}
+                  >
+                    {num}
+                  </Text>
+                  <Text
                     style={{
                       fontFamily: "Avenir LT Std",
                       fontWeight: "400",
                       fontSize: moderateScale(10),
+                      marginTop: verticalScale(3),
                       color:
-                        i + 1 === activeValue
-                          ? "#223F61"
-                          : "rgba(0, 0, 0, 0.6)",
+                        num === activeValue ? theme.bar : theme.text,
                     }}
                   >
-                    {label}
+                    {["Never", "Rarely", "Sometimes", "Often", "Always"][index]}
                   </Text>
-                )
-              )}
+                </View>
+              ))}
             </View>
           </View>
         );
-      case 11:
+      case 11: {
         const spendingOptions = [
-          { label: "Food", icon: <CandleIcon /> },
-          { label: "Travel", icon: <AirplaneIcon /> },
-          { label: "Entertainment", icon: <ChatBubbleIcon /> },
-          { label: "Shopping", icon: <BagIcon /> },
+          { label: "Food", Icon: CandleIcon },
+          { label: "Travel", Icon: AirplaneIcon },
+          { label: "Entertainment", Icon: ChatBubbleIcon },
+          { label: "Shopping", Icon: BagIcon },
         ];
 
         return (
@@ -537,38 +631,59 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {spendingOptions.map((option) => (
-              <TouchableOpacity
-                key={option.label}
-                style={[
-                  styles.locationOption,
-                  answers[step] === option.label && styles.locationOptionSelected,
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: scale(8),
-                  },
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option.label })}
-              >
-                {option.icon}
-                <Text
+            {spendingOptions.map(({ label, Icon }) => {
+              const isSelected = answers[step] === label;
+              const iconColor = isSelected ? theme.bttext : theme.text; // same color for both, you can adjust below if needed
+              const iconStroke = isSelected ? theme.text : theme.Button;
+
+              return (
+                <TouchableOpacity
+                  key={label}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option.label && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected
+                        ? theme.Button
+                        : theme.buttondark,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: scale(8),
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: label })}
                 >
-                  {option.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Icon
+                    width={scale(18)}
+                    height={verticalScale(18)}
+                    stroke={iconStroke}
+                  />
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
 
             {/* Text input below icons */}
             <TextInput
-              style={[styles.input, { marginTop: verticalScale(15) }]}
+              style={[
+                styles.input,
+                {
+                  marginTop: verticalScale(15),
+                  color: theme.text,
+                  borderColor: theme.Button,
+                  backgroundColor: theme.background,
+                },
+              ]}
               placeholder="Type here for Others..."
-              placeholderTextColor="rgba(34,63,97,0.5)"
+              placeholderTextColor={theme.text}
               value={answers["custom_" + step as any] || ""}
               onChangeText={(text) =>
                 setAnswers({ ...answers, ["custom_" + step]: text })
@@ -576,7 +691,10 @@ export default function DemoGraphicQues() {
             />
           </View>
         );
-      case 12:
+      }
+
+
+      case 12: {
         const termOptions = ["Short-Term", "Long-Term"];
         return (
           <View
@@ -593,15 +711,19 @@ export default function DemoGraphicQues() {
                 key={option}
                 style={[
                   styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
+                  {
+                    borderColor: theme.Button,
+                    backgroundColor:
+                      answers[step] === option ? theme.Button : theme.buttondark,
+                  },
                 ]}
                 onPress={() => setAnswers({ ...answers, [step]: option })}
               >
                 <Text
-                  style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
-                  ]}
+                  style={{
+                    color:
+                      answers[step] === option ? theme.background : theme.text,
+                  }}
                 >
                   {option}
                 </Text>
@@ -609,7 +731,9 @@ export default function DemoGraphicQues() {
             ))}
           </View>
         );
-      case 13:
+      }
+
+      case 13: {
         const disciplineValue = Number(answers[step]) || 1;
         return (
           <View
@@ -624,7 +748,7 @@ export default function DemoGraphicQues() {
               style={{
                 position: "relative",
                 width: scale(288),
-                height: verticalScale(28), // thicker bar
+                height: verticalScale(28),
                 justifyContent: "center",
               }}
             >
@@ -634,7 +758,7 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   width: "100%",
                   height: verticalScale(10),
-                  backgroundColor: "#D9D9D9",
+                  backgroundColor: theme.buttonDisabled,
                   borderRadius: 40,
                 }}
               />
@@ -645,7 +769,7 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   width: `${((disciplineValue - 1) / 4) * 100}%`,
                   height: verticalScale(10),
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                   borderRadius: 40,
                 }}
               />
@@ -654,12 +778,12 @@ export default function DemoGraphicQues() {
               <View
                 style={{
                   position: "absolute",
-                  left: `${((disciplineValue - 1) / 4) * 100}%`,
+                  left: `${((disciplineValue - 1) / 4) * 90}%`,
                   transform: [{ translateX: -verticalScale(2) }],
                   width: verticalScale(28),
                   height: verticalScale(28),
                   borderRadius: 50,
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                 }}
               />
 
@@ -682,141 +806,52 @@ export default function DemoGraphicQues() {
               />
             </View>
 
-            {/* --- Numbers --- */}
+            {/* --- Numbers + Labels --- */}
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(285),
                 marginTop: verticalScale(10),
-              }}
-            >
-              {[1, 2, 3, 4, 5].map((num) => (
-                <Text
-                  key={num}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "600",
-                    fontSize: moderateScale(14),
-                    color:
-                      num === disciplineValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
-                  }}
-                >
-                  {num}
-                </Text>
-              ))}
-            </View>
-
-            {/* --- Labels --- */}
-            <View
-              style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                width: scale(288),
-                marginTop: verticalScale(3),
+                width: "100%",
               }}
             >
-              {["Very Poor", "Poor", "Average", "Good", "Excellent"].map(
-                (label, i) => (
+              {[1, 2, 3, 4, 5].map((num, index) => (
+                <View key={num} style={{ alignItems: "center", flex: 1 }}>
                   <Text
-                    key={label}
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "600",
+                      fontSize: moderateScale(14),
+                      color:
+                        num === disciplineValue
+                          ? theme.bar
+                          : theme.text || "rgba(0,0,0,0.5)",
+                    }}
+                  >
+                    {num}
+                  </Text>
+                  <Text
                     style={{
                       fontFamily: "Avenir LT Std",
                       fontWeight: "400",
                       fontSize: moderateScale(10),
+                      marginTop: verticalScale(3),
                       color:
-                        i + 1 === disciplineValue
-                          ? "#223F61"
-                          : "rgba(0, 0, 0, 0.6)",
+                        num === disciplineValue
+                          ? theme.bar
+                          : theme.text || "rgba(0,0,0,0.6)",
                     }}
                   >
-                    {label}
+                    {["Very Poor", "Poor", "Average", "Good", "Excellent"][index]}
                   </Text>
-                )
-              )}
-            </View>
-          </View>
-        );
-        return (
-          <View style={{ marginTop: verticalScale(40), width: "100%", alignItems: "center" }}>
-            {/* Custom Slider */}
-            <View
-              style={{
-                position: "relative",
-                width: scale(288),
-                height: verticalScale(28),
-                justifyContent: "center",
-              }}
-            >
-              <View
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: verticalScale(10),
-                  backgroundColor: "#D9D9D9",
-                  borderRadius: 40,
-                }}
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  width: `${((disciplineValue - 1) / 4) * 100}%`,
-                  height: verticalScale(10),
-                  backgroundColor: "#223F61",
-                  borderRadius: 40,
-                }}
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  left: `${((disciplineValue - 1) / 4) * 100}%`,
-                  transform: [{ translateX: -verticalScale(2) }],
-                  width: verticalScale(28),
-                  height: verticalScale(28),
-                  borderRadius: 50,
-                  backgroundColor: "#223F61",
-                }}
-              />
-              <Slider
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  opacity: 0,
-                  transform: [{ scaleY: 20 }],
-                }}
-                minimumValue={1}
-                maximumValue={5}
-                step={1}
-                value={disciplineValue}
-                onValueChange={(val) => setAnswers({ ...answers, [step]: val.toString() })}
-              />
-            </View>
-            {/* Labels */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(288),
-                marginTop: verticalScale(5),
-              }}
-            >
-              {["Very Poor", "Poor", "Average", "Good", "Excellent"].map((label, i) => (
-                <Text
-                  key={label}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontSize: moderateScale(10),
-                    color: i + 1 === disciplineValue ? "#223F61" : "rgba(0,0,0,0.6)",
-                  }}
-                >
-                  {label}
-                </Text>
+                </View>
               ))}
             </View>
           </View>
         );
-      case 14:
+      }
+
+      case 14: {
         const trackExpenseOptions = ["Yes", "No", "Sometimes"];
         return (
           <View
@@ -833,18 +868,22 @@ export default function DemoGraphicQues() {
                 key={option}
                 style={[
                   styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
+                  {
+                    borderColor: theme.Button,
+                    backgroundColor:
+                      answers[step] === option ? theme.Button : theme.buttondark,
+                  },
                   trackExpenseOptions.length % 2 !== 0 && option === "Sometimes"
-                    ? { alignSelf: "center" } // centers last button if odd count
+                    ? { alignSelf: "center" }
                     : null,
                 ]}
                 onPress={() => setAnswers({ ...answers, [step]: option })}
               >
                 <Text
-                  style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
-                  ]}
+                  style={{
+                    color:
+                      answers[step] === option ? theme.background : theme.text,
+                  }}
                 >
                   {option}
                 </Text>
@@ -852,7 +891,9 @@ export default function DemoGraphicQues() {
             ))}
           </View>
         );
-      case 15:
+      }
+
+      case 15: {
         const spendingDecisionOptions = ["Planned", "Impulsive", "Mix of both"];
         return (
           <View
@@ -869,19 +910,23 @@ export default function DemoGraphicQues() {
                 key={option}
                 style={[
                   styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
+                  {
+                    borderColor: theme.Button,
+                    backgroundColor:
+                      answers[step] === option ? theme.Button : theme.buttondark,
+                  },
                   spendingDecisionOptions.length % 2 !== 0 &&
                     option === "Mix of both"
-                    ? { alignSelf: "center" } // center last option if odd count
+                    ? { alignSelf: "center" }
                     : null,
                 ]}
                 onPress={() => setAnswers({ ...answers, [step]: option })}
               >
                 <Text
-                  style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
-                  ]}
+                  style={{
+                    color:
+                      answers[step] === option ? theme.background : theme.text,
+                  }}
                 >
                   {option}
                 </Text>
@@ -889,23 +934,38 @@ export default function DemoGraphicQues() {
             ))}
           </View>
         );
+      }
       case 16:
         return (
-          <View style={{ marginTop: verticalScale(20), width: "100%", flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              marginTop: verticalScale(20),
+              width: "100%",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <TextInput
               style={[
                 styles.input,
-                { flex: 1, textAlign: "left" },
+                {
+                  flex: 1,
+                  textAlign: "left",
+                  color: theme.text,
+                  backgroundColor: theme.background,
+                  borderColor: theme.Button,
+                },
               ]}
               placeholder=".............%"
               keyboardType="numeric"
-              placeholderTextColor="rgba(34,63,97,0.5)"
+              placeholderTextColor={theme.text}
               value={answers[step] || ""}
               onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
             />
           </View>
         );
-      case 17:
+
+      case 17: {
         const stressSpendingOptions = ["Yes", "No", "Sometimes"];
         return (
           <View
@@ -917,31 +977,40 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {stressSpendingOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  answers[step] === option && styles.locationOptionSelected,
-                  stressSpendingOptions.length % 2 !== 0 && option === "Sometimes"
-                    ? { alignSelf: "center" } // center the last button if odd count
-                    : null,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {stressSpendingOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected
+                        ? theme.Button
+                        : theme.buttondark,
+                    },
+                    stressSpendingOptions.length % 2 !== 0 &&
+                    option === "Sometimes" && { alignSelf: "center" },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
-      case 18:
+      }
+
+      case 18: {
         const confidenceValue = Number(answers[step]) || 1;
         return (
           <View
@@ -951,7 +1020,7 @@ export default function DemoGraphicQues() {
               alignItems: "center",
             }}
           >
-            {/* --- Custom Rounded Thick Slider --- */}
+            {/* --- Slider Track --- */}
             <View
               style={{
                 position: "relative",
@@ -966,7 +1035,7 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   width: "100%",
                   height: verticalScale(10),
-                  backgroundColor: "#D9D9D9",
+                  backgroundColor: theme.buttonDisabled,
                   borderRadius: 40,
                 }}
               />
@@ -977,25 +1046,25 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   width: `${((confidenceValue - 1) / 4) * 100}%`,
                   height: verticalScale(10),
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                   borderRadius: 40,
                 }}
               />
 
-              {/* Thumb (Dot) */}
+              {/* Thumb */}
               <View
                 style={{
                   position: "absolute",
-                  left: `${((confidenceValue - 1) / 4) * 100}%`,
+                  left: `${((confidenceValue - 1) / 4) * 90}%`,
                   transform: [{ translateX: -verticalScale(2) }],
                   width: verticalScale(28),
                   height: verticalScale(28),
                   borderRadius: 50,
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                 }}
               />
 
-              {/* Functional Hidden Slider */}
+              {/* Functional Slider */}
               <Slider
                 style={{
                   position: "absolute",
@@ -1014,73 +1083,59 @@ export default function DemoGraphicQues() {
               />
             </View>
 
-            {/* --- Numbers --- */}
+            {/* Labels */}
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(285),
                 marginTop: verticalScale(10),
-              }}
-            >
-              {[1, 2, 3, 4, 5].map((num) => (
-                <Text
-                  key={num}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "600",
-                    fontSize: moderateScale(14),
-                    color:
-                      num === confidenceValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
-                  }}
-                >
-                  {num}
-                </Text>
-              ))}
-            </View>
-
-            {/* --- Labels --- */}
-            <View
-              style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                width: scale(288),
-                marginTop: verticalScale(3),
+                width: "100%",
               }}
             >
-              {[
-                "Not Confident",
-                "Slightly Confident",
-                "Neutral",
-                "Confident",
-                "Very Confident",
-              ].map((label, i) => (
-                <Text
-                  key={label}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "400",
-                    fontSize: moderateScale(10),
-                    color:
-                      i + 1 === confidenceValue
-                        ? "#223F61"
-                        : "rgba(0, 0, 0, 0.6)",
-                  }}
-                >
-                  {label}
-                </Text>
+              {[1, 2, 3, 4, 5].map((num, index) => (
+                <View key={num} style={{ alignItems: "center", flex: 1 }}>
+                  <Text
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "600",
+                      fontSize: moderateScale(14),
+                      color:
+                        num === confidenceValue
+                          ? theme.bar
+                          : theme.text,
+                    }}
+                  >
+                    {num}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "400",
+                      fontSize: moderateScale(10),
+                      marginTop: verticalScale(3),
+                      color:
+                        num === confidenceValue
+                          ? theme.bar
+                          : theme.text || "rgba(0, 0, 0, 0.6)",
+                    }}
+                  >
+                    {["Very Low", "Low", "Neutral", "High", "Very High"][index]}
+                  </Text>
+                </View>
               ))}
             </View>
           </View>
         );
-      case 19:
+      }
+
+      case 19: {
         const investmentOptions = [
-          { icon: <NetworkIcon />, label: "Stocks" },
-          { icon: <DatabaseIcon />, label: "Mutual Funds" },
-          { icon: <HomeIcon />, label: "Real Estate" },
-          { icon: <CrownIcon />, label: "Gold" },
-          { icon: <CoinIcon />, label: "Crypto" },
-          { icon: <MenuDotsIcon />, label: "Others" },
+          { Icon: NetworkIcon, label: "Stocks" },
+          { Icon: DatabaseIcon, label: "Mutual Funds" },
+          { Icon: HomeIcon, label: "Real Estate" },
+          { Icon: CrownIcon, label: "Gold" },
+          { Icon: CoinIcon, label: "Crypto" },
+          { Icon: MenuDotsIcon, label: "Others" },
         ];
 
         return (
@@ -1093,36 +1148,48 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {investmentOptions.map((option) => (
-              <TouchableOpacity
-                key={option.label}
-                style={[
-                  styles.locationOption,
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: scale(10),
-                    width: "48%", // ensures two per row
-                  },
-                  answers[step] === option.label && styles.locationOptionSelected,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option.label })}
-              >
-                {option.icon}
-                <Text
+            {investmentOptions.map(({ Icon, label }) => {
+              const isSelected = answers[step] === label;
+              return (
+                <TouchableOpacity
+                  key={label}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option.label && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: scale(10),
+                      width: "48%",
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected
+                        ? theme.Button
+                        : theme.buttondark,
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: label })}
                 >
-                  {option.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Icon
+                    width={scale(18)}
+                    height={verticalScale(18)}
+                    stroke={isSelected ? theme.bttext : theme.text}
+                  />
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
-      case 20:
+      }
+
+      case 20: {
         const shortTermGoalOptions = ["Yes", "No"];
         return (
           <View
@@ -1133,29 +1200,39 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {shortTermGoalOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  { width: "48%" }, // ensures 2 per row
-                  answers[step] === option && styles.locationOptionSelected,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {shortTermGoalOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      width: "48%",
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected
+                        ? theme.Button
+                        : theme.buttondark,
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
-      case 21:
+      }
+      // 🟩 CASE 21 – Long-Term Goal
+      case 21: {
         const longTermGoalOptions = ["Yes", "No"];
         return (
           <View
@@ -1166,29 +1243,38 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {longTermGoalOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  { width: "48%" }, // ensures 2 buttons per row
-                  answers[step] === option && styles.locationOptionSelected,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {longTermGoalOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      width: "48%",
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                    },
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
-      case 22:
+      }
+
+      // 🟩 CASE 22 – Compare Options
+      case 22: {
         const compareOptions = ["Yes", "No", "Sometimes"];
         return (
           <View
@@ -1200,33 +1286,237 @@ export default function DemoGraphicQues() {
               justifyContent: "space-between",
             }}
           >
-            {compareOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  { width: "48%" }, // ensures 2 per row
-                  answers[step] === option && styles.locationOptionSelected,
-                  compareOptions.length % 2 !== 0 && option === "Sometimes"
-                    ? { alignSelf: "center" } // center last option if odd count
-                    : null,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
+            {compareOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
                   style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
+                    styles.locationOption,
+                    {
+                      width: "48%",
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                    },
+                    compareOptions.length % 2 !== 0 && option === "Sometimes"
+                      ? { alignSelf: "center" }
+                      : null,
                   ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
-      case 23:
+      }
+
+      // 🟩 CASE 23 – Adjust Slider (theme integrated)
+      case 23: {
         const adjustValue = Number(answers[step]) || 1;
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(40),
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                position: "relative",
+                width: scale(288),
+                height: verticalScale(28),
+                justifyContent: "center",
+              }}
+            >
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: verticalScale(10),
+                  backgroundColor: theme.buttonDisabled,
+                  borderRadius: 40,
+                }}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  width: `${((adjustValue - 1) / 4) * 100}%`,
+                  height: verticalScale(10),
+                  backgroundColor: theme.bar,
+                  borderRadius: 40,
+                }}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  left: `${((adjustValue - 1) / 4) * 90}%`,
+                  transform: [{ translateX: -verticalScale(2) }],
+                  width: verticalScale(28),
+                  height: verticalScale(28),
+                  borderRadius: 50,
+                  backgroundColor: theme.bar,
+                }}
+              />
+              <Slider
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  transform: [{ scaleY: 20 }],
+                }}
+                minimumValue={1}
+                maximumValue={5}
+                step={1}
+                value={adjustValue}
+                onValueChange={(val) =>
+                  setAnswers({ ...answers, [step]: val.toString() })
+                }
+              />
+            </View>
+
+            <View
+              style={{
+                marginTop: verticalScale(10),
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              {[1, 2, 3, 4, 5].map((num, index) => (
+                <View key={num} style={{ alignItems: "center", flex: 1 }}>
+                  <Text
+                    style={{
+                      fontWeight: "600",
+                      fontSize: moderateScale(14),
+                      color:
+                        num === adjustValue ? theme.bar : theme.text + "99",
+                    }}
+                  >
+                    {num}
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: "400",
+                      fontSize: moderateScale(10),
+                      marginTop: verticalScale(3),
+                      color:
+                        num === adjustValue ? theme.bar : theme.text + "80",
+                    }}
+                  >
+                    {["Never", "Rarely", "Sometimes", "Often", "Regularly"][index]}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        );
+      }
+
+      // 🟩 CASE 24 – Extra Income
+      case 24: {
+        const extraIncomeOptions = ["Mostly Save", "Mostly Spend", "Mix of Both"];
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(20),
+              width: "100%",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {extraIncomeOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
+                  style={[
+                    styles.locationOption,
+                    {
+                      width: "48%",
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                    },
+                    extraIncomeOptions.length % 2 !== 0 && option === "Mix of Both"
+                      ? { alignSelf: "center" }
+                      : null,
+                  ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
+                >
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        );
+      }
+
+      // 🟩 CASE 25 – Advice Options
+      case 25: {
+        const adviceOptions = ["Experts", "Friends", "Self-Research"];
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(20),
+              width: "100%",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {adviceOptions.map((option) => {
+              const isSelected = answers[step] === option;
+              return (
+                <TouchableOpacity
+                  key={option}
+                  style={[
+                    styles.locationOption,
+                    {
+                      width: "48%",
+                      borderColor: theme.Button,
+                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                    },
+                    adviceOptions.length % 2 !== 0 && option === "Self-Research"
+                      ? { alignSelf: "center" }
+                      : null,
+                  ]}
+                  onPress={() => setAnswers({ ...answers, [step]: option })}
+                >
+                  <Text
+                    style={[
+                      styles.locationOptionText,
+                      { color: isSelected ? theme.bttext : theme.text },
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        );
+      }
+      // 🟩 CASE 26 – Reaction Slider (theme integrated)
+      case 26: {
+        const reactValue = Number(answers[step]) || 1;
         return (
           <View
             style={{
@@ -1250,7 +1540,7 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   width: "100%",
                   height: verticalScale(10),
-                  backgroundColor: "#D9D9D9",
+                  backgroundColor: theme.buttonDisabled,
                   borderRadius: 40,
                 }}
               />
@@ -1259,9 +1549,9 @@ export default function DemoGraphicQues() {
               <View
                 style={{
                   position: "absolute",
-                  width: `${((adjustValue - 1) / 4) * 100}%`,
+                  width: `${((reactValue - 1) / 2) * 100}%`, // 3 steps
                   height: verticalScale(10),
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                   borderRadius: 40,
                 }}
               />
@@ -1270,214 +1560,12 @@ export default function DemoGraphicQues() {
               <View
                 style={{
                   position: "absolute",
-                  left: `${((adjustValue - 1) / 4) * 100}%`,
+                  left: `${((reactValue - 1) / 2) * 90}%`,
                   transform: [{ translateX: -verticalScale(2) }],
                   width: verticalScale(28),
                   height: verticalScale(28),
                   borderRadius: 50,
-                  backgroundColor: "#223F61",
-                }}
-              />
-
-              {/* Functional Hidden Slider */}
-              <Slider
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  opacity: 0,
-                  transform: [{ scaleY: 20 }],
-                }}
-                minimumValue={1}
-                maximumValue={5}
-                step={1}
-                value={adjustValue}
-                onValueChange={(val) =>
-                  setAnswers({ ...answers, [step]: val.toString() })
-                }
-              />
-            </View>
-
-            {/* --- Numbers --- */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(285),
-                marginTop: verticalScale(10),
-              }}
-            >
-              {[1, 2, 3, 4, 5].map((num) => (
-                <Text
-                  key={num}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "600",
-                    fontSize: moderateScale(14),
-                    color:
-                      num === adjustValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
-                  }}
-                >
-                  {num}
-                </Text>
-              ))}
-            </View>
-
-            {/* --- Labels --- */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(288),
-                marginTop: verticalScale(3),
-              }}
-            >
-              {["Never", "Rarely", "Sometimes", "Often", "Regularly"].map(
-                (label, i) => (
-                  <Text
-                    key={label}
-                    style={{
-                      fontFamily: "Avenir LT Std",
-                      fontWeight: "400",
-                      fontSize: moderateScale(10),
-                      color:
-                        i + 1 === adjustValue
-                          ? "#223F61"
-                          : "rgba(0, 0, 0, 0.6)",
-                    }}
-                  >
-                    {label}
-                  </Text>
-                )
-              )}
-            </View>
-          </View>
-        );
-      case 24:
-        const extraIncomeOptions = ["Mostly Save", "Mostly Spend", "Mix of Both"];
-        return (
-          <View
-            style={{
-              marginTop: verticalScale(20),
-              width: "100%",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-            }}
-          >
-            {extraIncomeOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  { width: "48%" }, // ensures 2 buttons per row
-                  answers[step] === option && styles.locationOptionSelected,
-                  extraIncomeOptions.length % 2 !== 0 && option === "Mix of Both"
-                    ? { alignSelf: "center" } // center last one if odd count
-                    : null,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
-                  style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
-                  ]}
-                >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        );
-      case 25:
-        const adviceOptions = ["Experts", "Friends", "Self-Research"];
-        return (
-          <View
-            style={{
-              marginTop: verticalScale(20),
-              width: "100%",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-            }}
-          >
-            {adviceOptions.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.locationOption,
-                  { width: "48%" }, // ensures 2 per row
-                  answers[step] === option && styles.locationOptionSelected,
-                  adviceOptions.length % 2 !== 0 && option === "Self-Research"
-                    ? { alignSelf: "center" } // centers last one if odd count
-                    : null,
-                ]}
-                onPress={() => setAnswers({ ...answers, [step]: option })}
-              >
-                <Text
-                  style={[
-                    styles.locationOptionText,
-                    answers[step] === option && { color: "#fff" },
-                  ]}
-                >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        );
-      case 26:
-        const reactValue = Number(answers[step]) || 1;
-        return (
-          <View
-            style={{
-              marginTop: verticalScale(40),
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
-            {/* --- Custom Thin Rounded Slider --- */}
-            <View
-              style={{
-                position: "relative",
-                width: scale(288),
-                height: verticalScale(20),
-                justifyContent: "center",
-              }}
-            >
-              {/* Background Track */}
-              <View
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: verticalScale(6),
-                  backgroundColor: "#D9D9D9",
-                  borderRadius: 3,
-                }}
-              />
-
-              {/* Active Track */}
-              <View
-                style={{
-                  position: "absolute",
-                  width: `${((reactValue - 1) / 2) * 100}%`, // only 3 steps
-                  height: verticalScale(6),
-                  backgroundColor: "#223F61",
-                  borderRadius: 3,
-                }}
-              />
-
-              {/* Thumb (Dot) */}
-              <View
-                style={{
-                  position: "absolute",
-                  left: `${((reactValue - 1) / 2) * 100}%`,
-                  transform: [{ translateX: -verticalScale(2) }],
-                  width: verticalScale(20),
-                  height: verticalScale(20),
-                  borderRadius: 50,
-                  backgroundColor: "#223F61",
+                  backgroundColor: theme.bar,
                 }}
               />
 
@@ -1500,38 +1588,13 @@ export default function DemoGraphicQues() {
               />
             </View>
 
-            {/* --- Numbers --- */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: scale(288),
-                marginTop: verticalScale(10),
-              }}
-            >
-              {[1, 2, 3].map((num) => (
-                <Text
-                  key={num}
-                  style={{
-                    fontFamily: "Avenir LT Std",
-                    fontWeight: "600",
-                    fontSize: moderateScale(14),
-                    color:
-                      num === reactValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
-                  }}
-                >
-                  {num}
-                </Text>
-              ))}
-            </View>
-
             {/* --- Labels --- */}
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
                 width: scale(288),
-                marginTop: verticalScale(3),
+                marginTop: verticalScale(10),
               }}
             >
               {["Manageable", "Neutral", "Stressful"].map((label, i) => (
@@ -1542,11 +1605,7 @@ export default function DemoGraphicQues() {
                     fontWeight: "400",
                     fontSize: moderateScale(10),
                     color:
-                      i + 1 === reactValue
-                        ? "#223F61"
-                        : "rgba(0, 0, 0, 0.6)",
-                    textAlign: "center",
-                    width: scale(80),
+                      i + 1 === reactValue ? theme.bar : theme.text + "99",
                   }}
                 >
                   {label}
@@ -1555,23 +1614,34 @@ export default function DemoGraphicQues() {
             </View>
           </View>
         );
-      case 27:
+      }
+
+      // 🟩 CASE 27 – Text Input (theme integrated)
+      case 27: {
         return (
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              {
+                color: theme.text,
+                backgroundColor: theme.background,
+                borderColor: theme.Button,
+              },
+            ]}
             placeholder="Type here ..."
-            placeholderTextColor="rgba(34,63,97,1)"
+            placeholderTextColor={theme.text}
             value={answers[step] || ""}
             onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
           />
         );
+      }
     }
   };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={styles.container}
+      style={[styles.container, { backgroundColor: theme.background }]}
     >
       {/* Top Left Back Button */}
       <TouchableOpacity
@@ -1587,10 +1657,10 @@ export default function DemoGraphicQues() {
         {step === 4 && <Text style={styles.subtitle}>Hey! I am Curious</Text>}
 
         {/* Progress text */}
-        {step > 7 && <Text style={styles.progressText}>{step - 7} / 20</Text>}
+        {step > 7 && <Text style={[styles.progressText, { textAlign: "center", alignSelf: "center" }]}>{step - 7} / 20</Text>}
 
         {/* Question text */}
-        <Text style={styles.questionText}>{renderQuestion()}</Text>
+        <Text style={[styles.questionText, { color: theme.text }]}>{renderQuestion()}</Text>
 
         {/* Question content */}
         {renderQuestionContent()}
@@ -1601,15 +1671,18 @@ export default function DemoGraphicQues() {
         <View style={styles.verticalButtons}>
           {step > 1 && (
             <TouchableOpacity
-              style={styles.secondaryButton}
+              style={[styles.secondaryButton, { backgroundColor: theme.Button }]}
               onPress={handleBack}
             >
-              <UpWard width={20} height={20} color="#fff" />
+              <UpWard width={20} height={20} color={theme.bttext} />
             </TouchableOpacity>
           )}
           {step < 27 && (
-            <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <DownWard width={20} height={20} color="#fff" />
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: theme.Button }]}
+              onPress={handleNext}
+            >
+              <DownWard width={20} height={20} color={theme.bttext} />
             </TouchableOpacity>
           )}
         </View>
@@ -1617,15 +1690,18 @@ export default function DemoGraphicQues() {
         <View style={styles.horizontalButtons}>
           {step > 1 && (
             <TouchableOpacity
-              style={styles.secondaryButton}
+              style={[styles.secondaryButton, { backgroundColor: theme.Button }]}
               onPress={handleBack}
             >
-              <LeftWard width={20} height={20} color="#fff" />
+              <LeftWard width={20} height={20} color={theme.bttext} />
             </TouchableOpacity>
           )}
           {step < 27 && (
-            <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <RightWard width={20} height={20} color="#fff" />
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: theme.Button }]}
+              onPress={handleNext}
+            >
+              <RightWard width={20} height={20} color={theme.background} />
             </TouchableOpacity>
           )}
         </View>
@@ -1649,7 +1725,7 @@ const styles = StyleSheet.create({
   questionContainer: {
     flex: 1,
     alignItems: "flex-start",
-    paddingTop:scale(130),
+    paddingTop: scale(130),
     paddingHorizontal: scale(20),
   },
   subtitle: {
@@ -1679,7 +1755,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontSize: moderateScale(24),
     color: "#223F61",
-    opacity: 0.25,
+    // opacity: 0.25,
     borderWidth: 0,
     borderColor: "#223F61",
     marginTop: verticalScale(12),
@@ -1717,7 +1793,7 @@ const styles = StyleSheet.create({
     bottom: verticalScale(40),
     right: scale(60),
     flexDirection: "row",
-    gap: scale(80),
+    gap: scale(120),
   },
   button: {
     width: scale(50),
