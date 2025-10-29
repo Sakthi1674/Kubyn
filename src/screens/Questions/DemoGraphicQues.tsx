@@ -145,8 +145,8 @@ export default function DemoGraphicQues() {
                   styles.optionButton,
                   answers[step] === option.label && styles.optionButtonSelected,
                   {
-                    flex: 1,                 // equal width
-                    height: verticalScale(100), // fixed height for all buttons
+                    flex: 1, // equal width
+                    height: verticalScale(100),
                     marginHorizontal: scale(5),
                     justifyContent: "center",
                     alignItems: "center",
@@ -154,14 +154,25 @@ export default function DemoGraphicQues() {
                 ]}
                 onPress={() => setAnswers({ ...answers, [step]: option.label })}
               >
+                {/* --- Icon --- */}
                 {option.icon && (
-                  <View style={{ marginBottom: verticalScale(5) }}>{option.icon}</View>
+                  <View style={{ marginBottom: verticalScale(10) }}>
+                    {option.icon}
+                  </View>
                 )}
+
+                {/* --- Label --- */}
                 <Text
-                  style={[
-                    styles.optionText,
-                    answers[step] === option.label && styles.optionTextSelected,
-                  ]}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "300",
+                    fontSize: moderateScale(12),
+                    lineHeight: moderateScale(12),
+                    color: "rgba(34, 63, 97, 1)",
+                    opacity: 0.56,
+                    textAlign: "center",
+                    letterSpacing: 0,
+                  }}
                 >
                   {option.label}
                 </Text>
@@ -380,10 +391,8 @@ export default function DemoGraphicQues() {
             />
           </View>
         );
-
       case 10:
         const activeValue = Number(answers[step]) || 1;
-
         return (
           <View
             style={{
@@ -429,8 +438,8 @@ export default function DemoGraphicQues() {
                   position: "absolute",
                   left: `${((activeValue - 1) / 4) * 100}%`,
                   transform: [{ translateX: -verticalScale(2) }],
-                  width: verticalScale(40),
-                  height: verticalScale(24),
+                  width: verticalScale(28),
+                  height: verticalScale(28),
                   borderRadius: 50,
                   backgroundColor: "#223F61",
                 }}
@@ -460,7 +469,7 @@ export default function DemoGraphicQues() {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                width: scale(288),
+                width: scale(285),
                 marginTop: verticalScale(10),
               }}
             >
@@ -600,6 +609,213 @@ export default function DemoGraphicQues() {
             ))}
           </View>
         );
+      case 13:
+        const disciplineValue = Number(answers[step]) || 1;
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(40),
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            {/* --- Custom Rounded Thick Slider --- */}
+            <View
+              style={{
+                position: "relative",
+                width: scale(288),
+                height: verticalScale(28), // thicker bar
+                justifyContent: "center",
+              }}
+            >
+              {/* Background Bar */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: verticalScale(10),
+                  backgroundColor: "#D9D9D9",
+                  borderRadius: 40,
+                }}
+              />
+
+              {/* Active Bar */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: `${((disciplineValue - 1) / 4) * 100}%`,
+                  height: verticalScale(10),
+                  backgroundColor: "#223F61",
+                  borderRadius: 40,
+                }}
+              />
+
+              {/* Thumb (Dot) */}
+              <View
+                style={{
+                  position: "absolute",
+                  left: `${((disciplineValue - 1) / 4) * 100}%`,
+                  transform: [{ translateX: -verticalScale(2) }],
+                  width: verticalScale(28),
+                  height: verticalScale(28),
+                  borderRadius: 50,
+                  backgroundColor: "#223F61",
+                }}
+              />
+
+              {/* Functional Hidden Slider */}
+              <Slider
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  transform: [{ scaleY: 20 }],
+                }}
+                minimumValue={1}
+                maximumValue={5}
+                step={1}
+                value={disciplineValue}
+                onValueChange={(val) =>
+                  setAnswers({ ...answers, [step]: val.toString() })
+                }
+              />
+            </View>
+
+            {/* --- Numbers --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(285),
+                marginTop: verticalScale(10),
+              }}
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <Text
+                  key={num}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "600",
+                    fontSize: moderateScale(14),
+                    color:
+                      num === disciplineValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
+                  }}
+                >
+                  {num}
+                </Text>
+              ))}
+            </View>
+
+            {/* --- Labels --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(288),
+                marginTop: verticalScale(3),
+              }}
+            >
+              {["Very Poor", "Poor", "Average", "Good", "Excellent"].map(
+                (label, i) => (
+                  <Text
+                    key={label}
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "400",
+                      fontSize: moderateScale(10),
+                      color:
+                        i + 1 === disciplineValue
+                          ? "#223F61"
+                          : "rgba(0, 0, 0, 0.6)",
+                    }}
+                  >
+                    {label}
+                  </Text>
+                )
+              )}
+            </View>
+          </View>
+        );
+        return (
+          <View style={{ marginTop: verticalScale(40), width: "100%", alignItems: "center" }}>
+            {/* Custom Slider */}
+            <View
+              style={{
+                position: "relative",
+                width: scale(288),
+                height: verticalScale(28),
+                justifyContent: "center",
+              }}
+            >
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: verticalScale(10),
+                  backgroundColor: "#D9D9D9",
+                  borderRadius: 40,
+                }}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  width: `${((disciplineValue - 1) / 4) * 100}%`,
+                  height: verticalScale(10),
+                  backgroundColor: "#223F61",
+                  borderRadius: 40,
+                }}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  left: `${((disciplineValue - 1) / 4) * 100}%`,
+                  transform: [{ translateX: -verticalScale(2) }],
+                  width: verticalScale(28),
+                  height: verticalScale(28),
+                  borderRadius: 50,
+                  backgroundColor: "#223F61",
+                }}
+              />
+              <Slider
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  transform: [{ scaleY: 20 }],
+                }}
+                minimumValue={1}
+                maximumValue={5}
+                step={1}
+                value={disciplineValue}
+                onValueChange={(val) => setAnswers({ ...answers, [step]: val.toString() })}
+              />
+            </View>
+            {/* Labels */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(288),
+                marginTop: verticalScale(5),
+              }}
+            >
+              {["Very Poor", "Poor", "Average", "Good", "Excellent"].map((label, i) => (
+                <Text
+                  key={label}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontSize: moderateScale(10),
+                    color: i + 1 === disciplineValue ? "#223F61" : "rgba(0,0,0,0.6)",
+                  }}
+                >
+                  {label}
+                </Text>
+              ))}
+            </View>
+          </View>
+        );
       case 14:
         const trackExpenseOptions = ["Yes", "No", "Sometimes"];
         return (
@@ -723,6 +939,138 @@ export default function DemoGraphicQues() {
                 </Text>
               </TouchableOpacity>
             ))}
+          </View>
+        );
+      case 18:
+        const confidenceValue = Number(answers[step]) || 1;
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(40),
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            {/* --- Custom Rounded Thick Slider --- */}
+            <View
+              style={{
+                position: "relative",
+                width: scale(288),
+                height: verticalScale(28),
+                justifyContent: "center",
+              }}
+            >
+              {/* Background Bar */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: verticalScale(10),
+                  backgroundColor: "#D9D9D9",
+                  borderRadius: 40,
+                }}
+              />
+
+              {/* Active Bar */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: `${((confidenceValue - 1) / 4) * 100}%`,
+                  height: verticalScale(10),
+                  backgroundColor: "#223F61",
+                  borderRadius: 40,
+                }}
+              />
+
+              {/* Thumb (Dot) */}
+              <View
+                style={{
+                  position: "absolute",
+                  left: `${((confidenceValue - 1) / 4) * 100}%`,
+                  transform: [{ translateX: -verticalScale(2) }],
+                  width: verticalScale(28),
+                  height: verticalScale(28),
+                  borderRadius: 50,
+                  backgroundColor: "#223F61",
+                }}
+              />
+
+              {/* Functional Hidden Slider */}
+              <Slider
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  transform: [{ scaleY: 20 }],
+                }}
+                minimumValue={1}
+                maximumValue={5}
+                step={1}
+                value={confidenceValue}
+                onValueChange={(val) =>
+                  setAnswers({ ...answers, [step]: val.toString() })
+                }
+              />
+            </View>
+
+            {/* --- Numbers --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(285),
+                marginTop: verticalScale(10),
+              }}
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <Text
+                  key={num}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "600",
+                    fontSize: moderateScale(14),
+                    color:
+                      num === confidenceValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
+                  }}
+                >
+                  {num}
+                </Text>
+              ))}
+            </View>
+
+            {/* --- Labels --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(288),
+                marginTop: verticalScale(3),
+              }}
+            >
+              {[
+                "Not Confident",
+                "Slightly Confident",
+                "Neutral",
+                "Confident",
+                "Very Confident",
+              ].map((label, i) => (
+                <Text
+                  key={label}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "400",
+                    fontSize: moderateScale(10),
+                    color:
+                      i + 1 === confidenceValue
+                        ? "#223F61"
+                        : "rgba(0, 0, 0, 0.6)",
+                  }}
+                >
+                  {label}
+                </Text>
+              ))}
+            </View>
           </View>
         );
       case 19:
@@ -877,6 +1225,134 @@ export default function DemoGraphicQues() {
             ))}
           </View>
         );
+      case 23:
+        const adjustValue = Number(answers[step]) || 1;
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(40),
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            {/* --- Custom Rounded Thick Slider --- */}
+            <View
+              style={{
+                position: "relative",
+                width: scale(288),
+                height: verticalScale(28),
+                justifyContent: "center",
+              }}
+            >
+              {/* Background Bar */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: verticalScale(10),
+                  backgroundColor: "#D9D9D9",
+                  borderRadius: 40,
+                }}
+              />
+
+              {/* Active Bar */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: `${((adjustValue - 1) / 4) * 100}%`,
+                  height: verticalScale(10),
+                  backgroundColor: "#223F61",
+                  borderRadius: 40,
+                }}
+              />
+
+              {/* Thumb (Dot) */}
+              <View
+                style={{
+                  position: "absolute",
+                  left: `${((adjustValue - 1) / 4) * 100}%`,
+                  transform: [{ translateX: -verticalScale(2) }],
+                  width: verticalScale(28),
+                  height: verticalScale(28),
+                  borderRadius: 50,
+                  backgroundColor: "#223F61",
+                }}
+              />
+
+              {/* Functional Hidden Slider */}
+              <Slider
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  transform: [{ scaleY: 20 }],
+                }}
+                minimumValue={1}
+                maximumValue={5}
+                step={1}
+                value={adjustValue}
+                onValueChange={(val) =>
+                  setAnswers({ ...answers, [step]: val.toString() })
+                }
+              />
+            </View>
+
+            {/* --- Numbers --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(285),
+                marginTop: verticalScale(10),
+              }}
+            >
+              {[1, 2, 3, 4, 5].map((num) => (
+                <Text
+                  key={num}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "600",
+                    fontSize: moderateScale(14),
+                    color:
+                      num === adjustValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
+                  }}
+                >
+                  {num}
+                </Text>
+              ))}
+            </View>
+
+            {/* --- Labels --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(288),
+                marginTop: verticalScale(3),
+              }}
+            >
+              {["Never", "Rarely", "Sometimes", "Often", "Regularly"].map(
+                (label, i) => (
+                  <Text
+                    key={label}
+                    style={{
+                      fontFamily: "Avenir LT Std",
+                      fontWeight: "400",
+                      fontSize: moderateScale(10),
+                      color:
+                        i + 1 === adjustValue
+                          ? "#223F61"
+                          : "rgba(0, 0, 0, 0.6)",
+                    }}
+                  >
+                    {label}
+                  </Text>
+                )
+              )}
+            </View>
+          </View>
+        );
       case 24:
         const extraIncomeOptions = ["Mostly Save", "Mostly Spend", "Mix of Both"];
         return (
@@ -949,6 +1425,134 @@ export default function DemoGraphicQues() {
                 </Text>
               </TouchableOpacity>
             ))}
+          </View>
+        );
+      case 26:
+        const reactValue = Number(answers[step]) || 1;
+        return (
+          <View
+            style={{
+              marginTop: verticalScale(40),
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            {/* --- Custom Thin Rounded Slider --- */}
+            <View
+              style={{
+                position: "relative",
+                width: scale(288),
+                height: verticalScale(20),
+                justifyContent: "center",
+              }}
+            >
+              {/* Background Track */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: verticalScale(6),
+                  backgroundColor: "#D9D9D9",
+                  borderRadius: 3,
+                }}
+              />
+
+              {/* Active Track */}
+              <View
+                style={{
+                  position: "absolute",
+                  width: `${((reactValue - 1) / 2) * 100}%`, // only 3 steps
+                  height: verticalScale(6),
+                  backgroundColor: "#223F61",
+                  borderRadius: 3,
+                }}
+              />
+
+              {/* Thumb (Dot) */}
+              <View
+                style={{
+                  position: "absolute",
+                  left: `${((reactValue - 1) / 2) * 100}%`,
+                  transform: [{ translateX: -verticalScale(2) }],
+                  width: verticalScale(20),
+                  height: verticalScale(20),
+                  borderRadius: 50,
+                  backgroundColor: "#223F61",
+                }}
+              />
+
+              {/* Functional Hidden Slider */}
+              <Slider
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  transform: [{ scaleY: 20 }],
+                }}
+                minimumValue={1}
+                maximumValue={3}
+                step={1}
+                value={reactValue}
+                onValueChange={(val) =>
+                  setAnswers({ ...answers, [step]: val.toString() })
+                }
+              />
+            </View>
+
+            {/* --- Numbers --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(288),
+                marginTop: verticalScale(10),
+              }}
+            >
+              {[1, 2, 3].map((num) => (
+                <Text
+                  key={num}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "600",
+                    fontSize: moderateScale(14),
+                    color:
+                      num === reactValue ? "#223F61" : "rgba(0, 0, 0, 0.4)",
+                  }}
+                >
+                  {num}
+                </Text>
+              ))}
+            </View>
+
+            {/* --- Labels --- */}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: scale(288),
+                marginTop: verticalScale(3),
+              }}
+            >
+              {["Manageable", "Neutral", "Stressful"].map((label, i) => (
+                <Text
+                  key={label}
+                  style={{
+                    fontFamily: "Avenir LT Std",
+                    fontWeight: "400",
+                    fontSize: moderateScale(10),
+                    color:
+                      i + 1 === reactValue
+                        ? "#223F61"
+                        : "rgba(0, 0, 0, 0.6)",
+                    textAlign: "center",
+                    width: scale(80),
+                  }}
+                >
+                  {label}
+                </Text>
+              ))}
+            </View>
           </View>
         );
       case 27:
@@ -1044,8 +1648,8 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "flex-start",
+    paddingTop:scale(130),
     paddingHorizontal: scale(20),
   },
   subtitle: {
@@ -1104,16 +1708,16 @@ const styles = StyleSheet.create({
   verticalButtons: {
     position: "absolute",
     bottom: verticalScale(60),
-    right: scale(25),
+    right: scale(40),
     flexDirection: "column",
-    gap: scale(10),
+    gap: scale(40),
   },
   horizontalButtons: {
     position: "absolute",
     bottom: verticalScale(40),
     right: scale(60),
     flexDirection: "row",
-    gap: scale(20),
+    gap: scale(80),
   },
   button: {
     width: scale(50),

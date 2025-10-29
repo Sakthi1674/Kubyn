@@ -2,158 +2,163 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
+  TextInput,
   TouchableOpacity,
+  StyleSheet,
   SafeAreaView,
+  useColorScheme,
 } from 'react-native';
-import ButtonComp from '../../../components/common/ButtonComp';
 import BackWard from '../../../assets/icons/BackWard';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-
+import EyeIcon from '../../../assets/icons/EyeIcon';
+import ButtonComp from '../../../components/common/ButtonComp';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import colors from '../../../theme/color'; // ✅ contains { light: {...}, dark: {...} }
 
+const CurrentPassword: React.FC = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const scheme = useColorScheme();
+  const theme = colors[scheme === 'dark' ? 'dark' : 'light']; // ✅ select proper theme
 
-const LinkedOtpScreen: React.FC = () => {
-    const navigation = useNavigation<NavigationProp<any>>();
-  
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+    >
       {/* Header */}
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('LinkedScreen')}  >
-          <BackWard width={20} height={20} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.navigate('SecurityScreen')}>
+          <BackWard stroke={theme.text} />
         </TouchableOpacity>
-      </View>
-
-      {/* Card Section */}
-      <View style={styles.cardContainer}>
-        <Text style={styles.title}>Confirmation</Text>
-        <Text style={styles.subText}>
-          Please Enter the verification Code sent to {'\n'}+91*****0156
+        <Text style={[styles.title, { color: theme.text }]}>
+          Change Password
         </Text>
-
-        {/* OTP Boxes */}
-        <View style={styles.otpContainer}>
-          {[0, 1, 2, 3].map((_, index) => (
-            <View key={index} style={styles.otpBox}>
-              <Text style={styles.otpText}>0</Text>
-            </View>
-          ))}
-        </View>
-            
-        {/* Verify Button */}
-<View>
-        <ButtonComp
-       
-                title="Verify"
-                // onPress={goToHome}
-                onPress={() => {''}}
-                 style={{
-                       backgroundColor: "#223F61" ,   
-                      //  marginHorizontal: 30,
-                      width:210,
-
-                      
-                 }}
-                  textStyle={{
-                    color:  "#E3E9F1",
-                    fontFamily:"Avenir LT Std",
-                }}
-            />
-            </View>
-    
-                </View>
-     
-      <View style={styles.updateWrapper}>
-       <ButtonComp
-       
-                title="Update"
-                // onPress={goToHome}
-                onPress={() => {''}}
-                 style={{
-                       backgroundColor: "#223F61",     
-                       marginHorizontal: scale(30),
-                        opacity:0.35,
-                 }}
-                  textStyle={{
-                    color: "#FBFDFF",
-                     fontWeight: '600',
-                  fontFamily:"Avenir LT Std",
-                  letterSpacing:scale(2),
-                }}
-            />
       </View>
+
+      {/* Form */}
+      <View style={styles.form}>
+        {/* Current Password */}
+        <Text style={[styles.label, { color: theme.text }]}>
+          Current Password
+        </Text>
+        <View
+          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
+        >
+          <TextInput
+            placeholder="Current Password"
+            style={[styles.input, { color: theme.text }]}
+            placeholderTextColor={theme.text}
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity>
+          <Text style={[styles.forgotText, { color: theme.text }]}>
+            Forgot Password?
+          </Text>
+        </TouchableOpacity>
+
+        {/* New Password */}
+        <View
+          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
+        >
+          <TextInput
+            placeholder="Password"
+            style={[styles.input, { color: theme.text }]}
+            placeholderTextColor={theme.text}
+            secureTextEntry
+          />
+          <TouchableOpacity style={styles.iconRight}>
+            <EyeIcon stroke={theme.icon} opacity={0.35} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Confirm Password */}
+        <View
+          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
+        >
+          <TextInput
+            placeholder="Confirm Password"
+            style={[styles.input, { color: theme.text }]}
+            placeholderTextColor={theme.text}
+            secureTextEntry
+          />
+          <TouchableOpacity style={styles.iconRight}>
+            <EyeIcon stroke={theme.icon} opacity={0.35} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Confirm Button */}
+      <ButtonComp
+        title="Confirm Password"
+        onPress={() => console.log('Submit pressed')}
+        style={{
+          backgroundColor: theme.Button,
+          marginTop: verticalScale(270),
+          marginHorizontal: scale(30),
+        }}
+        textStyle={{
+          color: theme.bttext,
+          fontFamily: 'Avenir LT Std',
+          letterSpacing: scale(2),
+        }}
+      />
     </SafeAreaView>
   );
 };
 
-export default LinkedOtpScreen;
+export default CurrentPassword;
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    paddingHorizontal: scale(20),
   },
-  headerContainer: {
-    width: '100%',
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(60),
-    marginLeft: scale(50),
-  },
-  cardContainer: {
-    width: '85%',
-    backgroundColor: '#E3E9F1',
-    borderRadius: moderateScale(22),
-    paddingVertical: verticalScale(10),
-    alignItems: 'center',
-    marginTop: verticalScale(100),
+    marginTop: verticalScale(50),
   },
   title: {
-    fontSize: moderateScale(18),
-    fontWeight: 'bold',
-    color: '#000',
-    fontFamily: 'Avenir LT Std',
-    marginBottom: verticalScale(10),
-  
+    fontSize: moderateScale(20),
+    fontWeight: '700',
+    marginLeft: scale(19),
+    letterSpacing: scale(3),
+    fontFamily: 'Kollektif',
   },
-  subText: {
+  form: {
+    marginTop: verticalScale(40),
+  },
+  label: {
     fontSize: moderateScale(12),
-    color: '#2e446c',
-    textAlign: 'center',
-    marginBottom: verticalScale(25),
+    marginBottom: verticalScale(10),
+    left: scale(17),
     fontFamily: 'Avenir LT Std',
-    lineHeight: verticalScale(18),
+    letterSpacing: scale(1),
   },
-  otpContainer: {
+  inputWrapper: {
+    borderRadius: moderateScale(10),
+    paddingHorizontal: scale(16),
+    paddingVertical: verticalScale(8),
+    marginBottom: verticalScale(10),
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: verticalScale(30),
-  },
-  otpBox: {
-    width: scale(50),
-    height: verticalScale(50),
-    backgroundColor: '#fff',
-    borderRadius: moderateScale(8),
-    marginHorizontal: scale(8),
-    justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: scale(1),
-    borderColor: '#E0E6ED',
-  },
-  otpText: {
-    fontSize: moderateScale(24),
-    fontWeight: '600',
-    color: '#223F61',
-    opacity:scale(0.35),
-  },
-  updateWrapper: {
-    position: 'absolute',
-    bottom: verticalScale(40),
     width: '90%',
-    alignItems: 'center',
+    left: scale(15),
   },
-
- 
-});;
+  input: {
+    flex: 1,
+    fontSize: moderateScale(14),
+  },
+  iconRight: {
+    marginLeft: scale(10),
+  },
+  forgotText: {
+    alignSelf: 'flex-end',
+    marginBottom: verticalScale(18),
+    fontSize: moderateScale(10),
+    right: scale(22),
+    fontFamily: 'Avenir LT Std',
+    letterSpacing: scale(1),
+  },
+});

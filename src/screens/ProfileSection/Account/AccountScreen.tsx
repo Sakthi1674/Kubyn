@@ -1,63 +1,86 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TouchableOpacity, 
+  StyleSheet, 
+  SafeAreaView, 
+  useColorScheme 
+} from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 import BackWard from '../../../assets/icons/BackWard';
 import ChangePreference from '../../../assets/icons/ChangePreference';
 import Front from '../../../assets/icons/Front';
 import AddMailIcon from '../../../assets/icons/AddMailIcon';
 import Download from '../../../assets/icons/Download';
 import TrashIcon from '../../../assets/icons/TrashIcon';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import colors from '../../../theme/color';
 
-
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-
-const AccountScreen = () => {
-
-    const navigation = useNavigation<NavigationProp<any>>();
-  
+const AccountScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const scheme = useColorScheme();
+  const theme = colors[scheme === 'dark' ? 'dark' : 'light'];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <BackWard width={15} height={20} onPress={() => navigation.navigate('ProfileScreen')}/>
+          <BackWard 
+            width={scale(15)} 
+            height={verticalScale(20)} 
+            color={theme.Button} 
+          />
         </TouchableOpacity>
-        <Text style={styles.header}>Account</Text>
+        <Text style={[styles.header, { color: theme.text }]}>Account</Text>
       </View>
 
       {/* List Items */}
       <View style={styles.list}>
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('ChangePrefrence')}>
+        <TouchableOpacity 
+          style={styles.item} 
+          onPress={() => navigation.navigate('ChangePrefrence')}
+        >
           <View style={styles.leftSection}>
-            <ChangePreference width={25} height={25} />
-            <Text style={styles.text}>Change Preference</Text>
+            <ChangePreference width={scale(25)} height={scale(25)} color={theme.Button} />
+            <Text style={[styles.text, { color: theme.text }]}>Change Preference</Text>
           </View>
-          <Front width={28} height={28} />
+          <Front width={scale(28)} height={scale(28)} color={theme.Button} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('MySubscriptions')}>
+        <TouchableOpacity 
+          style={styles.item} 
+          onPress={() => navigation.navigate('MySubscriptions')}
+        >
           <View style={styles.leftSection}>
-            <AddMailIcon width={26} height={26} />
-            <Text style={styles.text}>My Subscriptions</Text>
+            <AddMailIcon width={scale(26)} height={scale(26)} stroke={theme.Button} />
+            <Text style={[styles.text, { color: theme.text }]}>My Subscriptions</Text>
           </View>
-          <Front width={24} height={24} />
+          <Front width={scale(24)} height={scale(24)} color={theme.Button} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('DownloadStatements')}>
+        <TouchableOpacity 
+          style={styles.item} 
+          onPress={() => navigation.navigate('DownloadStatements')}
+        >
           <View style={styles.leftSection}>
-            <Download width={26} height={26} />
-            <Text style={styles.text}>Download Statements</Text>
+            <Download width={scale(26)} height={scale(26)} stroke={theme.Button} />
+            <Text style={[styles.text, { color: theme.text }]}>Download Statements</Text>
           </View>
-          <Front width={24} height={24} />
+          <Front width={scale(24)} height={scale(24)} color={theme.Button} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('DeleteAccount')}>
+        <TouchableOpacity 
+          style={styles.item} 
+          onPress={() => navigation.navigate('DeleteAccount')}
+        >
           <View style={styles.leftSection}>
-            <TrashIcon width={26} height={26} />
-            <Text style={styles.text}>Delete Account</Text>
+            <TrashIcon width={scale(26)} height={scale(26)} stroke={theme.Button} />
+            <Text style={[styles.text, { color: theme.text }]}>Delete Account</Text>
           </View>
-          <Front width={24} height={24} />
+          <Front width={scale(24)} height={scale(24)} color={theme.text} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -69,7 +92,6 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingHorizontal: scale(24),
     paddingTop: verticalScale(60),
   },
@@ -82,18 +104,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(22),
     fontWeight: '700',
     marginLeft: scale(30),
-    fontFamily:"Kollektif",
-    letterSpacing:scale(5),
+    fontFamily: 'Kollektif',
+    letterSpacing: scale(5),
   },
   list: {
-    // marginTop: verticalScale(5),
+    marginTop: verticalScale(5),
   },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: verticalScale(10),
-    
   },
   leftSection: {
     flexDirection: 'row',
@@ -102,12 +123,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: moderateScale(16),
     marginLeft: scale(24),
-    color: '#121212',
-    fontFamily:'Avenir LT Std',
-    letterSpacing:scale(1.5),
-    fontWeight:600,
-    
-  
+    fontFamily: 'Avenir LT Std',
+    letterSpacing: scale(1.5),
+    fontWeight: '600',
   },
- 
 });

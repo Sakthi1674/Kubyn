@@ -90,7 +90,7 @@ const App = () => {
         />
         {/* <Stack.Screen
           name="ForgetPassword"
-          component={ForgetPassword}
+          component={ForgetPasswordOtp}
           options={{ headerShown: false }}
         /> */}
         <Stack.Screen
