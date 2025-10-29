@@ -7,6 +7,7 @@ import CreateAccount from './src/screens/createaccount/CreateAccount';
 import Login from './src/screens/login/Login';
 import LoginNumOtp from './src/screens/login/LoginNumOtp';
 import LoginSuccess from './src/screens/login/LoginSuccess';
+// import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import ForgetPasswordOtp from './src/screens/forgetpassword/ForgetPasswordOtp';
 import PasswordReset from './src/screens/forgetpassword/PasswordReset';
 import ForgetPasswordSuccess from './src/screens/forgetpassword/ForgetPasswordSuccess';
@@ -37,6 +38,8 @@ import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
 import Introduction from './src/screens/Dashboard/Introduction';
 import Nofication from './src/screens/Notication/Notification';
 import Progress from './src/screens/Notication/Progress';
+import FirstNumTrap from './src/screens/Dashboard/FirstNumTrap';
+import MySpend from './src/screens/Dashboard/MySpend';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,7 +50,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={HeyScreen}
+          component={Introduction}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -85,11 +88,11 @@ const App = () => {
           component={LoginSuccess}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="ForgetPassword"
           component={ForgetPasswordOtp}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="ForgetPasswordOtp"
           component={ForgetPasswordOtp}

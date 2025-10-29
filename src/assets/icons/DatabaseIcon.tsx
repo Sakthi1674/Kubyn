@@ -1,102 +1,62 @@
 import React from "react";
-import Svg, { G, Path, Defs, ClipPath, Rect, SvgProps } from "react-native-svg";
+import Svg, { Path, SvgProps } from "react-native-svg";
 
-interface DatabaseIconProps extends SvgProps {
-  variant?: "filled" | "outlined"; // to choose which version to render
-}
-
-const DatabaseIcon: React.FC<DatabaseIconProps> = ({
-  width = 34,
-  height = 34,
+const DatabaseIcon = ({
+  width = 24,
+  height = 24,
   stroke = "black",
-  variant = "filled",
   ...props
-}) => {
-  if (variant === "outlined") {
-    return (
-      <Svg
-        width={width}
-        height={height}
-        viewBox="0 0 24 24"
-        fill="none"
-        {...props}
-      >
-        <Path
-          d="M7 7.5C9.76142 7.5 12 6.38071 12 5C12 3.61929 9.76142 2.5 7 2.5C4.23858 2.5 2 3.61929 2 5C2 6.38071 4.23858 7.5 7 7.5Z"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M2 5V8.5C2 9.8805 4.2385 11 7 11C9.7615 11 12 9.8805 12 8.5V5"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M2 8.5V12C2 13.3805 4.2385 14.5 7 14.5C9.7615 14.5 12 13.3805 12 12V8.5"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M2 12V15.5C2 16.8805 4.2385 18 7 18C9.7615 18 12 16.8805 12 15.5V12"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M2 15.5V19C2 20.3805 4.2385 21.5 7 21.5C9.7615 21.5 12 20.3805 12 19V15.5"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M17 14.5C19.7614 14.5 22 13.3807 22 12C22 10.6193 19.7614 9.5 17 9.5C14.2386 9.5 12 10.6193 12 12C12 13.3807 14.2386 14.5 17 14.5Z"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M12 12V15.5C12 16.8805 14.2385 18 17 18C19.7615 18 22 16.8805 22 15.5V12"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <Path
-          d="M12 15.5V19C12 20.3805 14.2385 21.5 17 21.5C19.7615 21.5 22 20.3805 22 19V15.5"
-          stroke={stroke}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </Svg>
-    );
-  }
-
-  // Fallback to FILLED variant
-  return (
-    <Svg width={width} height={height} viewBox="0 0 34 34" fill="none" {...props}>
-      <G opacity="0.24" clipPath="url(#clip0_656_976)">
-        <Path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M24.4375 29.75C29.7288 29.75 34 27.625 34 24.4375V4.25C34 2.125 29.75 0 24.4375 0C19.125 0 14.875 2.125 14.875 4.25V11.6875C17.3612 12.7288 19.4863 14.4712 20.995 16.6812C22.0363 16.8853 23.1838 16.9979 24.4375 16.9979C27.2212 16.9979 29.5375 16.4433 31.195 15.5401C31.4303 15.4108 31.6594 15.2704 31.8814 15.1194V18.0519C31.8814 18.5513 31.484 19.3269 30.1771 20.0409C28.9106 20.7315 26.9684 21.2394 24.4396 21.2394C23.9339 21.2394 23.4522 21.2203 22.9946 21.182C23.1646 21.8804 23.278 22.5958 23.3346 23.3282C23.693 23.3481 24.0614 23.358 24.4396 23.358C27.2234 23.358 29.5396 22.8034 31.1971 21.9002C31.4324 21.7709 31.6615 21.6305 31.8835 21.4795V24.412C31.8835 24.9135 31.5669 25.6572 30.2026 26.3925C28.8596 27.115 26.8451 27.5995 24.4439 27.5995C23.9551 27.5995 23.482 27.5797 23.0244 27.54C22.861 28.2463 22.6414 28.9384 22.3678 29.6098C23.0364 29.6848 23.7277 29.7224 24.4417 29.7224L24.4375 29.75ZM30.175 13.685C31.4819 12.971 31.8792 12.1954 31.8792 11.696V8.7635C31.6597 8.91367 31.4309 9.05392 31.1929 9.18425C29.5396 10.0874 27.2191 10.642 24.4354 10.642C21.6516 10.642 19.3354 10.0874 17.6779 9.18425C17.4426 9.05492 17.2135 8.91451 16.9915 8.7635V11.696C16.9915 12.1954 17.3889 12.971 18.6958 13.6829C19.9623 14.3735 21.9045 14.8814 24.4333 14.8814C26.962 14.8814 28.8958 14.3735 30.1707 13.6829L30.175 13.685ZM17 5.3125C17 4.7005 17.2656 4.11188 17.7607 3.75275C18.0306 3.55725 18.3239 3.36175 18.5555 3.2555C19.1356 2.98775 22.0405 2.12287 24.4417 2.12287C26.843 2.12287 28.9255 2.60525 30.328 3.2555C30.5915 3.37662 30.8826 3.56575 31.1398 3.75275C31.6306 4.10763 31.8835 4.692 31.8835 5.29763V5.31038C31.8835 5.80975 31.4861 6.58537 30.1792 7.29938C28.9127 7.99 26.9705 8.49788 24.4417 8.49788C21.913 8.49788 19.9792 7.98787 18.7043 7.29938C17.3974 6.5875 17 5.80975 17 5.3125Z"
-          fill="#FBFDFF"
-        />
-        <Path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M19.125 24.4375C19.125 29.7288 14.8538 34 9.5625 34C4.27125 34 0 29.7288 0 24.4375C0 19.1462 4.27125 14.875 9.5625 14.875C14.8538 14.875 19.125 19.1462 19.125 24.4375ZM17 24.4375C17 28.5387 13.6637 31.875 9.5625 31.875C5.46125 31.875 2.125 28.5387 2.125 24.4375C2.125 20.3363 5.46125 17 9.5625 17C13.6637 17 17 20.3363 17 24.4375Z"
-          fill="#FBFDFF"
-        />
-      </G>
-      <Defs>
-        <ClipPath id="clip0_656_976">
-          <Rect width="34" height="34" fill="white" />
-        </ClipPath>
-      </Defs>
-    </Svg>
-  );
-};
+}: SvgProps) => (
+  <Svg width={width} height={height} viewBox="0 0 24 24" fill="none" {...props}>
+    <Path
+      d="M7 7.5C9.76142 7.5 12 6.38071 12 5C12 3.61929 9.76142 2.5 7 2.5C4.23858 2.5 2 3.61929 2 5C2 6.38071 4.23858 7.5 7 7.5Z"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2 5V8.5C2 9.8805 4.2385 11 7 11C9.7615 11 12 9.8805 12 8.5V5"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2 8.5V12C2 13.3805 4.2385 14.5 7 14.5C9.7615 14.5 12 13.3805 12 12V8.5"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2 12V15.5C2 16.8805 4.2385 18 7 18C9.7615 18 12 16.8805 12 15.5V12"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M2 15.5V19C2 20.3805 4.2385 21.5 7 21.5C9.7615 21.5 12 20.3805 12 19V15.5"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M17 14.5C19.7614 14.5 22 13.3807 22 12C22 10.6193 19.7614 9.5 17 9.5C14.2386 9.5 12 10.6193 12 12C12 13.3807 14.2386 14.5 17 14.5Z"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12 12V15.5C12 16.8805 14.2385 18 17 18C19.7615 18 22 16.8805 22 15.5V12"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12 15.5V19C12 20.3805 14.2385 21.5 17 21.5C19.7615 21.5 22 20.3805 22 19V15.5"
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
 
 export default DatabaseIcon;
