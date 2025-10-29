@@ -14,8 +14,11 @@ import Brain from '../../assets/icons/Brain';
 import UpdatedIcon from '../../assets/icons/UpdateIcon';
 import Protect from '../../assets/icons/Protect';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import DatabaseIcon from '../../assets/icons/DatabaseIcon';
 import Hand from '../../assets/icons/Hand';
+import DatabaseIcon from '../../assets/icons/DatabaseIcon';
+import SearchIcon from '../../assets/icons/SearchIcon';
+import { PieChart } from 'react-native-chart-kit';
+
 
 
 const Introduction = () => {
@@ -27,7 +30,7 @@ const Introduction = () => {
           <View style={styles.rowBetween}>
             <View style={styles.row}>
               <Image
-            // source={require('../../../assets/images/ProfileSection/Profile.jpg')}
+            source={require('../../assets/images/ProfileSection/Profile.jpg')}
                 
                 style={styles.profileImage}
               />
@@ -75,14 +78,45 @@ const Introduction = () => {
             <Text style={styles.sectionTitle}>Income vs Expenses</Text>
 
         <View style={[styles.sectionBox, styles.shadow]}>
-          
           <View style={styles.rowBetween}>
             <TouchableOpacity style={styles.dropdown}>
-              <Text style={styles.dropdownText}>weekly </Text>
+              <Text style={styles.dropdownText}>weekly</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={styles.placeholderPie} />
+         
+          <View style={styles.pie}>
+<PieChart
+  data={[
+     {
+      name: 'Expenses',
+      population: 25,
+      color: '#E5E7EB',
+      legendFontColor: '#E5E7EB',
+      legendFontSize: 12,
+    },
+    {
+      name: 'Income',
+      population: 75,
+      color: '#243D63',
+      legendFontColor: '#243D63',
+      legendFontSize: 12,
+    },
+   
+  ]}
+  width={230} 
+  height={160}
+  chartConfig={{
+    color: () => '#243D63',
+  }}
+  accessor="population"
+  backgroundColor="transparent"
+  paddingLeft="10"     
+  hasLegend={false}    
+  center={[1, 0]}      
+/>
+
+          </View>
 
           <View style={styles.rowBetween}>
             <View>
@@ -91,7 +125,7 @@ const Introduction = () => {
                 <Text style={styles.legendText}>Income</Text>
               </View>
               <View style={styles.legendRow}>
-                <View style={[styles.legendDot, { backgroundColor: '#D9D9D9' }]} />
+                <View style={[styles.legendDot, { backgroundColor: '#E5E7EB' }]} />
                 <Text style={styles.legendText}>Expenses</Text>
               </View>
             </View>
@@ -103,8 +137,13 @@ const Introduction = () => {
 
         {/* Explore Section */}
         <View style={[styles.exploreBox, styles.shadow]}>
+           <TouchableOpacity style={styles.star} >
+
+           <Star  />
+           </TouchableOpacity>
           <Text style={styles.exploreText}>
-            You spent 20% less than last month. AI suggests investing the extra ₹2,400 in your Growth Fund.
+            You spent 20% less than last{'\n'} month. AI suggests investing the{'\n'} extra ₹2,400 in your Growth Fund.
+
           </Text>
           <TouchableOpacity style={styles.exploreButton}>
             <Text style={styles.exploreButtonText}>EXPLORE</Text>
@@ -114,22 +153,22 @@ const Introduction = () => {
         {/* Bottom Navigation */}
         
         <View style={styles.bottomBar}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.star} >
 
-           <Star  />
+           <SearchIcon  />
            </TouchableOpacity>
         
           <TouchableOpacity>
             <Brain />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.centerButton}>
+          {/* <TouchableOpacity style={styles.centerButton}>
             <Text style={styles.plus}></Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity>
+            <UpdatedIcon  />
           </TouchableOpacity>
           <TouchableOpacity>
-            <UpdatedIcon />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Protect />
+            <Protect width={30} height={30} />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -232,7 +271,7 @@ justifyContent:'space-between',
   sectionBox: {
     backgroundColor: '#FFFFFF',
     width:scale(330),
-    height:verticalScale(161),
+    height:verticalScale(141),
     marginTop: 25,
     borderRadius: 16,
    
@@ -249,6 +288,8 @@ justifyContent:'space-between',
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 10,
+    alignContent:'flex-end',
+
   },
   dropdownText: {
     color: '#243D63',
@@ -285,16 +326,22 @@ justifyContent:'space-between',
 
   // Explore Section
   exploreBox: {
+    flexDirection:'row',
     backgroundColor: '#243D63',
     marginHorizontal: 20,
     marginTop: 25,
     borderRadius: 14,
     padding: 15,
+    height:verticalScale(100),
   },
   exploreText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    marginBottom: 10,
+    color: 'rgba(251, 253, 255, 1)',
+    fontSize: 10,
+    // marginBottom: 10,
+    lineHeight:19,
+    fontFamily:'Avenir LT Std',
+    left:scale(15),
+    top:verticalScale(20),
   },
   exploreButton: {
     alignSelf: 'flex-start',
@@ -302,6 +349,8 @@ justifyContent:'space-between',
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderRadius: 10,
+    left:scale(25),
+    top:verticalScale(24),
   },
   exploreButtonText: {
     color: '#243D63',
@@ -311,12 +360,12 @@ justifyContent:'space-between',
   // Bottom Bar
   bottomBar: {
     flexDirection: 'row',
-    backgroundColor: '#1E2D46',
+    backgroundColor: 'rgba(18, 18, 18, 1)',
     justifyContent: 'space-around',
     alignItems: 'center',
     borderRadius: 25,
     margin: 20,
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
   navIcon: {
     fontSize: 20,
@@ -342,4 +391,18 @@ justifyContent:'space-between',
     shadowRadius: 4,
     elevation: 3,
   },
+  star:{
+    backgroundColor:'rgba(251, 253, 255, 1)',
+    // width:42,
+    // height:42,
+  // borderRadius:20,
+  // top:verticalScale(20),
+  },
+   pie:{
+           alignItems: 'center', 
+           marginTop: 90 ,
+           right:90,
+           transform: [{ rotate: '90deg' }]
+
+  }
 });

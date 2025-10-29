@@ -1,6 +1,7 @@
 import React from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
+<<<<<<< HEAD
 const DatabaseIcon = ({ width = 24, height = 24, stroke = "black", ...props }: SvgProps) => (
   <Svg
     width={width}
@@ -9,6 +10,15 @@ const DatabaseIcon = ({ width = 24, height = 24, stroke = "black", ...props }: S
     fill="none"
     {...props}
   >
+=======
+const DatabaseIcon = ({
+  width = 24,
+  height = 24,
+  stroke = "black",
+  ...props
+}: SvgProps) => (
+  <Svg width={width} height={height} viewBox="0 0 24 24" fill="none" {...props}>
+>>>>>>> 1582a1cc7db47c94669395f568e149d901278572
     <Path
       d="M7 7.5C9.76142 7.5 12 6.38071 12 5C12 3.61929 9.76142 2.5 7 2.5C4.23858 2.5 2 3.61929 2 5C2 6.38071 4.23858 7.5 7 7.5Z"
       stroke={stroke}
@@ -60,4 +70,8 @@ const DatabaseIcon = ({ width = 24, height = 24, stroke = "black", ...props }: S
   </Svg>
 );
 
+<<<<<<< HEAD
 export default DatabaseIcon;
+=======
+export default DatabaseIcon;
+>>>>>>> 1582a1cc7db47c94669395f568e149d901278572
