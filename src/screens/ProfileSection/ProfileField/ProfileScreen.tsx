@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
@@ -16,6 +16,7 @@ import LogoutIcon from '../../../assets/icons/LogOutIcon';
 import LogoutScreen from '../ProfilePopup/LogoutScreen';
 import UserName from '../ProfilePopup/UserName';
 import UserProfile from '../ProfilePopup/UserProfile';
+import colors from '../../../theme/color';
 
 
 //  Define navigation type for safety
@@ -35,9 +36,11 @@ const ProfileScreen: React.FC = () => {
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [changeNameVisible, setChangeNameVisible] = useState(false);
   const [galleryVisible, setGalleryVisible] = useState(false);
-
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme ?? "light"];
   return (
-    <View style={styles.container}>
+     <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.container }]}>
       {/* Profile Section */}
       <View style={styles.profileContainer}>
         <View style={styles.imageWrapper}>
@@ -128,11 +131,17 @@ const ProfileScreen: React.FC = () => {
         onClose={() => setGalleryVisible(false)}
       />
     </View>
+    </View>
   );
 };
 
 export default ProfileScreen;
 const styles = StyleSheet.create({
+    mainWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
   container: {
     flex: 1,
     backgroundColor: '#183153',

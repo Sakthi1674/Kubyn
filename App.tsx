@@ -7,7 +7,6 @@ import CreateAccount from './src/screens/createaccount/CreateAccount';
 import Login from './src/screens/login/Login';
 import LoginNumOtp from './src/screens/login/LoginNumOtp';
 import LoginSuccess from './src/screens/login/LoginSuccess';
-import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import ForgetPasswordOtp from './src/screens/forgetpassword/ForgetPasswordOtp';
 import PasswordReset from './src/screens/forgetpassword/PasswordReset';
 import ForgetPasswordSuccess from './src/screens/forgetpassword/ForgetPasswordSuccess';
@@ -88,7 +87,7 @@ const App = () => {
         />
         <Stack.Screen
           name="ForgetPassword"
-          component={ForgetPassword}
+          component={ForgetPasswordOtp}
           options={{ headerShown: false }}
         />
         <Stack.Screen

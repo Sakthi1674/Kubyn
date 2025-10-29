@@ -1,107 +1,123 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import BackWard from '../../../assets/icons/BackWard';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from "react-native";
+import BackWard from "../../../assets/icons/BackWard";
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+import colors from "../../../theme/color";
 
 
 const MySubscriptions = () => {
-  const [selectedMethod, setSelectedMethod] = useState('free');
-    const navigation = useNavigation<NavigationProp<any>>();
-
+  const [selectedMethod, setSelectedMethod] = useState("free");
+  const navigation = useNavigation<NavigationProp<any>>();
+   const colorScheme = useColorScheme();
+   const theme = colors[colorScheme ?? "light"];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.iconBack}  onPress={() => navigation.navigate('AccountScreen')}>
-          <BackWard width={15} height={15} />
+        <TouchableOpacity
+          style={styles.iconBack}
+          onPress={() => navigation.navigate("AccountScreen")}
+        >
+          <BackWard width={15} height={15} color={theme.text} /> {/* ✅ Themed icon */}
         </TouchableOpacity>
-        <Text style={styles.title}>My Subscriptions</Text>
+        <Text style={[styles.title, { color: theme.text }]}>My Subscriptions</Text>
       </View>
 
       {/* Card 1 - Free */}
       <TouchableOpacity
-        style={styles.card1}
-        onPress={() => setSelectedMethod('free')}
+        style={[styles.card1, { backgroundColor: theme.buttondark }]}
+        onPress={() => setSelectedMethod("free")}
         activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
           <View
             style={[
               styles.bigCircle,
-              { opacity: selectedMethod === 'free' ? 1 : 0.2 },
+              {
+                opacity: selectedMethod === "free" ? 1 : 0.2,
+                borderColor: theme.Button,
+              },
             ]}
           >
-            <View style={styles.smallCircle} />
+            <View style={[styles.smallCircle, { backgroundColor: theme.Button }]} />
           </View>
         </View>
-        <View style={styles.badge1}>
-          <Text style={styles.badgeText}>Free</Text>
+        <View style={[styles.badge1, { backgroundColor: theme.Button }]}>
+          <Text style={[styles.badgeText, { color: theme.bttext }]}>Free</Text>
         </View>
       </TouchableOpacity>
 
-      {/* Card 2 - Basic (Paid) */}
+      {/* Card 2 - Basic */}
       <TouchableOpacity
-        style={styles.card}
-        onPress={() => setSelectedMethod('basic')}
+        style={[styles.card, { backgroundColor: theme.buttondark }]}
+        onPress={() => setSelectedMethod("basic")}
         activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
           <View
             style={[
               styles.bigCircle,
-              { opacity: selectedMethod === 'basic' ? 1 : 0.2 },
+              {
+                opacity: selectedMethod === "basic" ? 1 : 0.2,
+                borderColor: theme.Button,
+              },
             ]}
           >
-            <View style={styles.smallCircle} />
+            <View style={[styles.smallCircle, { backgroundColor: theme.Button }]} />
           </View>
         </View>
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>Paid</Text>
+        <View style={[styles.badge, { backgroundColor: theme.Button }]}>
+          <Text style={[styles.badgeText, { color: theme.bttext }]}>Paid</Text>
         </View>
       </TouchableOpacity>
 
-      {/* Card 3 - Standard (Paid) */}
+      {/* Card 3 - Standard */}
       <TouchableOpacity
-        style={styles.card}
-        onPress={() => setSelectedMethod('standard')}
+        style={[styles.card, { backgroundColor: theme.buttondark }]}
+        onPress={() => setSelectedMethod("standard")}
         activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
           <View
             style={[
               styles.bigCircle,
-              { opacity: selectedMethod === 'standard' ? 1 : 0.2 },
+              {
+                opacity: selectedMethod === "standard" ? 1 : 0.2,
+                borderColor: theme.Button,
+              },
             ]}
           >
-            <View style={styles.smallCircle} />
+            <View style={[styles.smallCircle, { backgroundColor: theme.Button }]} />
           </View>
         </View>
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>Paid</Text>
+        <View style={[styles.badge, { backgroundColor: theme.Button }]}>
+          <Text style={[styles.badgeText, { color: theme.bttext }]}>Paid</Text>
         </View>
       </TouchableOpacity>
 
-      {/* Card 4 - Premium (Paid) */}
+      {/* Card 4 - Premium */}
       <TouchableOpacity
-        style={styles.card}
-        onPress={() => setSelectedMethod('premium')}
+        style={[styles.card, { backgroundColor: theme.buttondark }]}
+        onPress={() => setSelectedMethod("premium")}
         activeOpacity={0.8}
       >
         <View style={styles.circleWrapper}>
           <View
             style={[
               styles.bigCircle,
-              { opacity: selectedMethod === 'premium' ? 1 : 0.2 },
+              {
+                opacity: selectedMethod === "premium" ? 1 : 0.2,
+                borderColor: theme.Button,
+              },
             ]}
           >
-            <View style={styles.smallCircle} />
+            <View style={[styles.smallCircle, { backgroundColor: theme.Button }]} />
           </View>
         </View>
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>Paid</Text>
+        <View style={[styles.badge, { backgroundColor: theme.Button }]}>
+          <Text style={[styles.badgeText, { color: theme.bttext }]}>Paid</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -110,74 +126,64 @@ const MySubscriptions = () => {
 
 export default MySubscriptions;
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: verticalScale(50),
     paddingHorizontal: scale(20),
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // marginTop: verticalScale(50),
+    flexDirection: "row",
+    alignItems: "center",
   },
   title: {
     fontSize: moderateScale(20),
-    fontWeight: 'bold',
-    color: '#1e3354',
+    fontWeight: "bold",
     marginLeft: scale(30),
     letterSpacing: scale(2),
-    fontFamily: 'Kollektif',
+    fontFamily: "Kollektif",
   },
   iconBack: {
     padding: scale(5),
     top: scale(4),
   },
   card1: {
-    backgroundColor: '#e9eef6',
     borderRadius: moderateScale(15),
     height: verticalScale(90),
     marginBottom: verticalScale(10),
     padding: scale(15),
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: verticalScale(40),
   },
   card: {
-    backgroundColor: '#e9eef6',
     borderRadius: moderateScale(15),
     height: verticalScale(120),
     marginBottom: verticalScale(10),
     padding: scale(15),
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: verticalScale(10),
   },
   badge1: {
-    position: 'absolute',
+    position: "absolute",
     bottom: verticalScale(77),
     right: scale(15),
-    backgroundColor: '#1e3354',
     borderRadius: moderateScale(8),
     paddingHorizontal: scale(23),
     paddingVertical: verticalScale(6),
   },
   badge: {
-    position: 'absolute',
+    position: "absolute",
     bottom: verticalScale(105),
     right: scale(15),
-    backgroundColor: '#1e3354',
     borderRadius: moderateScale(8),
     paddingHorizontal: scale(23),
     paddingVertical: verticalScale(6),
   },
   badgeText: {
-    color: '#fff',
     fontSize: moderateScale(12),
   },
   circleWrapper: {
-    position: 'absolute',
+    position: "absolute",
     top: verticalScale(15),
     left: scale(15),
   },
@@ -185,15 +191,13 @@ const styles = StyleSheet.create({
     width: scale(18),
     height: scale(18),
     borderWidth: scale(2),
-    borderColor: '#223F61',
     borderRadius: scale(9),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   smallCircle: {
     width: scale(9),
     height: scale(9),
-    backgroundColor: '#223F61',
     borderRadius: scale(5),
   },
 });

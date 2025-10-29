@@ -14,13 +14,16 @@ import BackWard from '../../../../assets/icons/BackWard';
 import ButtonComp from '../../../../components/common/ButtonComp';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
-
+import { useColorScheme } from 'react-native';
+import colors from '../../../../theme/color';
 
 const AccountDeleteVerification = () => {
   const [selectedReason, setSelectedReason] = useState('');
   const [otherReason, setOtherReason] = useState('');
   const [showOtherInput, setShowOtherInput] = useState(false);
+  const navigation = useNavigation<NavigationProp<any>>();
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme ?? 'light']; // ✅ auto picks theme
 
   const reasons = [
     "I'm not using the app",
@@ -41,11 +44,11 @@ const AccountDeleteVerification = () => {
       setShowOtherInput(reason === 'Other');
     }
   };
-      const navigation = useNavigation<NavigationProp<any>>();
-  
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={[styles.safeArea, { backgroundColor: theme.background }]}
+    >
       <KeyboardAvoidingView
         style={styles.keyboardAvoiding}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -56,20 +59,22 @@ const AccountDeleteVerification = () => {
         >
           {/* Header */}
           <View style={styles.headerContainer}>
-            <TouchableOpacity  onPress={() => navigation.navigate('DeleteAccount')} >
-              <BackWard width={20} height={20} />
+            <TouchableOpacity onPress={() => navigation.navigate('DeleteAccount')}>
+              <BackWard width={20} height={20} color={theme.text} />
             </TouchableOpacity>
-            <Text style={styles.headerText}>Delete Account</Text>
+            <Text style={[styles.headerText, { color: theme.text }]}>
+              Delete Account
+            </Text>
           </View>
 
           {/* Info Text */}
-          <Text style={styles.confirmationText}>
+          <Text style={[styles.confirmationText, { color: theme.textSecondary }]}>
             We've sent a confirmation email to [user@email.com].{'\n'}
             Your account will be deleted shortly.
           </Text>
 
           {/* Question */}
-          <Text style={styles.questionText}>
+          <Text style={[styles.questionText, { color: theme.text }]}>
             Why did you decide to leave {'\n'}this app?
           </Text>
 
@@ -83,23 +88,34 @@ const AccountDeleteVerification = () => {
               <View
                 style={[
                   styles.checkbox,
-                  selectedReason === reason && styles.checkboxChecked,
+                  { borderColor: theme.Button },
+                  selectedReason === reason && {
+                    backgroundColor: theme.Button,
+                  },
                 ]}
               >
                 {selectedReason === reason && (
-                  <Text style={styles.tick}>✓</Text>
+                  <Text style={[styles.tick, { color: theme.bttext }]}>✓</Text>
                 )}
               </View>
-              <Text style={styles.checkboxLabel}>{reason}</Text>
+              <Text style={[styles.checkboxLabel, { color: theme.text }]}>
+                {reason}
+              </Text>
             </TouchableOpacity>
           ))}
 
           {/* Other Reason Input */}
           {showOtherInput && (
             <TextInput
-              style={styles.textInput}
+              style={[
+                styles.textInput,
+                {
+                  backgroundColor: theme.buttondark,
+                  color: theme.text,
+                },
+              ]}
               placeholder="Type here..."
-              placeholderTextColor="#888"
+              placeholderTextColor={theme.textSecondary}
               value={otherReason}
               onChangeText={setOtherReason}
               multiline
@@ -112,11 +128,11 @@ const AccountDeleteVerification = () => {
               title="Submit"
               onPress={() => console.log('Submit pressed')}
               style={{
-                backgroundColor: '#223F61',
+                backgroundColor: theme.Button,
                 marginHorizontal: scale(30),
               }}
               textStyle={{
-                textColor: '#FAF8F5',
+                color: theme.bttext,
               }}
             />
           </View>
@@ -129,9 +145,8 @@ const AccountDeleteVerification = () => {
 export default AccountDeleteVerification;
 
 const styles = StyleSheet.create({
-   safeArea: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   keyboardAvoiding: {
     flex: 1,
@@ -149,7 +164,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: moderateScale(25),
     fontWeight: 'bold',
-    color: '#000',
     letterSpacing: scale(5),
     marginLeft: scale(10),
     fontFamily: 'Kollektif',
@@ -159,12 +173,11 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(20),
     letterSpacing: scale(1),
     fontFamily: 'Avenir LT Std',
-    fontWeight:'400',
+    fontWeight: '400',
   },
   questionText: {
     fontSize: moderateScale(20),
     fontWeight: '700',
-    color: '#2e446c',
     marginBottom: verticalScale(15),
     fontFamily: 'Avenir LT Std',
     letterSpacing: scale(1),
@@ -173,47 +186,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: verticalScale(15),
-   
   },
   checkbox: {
     width: scale(18),
     height: verticalScale(18),
     borderWidth: scale(1),
-    borderColor: '#2e446c',
     marginRight: scale(10),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: moderateScale(3),
   },
-  checkboxChecked: {
-    backgroundColor: '#2e446c',
-  },
   tick: {
-    color: '#fff',
     fontSize: moderateScale(12),
     fontWeight: 'bold',
   },
   checkboxLabel: {
     fontSize: moderateScale(14),
-    color: '#000',
     fontFamily: 'Avenir LT Std',
     fontWeight: '400',
-    letterSpacing:scale(1),
-
+    letterSpacing: scale(1),
   },
   textInput: {
     height: verticalScale(100),
     borderRadius: moderateScale(8),
-    backgroundColor: '#f0f2f5',
     padding: scale(12),
     textAlignVertical: 'top',
-    color: '#000',
     marginBottom: verticalScale(20),
   },
   buttonWrapper: {
-   width: '90%',
+    width: '90%',
     position: 'absolute',
     top: verticalScale(590),
-    
   },
 });

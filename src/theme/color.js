@@ -11,7 +11,7 @@ export const lightColors = {
   icon: "#D1D1D6",
   Button: "#223F61",
   radio: "#223F61",
-  container: "#E3E9F1CC",
+  container: "#223F61",
   buttonDisabled:"#98989F",
   buttondark:"#E3E9F1"
 };
