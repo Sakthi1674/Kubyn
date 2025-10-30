@@ -43,6 +43,8 @@ import Anchoring from './src/screens/Dashboard/Anchoring';
 import KubynAI from './src/screens/Dashboard/KubynAI';
 import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import { ThemeProvider } from './src/theme/ThemeContext';
+import MyCommunity from './src/screens/Dashboard/MyCommunity';
+import MyGoal from './src/screens/Dashboard/MyGoal';
 
 
 const Stack = createNativeStackNavigator();
@@ -54,7 +56,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={ProfileScreen}
+          component={MyGoal}
           options={{ headerShown: false }}
         />
         <Stack.Screen

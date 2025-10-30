@@ -8,9 +8,9 @@ interface PlusIconProps {
 }
 
 const PlusIcon: React.FC<PlusIconProps> = ({
-  width = 40,
-  height = 40,
-  color = "#223F61",
+  width = 24,
+  height = 24,
+  color = "rgba(251, 253, 255, 1)",
 }) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 16 16" fill="none">
