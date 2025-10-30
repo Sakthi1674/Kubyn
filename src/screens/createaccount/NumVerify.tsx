@@ -102,42 +102,37 @@ const NumVerify: React.FC = () => {
           style={[
             styles.countryBox,
             {
-              borderColor: theme.container,
-              backgroundColor: theme.container,
+              borderColor: theme.buttondark,
+              backgroundColor: theme.buttondark,
             },
           ]}
         >
-          <Text style={[styles.countryText, { color: theme.radio }]}>+91</Text>
+          <Text style={[styles.countryText, { color: theme.text }]}>+91</Text>
         </View>
-        <TextInput
-          style={[
-            styles.phoneInput,
-            {
-              borderColor: theme.container,
-              backgroundColor: theme.container,
-              color: theme.radio,
-            },
-            isFocused && !error && {
-              borderColor: theme.radio,
-              backgroundColor: theme.container,
-            },
-            error && {
-              borderColor: theme.notification,
-              backgroundColor: theme.background,
-            },
-          ]}
-          keyboardType="number-pad"
-          placeholder="00000 00000"
-          placeholderTextColor={
-            error
-              ? "rgba(231,76,60,0.35)"
-              : "rgba(34,63,97,0.35)"
-          }
-          value={phone}
-          onChangeText={handlePhoneChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+       <TextInput
+  style={[
+    styles.phoneInput,
+    {
+      backgroundColor: theme.buttondark, // dynamic for dark/light
+      color: theme.text, // entered text
+      borderColor: isFocused
+        ? theme.Button
+        : error
+        ? theme.notification
+        : theme.buttondark,
+    },
+  ]}
+  keyboardType="number-pad"
+  placeholder="00000 00000"
+  placeholderTextColor={
+    error ? theme.notification : theme.textSecondary
+  }
+  value={phone}
+  onChangeText={handlePhoneChange}
+  onFocus={() => setIsFocused(true)}
+  onBlur={() => setIsFocused(false)}
+/>
+
       </View>
 
       <View style={styles.errorContainer}>

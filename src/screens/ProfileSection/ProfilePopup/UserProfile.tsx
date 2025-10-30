@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StyleSheet,
+  useColorScheme,
 } from 'react-native';
 import Camera from '../../../assets/icons/Camera';
 import GalleryPopup from '../../../assets/icons/GalleryPopup';
 import Wrong from '../../../assets/icons/Wrong';
 import RemoveIcon from '../../../assets/icons/RemoveIcon';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import colors from '../../../theme/color';
 
 
 interface GalleryPopupProps {
@@ -20,6 +22,9 @@ interface GalleryPopupProps {
 }
 
 const UserProfile: React.FC<GalleryPopupProps> = ({ visible, onClose }) => {
+
+  const scheme = useColorScheme();
+  const theme = scheme === 'dark' ? colors.dark : colors.light;
   return (
     <Modal
       visible={visible}
@@ -30,37 +35,43 @@ const UserProfile: React.FC<GalleryPopupProps> = ({ visible, onClose }) => {
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
-            <View style={styles.popupBox}
-            >
+               <View style={[styles.popupBox, { backgroundColor: theme.container }]}>
                 <TouchableOpacity style={styles.wrong}
                 onPress={onClose}>
-                <Wrong />
+                <Wrong width={20} height={20}  />
                 </TouchableOpacity>
-              <Text style={styles.popupTitle}>Change Profile Photo </Text>
+            <Text style={styles.popupTitle}>
+                Change Profile Photo
+              </Text>
 
-              <TouchableOpacity style={styles.popupButton}>
-                 <View  style={styles.icon}>
-                <Camera width={24} height={24}/>
+              <TouchableOpacity style={[styles.popupButton, { backgroundColor: theme.bttext }]}>
+                <View style={styles.icon}>
+                  <Camera width={24} height={24} color={theme.text} />
                 </View>
-                <Text style={styles.popupText}>Take a picture</Text>
+                <Text style={[styles.popupText, { color: theme.text }]}>
+                  Take a picture
+                </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.popupButton}>
-                <View  style={styles.icon}>
-                <GalleryPopup  width={24} height={24}/>
+              <TouchableOpacity style={[styles.popupButton, { backgroundColor: theme.bttext }]}>
+                <View style={styles.icon}>
+                  <GalleryPopup width={24} height={24} color={theme.text} />
                 </View>
-                <Text style={styles.popupText}>Upload from Photos / Files</Text>
+                <Text style={[styles.popupText, { color: theme.text }]}>
+                  Upload from Photos / Files
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={[styles.popupButton]}
+                style={[styles.popupButton, { backgroundColor: theme.bttext }]}
                 onPress={onClose}
               >
-                <View  style={styles.icon}>
-
-                <RemoveIcon width={24} height={24}/>
+                <View style={styles.icon}>
+                  <RemoveIcon width={24} height={24} color={theme.text} />
                 </View>
-                <Text style={styles.popupText}>Remove Image</Text>
+                <Text style={[styles.popupText, { color: theme.text }]}>
+                  Remove Image
+                </Text>
               </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>

@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   TouchableWithoutFeedback,
+  useColorScheme,
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import colors from '../../../theme/color';
 
 
 interface LogoutPopupProps {
@@ -15,8 +17,10 @@ interface LogoutPopupProps {
   onCancel: () => void;
   onLogout: () => void;
 }
-
 const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout }) => {
+  const scheme = useColorScheme();
+  const theme = scheme === 'dark' ? colors.dark : colors.light;
+
   return (
     <Modal
       animationType="fade"
@@ -27,18 +31,26 @@ const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout 
       <TouchableWithoutFeedback onPress={onCancel}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
-            <View style={styles.popupContainer}>
-              <Text style={styles.popupText}>Are you sure you{'\n'} want to logout?</Text>
+            <View style={[styles.popupContainer, { backgroundColor: theme.container }]}>
+                 <Text style={styles.popupText}>
+                Are you sure{'\n'}you want to logout?
+              </Text>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-                  <Text style={styles.cancelText}>Cancel</Text>
+             <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={[styles.cancelButton, { backgroundColor: theme.bttext }]}
+                  onPress={onCancel}
+                >
+                  <Text style={[styles.cancelText, { color: theme.text }]}>Cancel</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-                  <Text style={styles.logoutText}>Logout</Text>
+                <TouchableOpacity
+                  style={[styles.logoutButton, { backgroundColor: theme.bttext }]}
+                  onPress={onLogout}
+                >
+                  <Text style={[styles.logoutText, { color: theme.text }]}>Logout</Text>
                 </TouchableOpacity>
-              </View>
+                </View>
             </View>
           </TouchableWithoutFeedback>
         </View>
