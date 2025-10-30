@@ -5,51 +5,54 @@ import {
     StyleSheet,
     TouchableOpacity,
     SafeAreaView,
+    useColorScheme,
 } from 'react-native';
 import BackWard from '../../../../assets/icons/BackWard';
 import ButtonComp from '../../../../components/common/ButtonComp';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import colors from '../../../../theme/color';
 
 
 const ResetPin = () => {
       const navigation = useNavigation<NavigationProp<any>>();
-    
+      const scheme = useColorScheme();
+  const theme = scheme === "dark" ? colors.dark : colors.light;
     return (
-        <SafeAreaView style={styles.safeArea}>
-            {/* Header */}
-            <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('CurrentPin')}>
-                    <BackWard width={20} height={20} />
-                </TouchableOpacity>
-                <Text style={styles.headerText}>Pin Lock</Text>
-            </View>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.background }]}>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("CurrentPin")}>
+          <BackWard width={20} height={20} stroke={theme.icon} />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, { color: theme.text }]}>Pin Lock</Text>
+      </View>
 
-            {/* Subtext */}
-            <Text style={styles.subText}>Re- Enter Pin</Text>
+      {/* Subtext */}
+      <Text style={[styles.subText, { color: theme.textSecondary }]}>Re-Enter Pin</Text>
 
-            {/* PIN Placeholder */}
-            <View style={styles.pinContainer}>
-                {[0, 1, 2, 3].map((_, index) => (
-                    <View key={index} style={styles.pinDot} />
-                ))}
-            </View>
+      {/* PIN Placeholder */}
+      <View style={styles.pinContainer}>
+        {[0, 1, 2, 3].map((_, index) => (
+          <View key={index} style={[styles.pinDot, { backgroundColor: theme.text }]} />
+        ))}
+      </View>
 
-            {/* Next Button */}
-             <View style={styles.buttonWrapper}>
+      {/* Confirm Button */}
+      <View style={styles.buttonWrapper}>
         <ButtonComp
           title="Confirm"
-          onPress={() => navigation.navigate('SecurityScreen')}
+          onPress={() => navigation.navigate("SecurityScreen")}
           style={{
-            backgroundColor: '#223F61',
+            backgroundColor: theme.Button,
             marginHorizontal: scale(30),
           }}
           textStyle={{
-            color: '#FAF8F5', // fixed from textColor
+            color: theme.bttext,
           }}
         />
       </View>
-        </SafeAreaView>
+    </SafeAreaView>
     );
 };
 

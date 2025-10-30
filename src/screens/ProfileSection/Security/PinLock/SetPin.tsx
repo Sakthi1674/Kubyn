@@ -5,46 +5,49 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
+  useColorScheme,
 } from 'react-native';
 import BackWard from '../../../../assets/icons/BackWard';
 import ButtonComp from '../../../../components/common/ButtonComp';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import colors from '../../../../theme/color';
 
 const SetPin = () => {
   const navigation = useNavigation<NavigationProp<any>>();
-
+  const scheme = useColorScheme();
+  const theme = scheme === "dark" ? colors.dark : colors.light;
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.background }]}>
       {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <BackWard width={20} height={20} />
+          <BackWard width={20} height={20} stroke={theme.icon} />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Pin Lock</Text>
+        <Text style={[styles.headerText, { color: theme.text }]}>Pin Lock</Text>
       </View>
 
       {/* Subtext */}
-      <Text style={styles.subText}>Set Pin</Text>
+      <Text style={[styles.subText, { color: theme.textSecondary }]}>Set Pin</Text>
 
       {/* PIN Placeholder */}
       <View style={styles.pinContainer}>
         {[0, 1, 2, 3].map((_, index) => (
-          <View key={index} style={styles.pinDot} />
+          <View key={index} style={[styles.pinDot, { backgroundColor: theme.text }]} />
         ))}
       </View>
 
       {/* Next Button */}
-       <View style={styles.buttonWrapper}>
+      <View style={styles.buttonWrapper}>
         <ButtonComp
           title="Next"
-          onPress={() => navigation.navigate('ResetPin')}
+          onPress={() => navigation.navigate("ResetPin")}
           style={{
-            backgroundColor: '#223F61',
+            backgroundColor: theme.Button,
             marginHorizontal: scale(30),
           }}
           textStyle={{
-            color: '#FAF8F5', // fixed from textColor
+            color: theme.bttext,
           }}
         />
       </View>

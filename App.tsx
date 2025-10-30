@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, ThemeContext, } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NumVerify from './src/screens/createaccount/NumVerify';
 import NumOtp from './src/screens/createaccount/NumOtp';
@@ -7,7 +7,6 @@ import CreateAccount from './src/screens/createaccount/CreateAccount';
 import Login from './src/screens/login/Login';
 import LoginNumOtp from './src/screens/login/LoginNumOtp';
 import LoginSuccess from './src/screens/login/LoginSuccess';
-// import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import ForgetPasswordOtp from './src/screens/forgetpassword/ForgetPasswordOtp';
 import PasswordReset from './src/screens/forgetpassword/PasswordReset';
 import ForgetPasswordSuccess from './src/screens/forgetpassword/ForgetPasswordSuccess';
@@ -38,32 +37,34 @@ import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
 import Introduction from './src/screens/Dashboard/Introduction';
 import Nofication from './src/screens/Notication/Notification';
 import Progress from './src/screens/Notication/Progress';
-<<<<<<< HEAD
-import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
-=======
 import FirstNumTrap from './src/screens/Dashboard/FirstNumTrap';
 import MySpend from './src/screens/Dashboard/MySpend';
->>>>>>> 1582a1cc7db47c94669395f568e149d901278572
+import Anchoring from './src/screens/Dashboard/Anchoring';
+import KubynAI from './src/screens/Dashboard/KubynAI';
+import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
+import { ThemeProvider } from './src/theme/ThemeContext';
 
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
+    <ThemeProvider>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-<<<<<<< HEAD
-          component={SplashScreen}
-=======
-          component={Introduction}
->>>>>>> 1582a1cc7db47c94669395f568e149d901278572
+          component={ProfileScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Details"
           component={WelcomePage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="KubynAI"
+          component={KubynAI}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -96,11 +97,11 @@ const App = () => {
           component={LoginSuccess}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="ForgetPassword"
-          component={ForgetPasswordOtp}
+          component={ForgetPassword}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="ForgetPasswordOtp"
           component={ForgetPasswordOtp}
@@ -238,6 +239,7 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+   </ThemeProvider>
   );
 }
 

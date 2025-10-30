@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, useColorScheme } from 
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
-
+import { useThemeContext } from "../../../theme/ThemeContext";
 import GalleryIcon from '../../../assets/icons/GalleryIcon';
 import EditIcon from '../../../assets/icons/EditIcon';
 import AccountIcon from '../../../assets/icons/AccountIcon';
@@ -36,8 +35,8 @@ const ProfileScreen: React.FC = () => {
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [changeNameVisible, setChangeNameVisible] = useState(false);
   const [galleryVisible, setGalleryVisible] = useState(false);
-  const colorScheme = useColorScheme();
-  const theme = colors[colorScheme ?? "light"];
+  const { theme } = useThemeContext(); 
+  
   return (
      <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
     <View style={[styles.container, { backgroundColor: theme.container }]}>

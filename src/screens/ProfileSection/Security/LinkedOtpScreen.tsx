@@ -2,163 +2,157 @@ import React from 'react';
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
+  TouchableOpacity,
   SafeAreaView,
   useColorScheme,
 } from 'react-native';
-import BackWard from '../../../assets/icons/BackWard';
-import EyeIcon from '../../../assets/icons/EyeIcon';
 import ButtonComp from '../../../components/common/ButtonComp';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import BackWard from '../../../assets/icons/BackWard';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import colors from '../../../theme/color'; // ✅ contains { light: {...}, dark: {...} }
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import colors from '../../../theme/color';
 
-const CurrentPassword: React.FC = () => {
+
+const LinkedOtpScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<any>>();
   const scheme = useColorScheme();
-  const theme = colors[scheme === 'dark' ? 'dark' : 'light']; // ✅ select proper theme
+  const theme = scheme === "dark" ? colors.dark : colors.light;
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
+      style={[styles.safeArea, { backgroundColor: theme.background }]}
     >
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('SecurityScreen')}>
-          <BackWard stroke={theme.text} />
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('LinkedScreen')}>
+          <BackWard width={20} height={20} stroke={theme.icon} />
         </TouchableOpacity>
-        <Text style={[styles.title, { color: theme.text }]}>
-          Change Password
-        </Text>
       </View>
 
-      {/* Form */}
-      <View style={styles.form}>
-        {/* Current Password */}
-        <Text style={[styles.label, { color: theme.text }]}>
-          Current Password
+      {/* Card Section */}
+      <View
+        style={[
+          styles.cardContainer,
+          { backgroundColor: theme.buttondark },
+        ]}
+      >
+        <Text style={[styles.title, { color: theme.text }]}>Confirmation</Text>
+        <Text style={[styles.subText, { color: theme.textSecondary }]}>
+          Please Enter the verification Code sent to {'\n'}+91***0156
         </Text>
-        <View
-          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
-        >
-          <TextInput
-            placeholder="Current Password"
-            style={[styles.input, { color: theme.text }]}
-            placeholderTextColor={theme.text}
-            secureTextEntry
-          />
+
+        {/* OTP Boxes */}
+        <View style={styles.otpContainer}>
+          {[0, 1, 2, 3].map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.otpBox,
+                { borderColor: theme.Button, backgroundColor: theme.bttext },
+              ]}
+            >
+              <Text style={[styles.otpText, { color: theme.text }]}>0</Text>
+            </View>
+          ))}
         </View>
 
-        <TouchableOpacity>
-          <Text style={[styles.forgotText, { color: theme.text }]}>
-            Forgot Password?
-          </Text>
-        </TouchableOpacity>
-
-        {/* New Password */}
-        <View
-          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
-        >
-          <TextInput
-            placeholder="Password"
-            style={[styles.input, { color: theme.text }]}
-            placeholderTextColor={theme.text}
-            secureTextEntry
+        {/* Verify Button */}
+        <View>
+          <ButtonComp
+            title="Verify"
+            onPress={() => {}}
+            style={{
+              backgroundColor: theme.Button,
+              width: 210,
+            }}
+            textStyle={{
+              color: theme.bttext,
+              fontFamily: 'Avenir LT Std',
+            }}
           />
-          <TouchableOpacity style={styles.iconRight}>
-            <EyeIcon stroke={theme.icon} opacity={0.35} />
-          </TouchableOpacity>
-        </View>
-
-        {/* Confirm Password */}
-        <View
-          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
-        >
-          <TextInput
-            placeholder="Confirm Password"
-            style={[styles.input, { color: theme.text }]}
-            placeholderTextColor={theme.text}
-            secureTextEntry
-          />
-          <TouchableOpacity style={styles.iconRight}>
-            <EyeIcon stroke={theme.icon} opacity={0.35} />
-          </TouchableOpacity>
         </View>
       </View>
 
-      {/* Confirm Button */}
-      <ButtonComp
-        title="Confirm Password"
-        onPress={() => console.log('Submit pressed')}
-        style={{
-          backgroundColor: theme.Button,
-          marginTop: verticalScale(270),
-          marginHorizontal: scale(30),
-        }}
-        textStyle={{
-          color: theme.bttext,
-          fontFamily: 'Avenir LT Std',
-          letterSpacing: scale(2),
-        }}
-      />
+      {/* Update Button */}
+      <View style={styles.updateWrapper}>
+        <ButtonComp
+          title="Update"
+          onPress={() => {}}
+          style={{
+            backgroundColor: theme.Button,
+            marginHorizontal: scale(30),
+            opacity: 0.35,
+          }}
+          textStyle={{
+            color: theme.text,
+            fontWeight: '600',
+            fontFamily: 'Avenir LT Std',
+            letterSpacing: scale(2),
+          }}
+        />
+      </View>
     </SafeAreaView>
   );
 };
 
-export default CurrentPassword;
+export default LinkedOtpScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    paddingHorizontal: scale(20),
+    alignItems: 'center',
   },
-  header: {
+  headerContainer: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(50),
+    marginTop: verticalScale(60),
+    marginLeft: scale(50),
+  },
+  cardContainer: {
+    width: '85%',
+    borderRadius: moderateScale(22),
+    paddingVertical: verticalScale(10),
+    alignItems: 'center',
+    marginTop: verticalScale(100),
   },
   title: {
-    fontSize: moderateScale(20),
-    fontWeight: '700',
-    marginLeft: scale(19),
-    letterSpacing: scale(3),
-    fontFamily: 'Kollektif',
+    fontSize: moderateScale(18),
+    fontWeight: 'bold',
+    fontFamily: 'Avenir LT Std',
+    marginBottom: verticalScale(10),
   },
-  form: {
-    marginTop: verticalScale(40),
-  },
-  label: {
+  subText: {
     fontSize: moderateScale(12),
-    marginBottom: verticalScale(10),
-    left: scale(17),
+    textAlign: 'center',
+    marginBottom: verticalScale(25),
     fontFamily: 'Avenir LT Std',
-    letterSpacing: scale(1),
+    lineHeight: verticalScale(18),
   },
-  inputWrapper: {
-    borderRadius: moderateScale(10),
-    paddingHorizontal: scale(16),
-    paddingVertical: verticalScale(8),
-    marginBottom: verticalScale(10),
+  otpContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: verticalScale(30),
+  },
+  otpBox: {
+    width: scale(50),
+    height: verticalScale(50),
+    borderRadius: moderateScale(8),
+    marginHorizontal: scale(8),
+    justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: scale(1),
+  },
+  otpText: {
+    fontSize: moderateScale(24),
+    fontWeight: '600',
+    opacity: scale(0.35),
+  },
+  updateWrapper: {
+    position: 'absolute',
+    bottom: verticalScale(40),
     width: '90%',
-    left: scale(15),
-  },
-  input: {
-    flex: 1,
-    fontSize: moderateScale(14),
-  },
-  iconRight: {
-    marginLeft: scale(10),
-  },
-  forgotText: {
-    alignSelf: 'flex-end',
-    marginBottom: verticalScale(18),
-    fontSize: moderateScale(10),
-    right: scale(22),
-    fontFamily: 'Avenir LT Std',
-    letterSpacing: scale(1),
+    alignItems: 'center',
   },
 });
