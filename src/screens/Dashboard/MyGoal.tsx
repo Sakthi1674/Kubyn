@@ -20,7 +20,6 @@ const MyGoal = () => {
                 <NotificationBell />
             </View>
 
-            {/* 🔹 Buttons Row */}
             <View style={styles.buttonRow}>
                 <TouchableOpacity
                     style={[
