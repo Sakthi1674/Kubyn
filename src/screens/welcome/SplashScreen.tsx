@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     color: "#E3E9F1CC",
     marginBottom: verticalScale(20),
     width:scale(310),
+    height:scale(40),
   },
 
   pagination: {

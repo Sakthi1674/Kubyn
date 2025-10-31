@@ -69,7 +69,7 @@ const CurrentPassword: React.FC = () => {
             secureTextEntry
           />
           <TouchableOpacity style={styles.iconRight}>
-            <EyeIcon stroke={theme.Button} opacity={0.35} />
+            <EyeIcon stroke={theme.icon} opacity={0.35} />
           </TouchableOpacity>
         </View>
 
@@ -84,7 +84,7 @@ const CurrentPassword: React.FC = () => {
             secureTextEntry
           />
           <TouchableOpacity style={styles.iconRight}>
-            <EyeIcon stroke={theme.Button} opacity={0.35} />
+            <EyeIcon stroke={theme.icon} opacity={0.35} />
           </TouchableOpacity>
         </View>
       </View>

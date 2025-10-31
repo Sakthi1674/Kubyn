@@ -6,7 +6,10 @@ import {
     ImageBackground,
     TouchableOpacity,
     Image,
+    useColorScheme,
 } from "react-native";
+import colors from "../../theme/color";
+import ButtonComp from "../../components/common/ButtonComp";
 
 const Anchoring = ({ navigation }: any) => {
     const [page, setPage] = useState(1);
@@ -23,7 +26,8 @@ const Anchoring = ({ navigation }: any) => {
     const handlePrev = () => {
         if (page > 1) setPage(page - 1);
     };
-
+    const colorScheme = useColorScheme();
+    const theme = colors[colorScheme || "light"];
     const pages = [
         {
             title: "The First Number",
@@ -47,76 +51,78 @@ const Anchoring = ({ navigation }: any) => {
         },
     ];
 
-    return (
-        <ImageBackground
-            source={require("../../assets/images/DashBoard/AnchoringDoodle.png")}
-            style={styles.background}
-            resizeMode="cover"
-        >
-            {/* --- Absolute Small Image (Top Left) --- */}
-            <Image
-                source={require("../../assets/images/DashBoard/TopLeftIcon.png")}
-                style={styles.absoluteImage}
-                resizeMode="contain"
-            />
+    return  (
+    <ImageBackground
+      source={require("../../assets/images/DashBoard/AnchoringDoodle.png")}
+      style={[styles.background, { backgroundColor: theme.background }]} // ✅ theme-aware
+      resizeMode="cover"
+    >
+      {/* Top Decorative Image */}
+      <Image
+        source={require("../../assets/images/DashBoard/TopLeftIcon.png")}
+        style={styles.absoluteImage}
+        resizeMode="contain"
+      />
 
-            {/* --- Custom Progress Bar --- */}
-            <View style={styles.progressContainer}>
-                {/* --- Owl image --- */}
-                <Image
-                    source={require("../../assets/images/DashBoard/ProgressImg.png")}
-                    style={[
-                        styles.owl,
-                        { left: (page / 4) * 179 - 45 },
-                    ]}
-                    resizeMode="contain"
-                />
+      {/* Progress Section */}
+      <View style={styles.progressContainer}>
+        <Image
+          source={require("../../assets/images/DashBoard/ProgressImg.png")}
+          style={[styles.owl, { left: (page / 4) * 179 - 45 }]}
+          resizeMode="contain"
+        />
 
-                {/* --- Progress Bar --- */}
-                <View style={styles.progressBar}>
-                    <View
-                        style={[
-                            styles.progressFill,
-                            { width: `${(page / 4) * 100}%` },
-                        ]}
-                    />
-                </View>
+        <View style={styles.progressBar}>
+          <View
+            style={[
+              styles.progressFill,
+              { width: `${(page / 4) * 100}%`, backgroundColor: theme.Button },
+            ]}
+          />
+        </View>
 
-                {/* --- Progress Text --- */}
-                <Text style={styles.progressText}>{page}/4</Text>
-            </View>
+        <Text style={[styles.progressText, { color: theme.textSecondary }]}>
+          {page}/4
+        </Text>
+      </View>
 
-            {/* --- Center Image --- */}
-            <View style={styles.imageContainer}>
-                <Image
-                    source={require("../../assets/images/DashBoard/MessageBox.png")}
-                    style={styles.centerImage}
-                    resizeMode="contain"
-                />
-                <View style={styles.textInsideImage}>
-                    <Text style={styles.title}>{pages[page - 1].title}</Text>
-                    <Text style={styles.description}>{pages[page - 1].description}</Text>
-                </View>
-            </View>
+      {/* Centered Content */}
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../../assets/images/DashBoard/MessageBox.png")}
+          style={styles.centerImage}
+          resizeMode="contain"
+        />
+        <View style={styles.textInsideImage}>
+          <Text style={styles.title }>
+            {pages[page - 1].title}
+          </Text>
+          <Text style={styles.description}>
+            {pages[page - 1].description}
+          </Text>
+        </View>
+      </View>
 
-            {/* --- Bottom Buttons --- */}
-            <View style={styles.buttonContainer}>
-                {page > 1 && (
-                    <TouchableOpacity style={styles.button} onPress={handlePrev}>
-                        <Text style={styles.buttonText}>Previous</Text>
-                    </TouchableOpacity>
+      {/* --- Bottom Buttons (isolated styles) --- */}
+      <View style={styles.buttonContainer}>
+       {page > 1 && (
+                    <ButtonComp
+                        title="Previous"
+                        onPress={handlePrev}
+                        style={{ width: 140, backgroundColor: theme.Button }} textStyle={{ color: theme.bttext }} />
                 )}
 
-                <TouchableOpacity
-                    style={[styles.button, styles.nextButton]}
+                <ButtonComp
+                    title={page === 4 ? "Finish" : "Next"}
                     onPress={handleNext}
-                >
-                    <Text style={styles.buttonText}>
-                        {page === 4 ? "Finish" : "Next"}
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </ImageBackground>
+                    style={{
+                        width: 140,
+                        backgroundColor: theme.Button,
+                        marginLeft: "auto",
+                    }}  textStyle={{ color: theme.bttext }} />
+
+      </View>
+    </ImageBackground>
     );
 };
 

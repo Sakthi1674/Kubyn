@@ -39,7 +39,7 @@ const ProfileScreen: React.FC = () => {
   
   return (
      <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
-    <View style={[styles.container, { backgroundColor: theme.container }]}>
+    <View style={[styles.container, { backgroundColor: theme.Profilebg }]}>
       {/* Profile Section */}
       <View style={styles.profileContainer}>
         <View style={styles.imageWrapper}>
@@ -144,9 +144,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#183153',
-    paddingHorizontal: scale(30),
     paddingVertical: verticalScale(40),
     justifyContent: 'space-between',
+    alignItems:"center",
     width: '85%',
     borderTopRightRadius: verticalScale(30),
     borderBottomRightRadius: verticalScale(30),
@@ -182,9 +182,8 @@ const styles = StyleSheet.create({
     width: scale(105),
     height: scale(38),
     borderBottomLeftRadius: moderateScale(420),
-     borderTopLeftRadius: moderateScale(30),
+    borderTopLeftRadius: moderateScale(30),
     borderBottomRightRadius: moderateScale(290),
-
     backgroundColor: 'rgba(255,255,255,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -209,7 +208,6 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     marginBottom: verticalScale(160),
-    marginLeft: scale(40),
   },
   menuItem: {
     flexDirection: 'row',
@@ -224,6 +222,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   logoutContainer: {
-    alignItems: 'flex-start',
+    position:"absolute",
+    bottom:scale(30),
+    left:scale(30),
   },
 });

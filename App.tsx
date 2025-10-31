@@ -56,7 +56,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={LoginNumOtp}
+          component={ProfileScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

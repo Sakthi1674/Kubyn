@@ -41,35 +41,43 @@ const Login: React.FC = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleLogin = async () => {
-  const digitsOnly = phone.replace(/\s/g, "");
+    const digitsOnly = phone.replace(/\s/g, "").trim();
 
-  // ✅ basic validation only
-  if (digitsOnly.length !== 10 || !password) {
-    setErrorMessage("* Enter valid phone and password");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://10.0.2.2:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phoneNumber: digitsOnly, password }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      console.log("Login success:", data.user);
-      navigation.navigate("LoginNumOtp"); // ✅ navigates even if checkbox is false
-    } else {
-      setErrorMessage(data.message || "Login failed");
+    // ✅ Add +91 prefix if missing
+    let formattedPhone = digitsOnly;
+    if (digitsOnly.length === 10) {
+      formattedPhone = `+91${digitsOnly}`;
+    } else if (digitsOnly.startsWith("91") && digitsOnly.length === 12) {
+      formattedPhone = `+${digitsOnly}`;
     }
-  } catch (err) {
-    console.error(err);
-    setErrorMessage("Server error");
-  }
-};
 
+    // ✅ Basic validation
+    if (digitsOnly.length !== 10 || !password) {
+      setErrorMessage("* Enter valid phone and password");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://10.0.2.2:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // ✅ Important: use formattedPhone instead of digitsOnly
+        body: JSON.stringify({ phoneNumber: formattedPhone, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Login success:", data.user);
+        navigation.navigate("LoginNumOtp");
+      } else {
+        setErrorMessage(data.message || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Server error");
+    }
+  };
 
   const handlePhoneChange = (text: string) => {
     let digits = text.replace(/\D/g, "");
@@ -91,7 +99,7 @@ const Login: React.FC = () => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <BackWard width={scale(10)} height={verticalScale(16)} color={theme.Button} />
+          <BackWard width={scale(10)} height={verticalScale(16)} color={theme.text} />
         </TouchableOpacity>
         <Text style={[styles.heading, { color: theme.text }]}>Login</Text>
       </View>
@@ -106,8 +114,8 @@ const Login: React.FC = () => {
               borderColor: showPhoneError
                 ? `${theme.notification}55`
                 : focusedField === "phone"
-                ? `${theme.Button}95`
-                : theme.buttondark,
+                  ? `${theme.Button}95`
+                  : theme.buttondark,
               backgroundColor: showPhoneError
                 ? theme.bttext
                 : theme.buttondark,
@@ -139,8 +147,8 @@ const Login: React.FC = () => {
                 borderColor: showPasswordError
                   ? `${theme.notification}55`
                   : focusedField === "password"
-                  ? `${theme.Button}95`
-                  : theme.buttondark,
+                    ? `${theme.Button}95`
+                    : theme.buttondark,
                 backgroundColor: showPasswordError
                   ? theme.bttext
                   : theme.buttondark,

@@ -10,16 +10,24 @@ import {
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import colors from '../../../theme/color';
-
+import { useNavigation, NavigationProp } from '@react-navigation/native'; // ✅ Add this
 
 interface LogoutPopupProps {
   visible: boolean;
   onCancel: () => void;
-  onLogout: () => void;
+  onLogout?: () => void;
 }
-const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout }) => {
+
+const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel }) => {
   const scheme = useColorScheme();
   const theme = scheme === 'dark' ? colors.dark : colors.light;
+  const navigation = useNavigation<NavigationProp<any>>(); // ✅ Initialize navigation
+
+  // ✅ Handle logout action
+  const handleLogout = () => {
+    // Add your logout logic here (like clearing AsyncStorage or tokens)
+    navigation.navigate('Login'); // navigate to your Login screen
+  };
 
   return (
     <Modal
@@ -31,12 +39,12 @@ const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout 
       <TouchableWithoutFeedback onPress={onCancel}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
-            <View style={[styles.popupContainer, { backgroundColor: theme.container }]}>
-                 <Text style={styles.popupText}>
+            <View style={[styles.popupContainer, { backgroundColor: theme.Profilebg }]}>
+              <Text style={styles.popupText}>
                 Are you sure{'\n'}you want to logout?
               </Text>
 
-             <View style={styles.buttonContainer}>
+              <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={[styles.cancelButton, { backgroundColor: theme.bttext }]}
                   onPress={onCancel}
@@ -46,11 +54,11 @@ const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout 
 
                 <TouchableOpacity
                   style={[styles.logoutButton, { backgroundColor: theme.bttext }]}
-                  onPress={onLogout}
+                  onPress={handleLogout}
                 >
                   <Text style={[styles.logoutText, { color: theme.text }]}>Logout</Text>
                 </TouchableOpacity>
-                </View>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -61,34 +69,33 @@ const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel, onLogout 
 
 export default LogoutScreen;
 
+// --- styles ---
 const styles = StyleSheet.create({
-
   overlay: {
     flex: 1,
     backgroundColor: '#E3E9F1CC',
     justifyContent: 'center',
     alignItems: 'center',
-    width:'85%',
+    width: '100%',
   },
   popupContainer: {
     backgroundColor: '#223F61',
     borderRadius: verticalScale(20),
     padding: scale(25),
-      width: scale(300),
-      height:verticalScale(150),
+    width: scale(300),
+    height: verticalScale(150),
     alignItems: 'center',
-    left:scale(20),
+    justifyContent:"center"
   },
   popupText: {
     color: '#FBFDFF',
     fontSize: moderateScale(16),
     marginBottom: verticalScale(25),
     textAlign: 'center',
-    fontFamily:'Avenir LT Std',
-    letterSpacing:scale(2),
-    fontWeight:600,
-    lineHeight:verticalScale(20),
-
+    fontFamily: 'Avenir LT Std',
+    letterSpacing: scale(2),
+    fontWeight: '600',
+    lineHeight: verticalScale(20),
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -100,17 +107,13 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
     paddingVertical: verticalScale(8),
     paddingHorizontal: scale(18),
-   
-
   },
   cancelText: {
     color: '#223F61',
-     fontFamily:"Kollektif",
-    fontWeight:700,
-    letterSpacing:scale(2),
-    fontSize:moderateScale(12),
-    
-
+    fontFamily: 'Kollektif',
+    fontWeight: '700',
+    letterSpacing: scale(2),
+    fontSize: moderateScale(12),
   },
   logoutButton: {
     backgroundColor: '#FBFDFF',
@@ -120,9 +123,9 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     color: '#223F61',
-     fontFamily:"Kollektif",
-    fontWeight:700,
-    letterSpacing:scale(2),
-    fontSize:moderateScale(12),
+    fontFamily: 'Kollektif',
+    fontWeight: '700',
+    letterSpacing: scale(2),
+    fontSize: moderateScale(12),
   },
 });

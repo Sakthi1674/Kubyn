@@ -5,33 +5,49 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
+
 } from 'react-native';
 import Bell from '../../assets/icons/Bell';
-import Star from '../../assets/icons/Star'
+import Star from '../../assets/icons/Star';
 import Brain from '../../assets/icons/Brain';
 import UpdatedIcon from '../../assets/icons/UpdateIcon';
 import Protect from '../../assets/icons/Protect';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import Hand from '../../assets/icons/Hand';
-import DatabaseIcon from '../../assets/icons/DatabaseIcon';
-import SearchIcon from '../../assets/icons/SearchIcon';
 import { PieChart } from 'react-native-chart-kit';
-
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import SearchIcon from '../../assets/icons/SearchIcon';
+import PlusIcon from '../../assets/icons/PlusIcon ';
+import DatabaseIcon from '../../assets/icons/DatabaseIcon';
+import RupeeIcon from '../../assets/icons/RupeeIcon';
+import ArrowDown from '../../assets/icons/ArrowDown';
+import Download from '../../assets/icons/Download';
 
 
 const Introduction = () => {
+  const data = [
+    {
+      name: 'High',
+      population: 75,
+      color: 'rgba(34, 63, 97, 1)',
+      legendFontColor: 'rgba(34, 63, 97, 1)',
+      legendFontSize: 12,
+    },
+    {
+      name: 'Low',
+      population: 25,
+      color: 'rgba(214, 214, 214, 1)',
+      legendFontColor: 'rgba(34, 63, 97, 1)',
+      legendFontSize: 12,
+    },
+  ];
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
         {/* Top Section */}
         <View style={styles.headerContainer}>
           <View style={styles.rowBetween}>
             <View style={styles.row}>
               <Image
-            source={require('../../assets/images/ProfileSection/Profile.jpg')}
-                
+                source={require('../../assets/images/ProfileSection/Profile.jpg')}
                 style={styles.profileImage}
               />
               <View style={styles.header}>
@@ -39,140 +55,182 @@ const Introduction = () => {
                 <Text style={styles.nameText}>John!</Text>
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.bell}>
               <Bell />
             </TouchableOpacity>
           </View>
-
-          <Text style={styles.subText}>
-           A high score means you can trust{'\n'} it, while a low score means it's {'\n'}less certain.
-
-          </Text>
         </View>
+
+        <View style={styles.container1}>
+          {/* Left Side Text */}
+          <View >
+            <Text style={styles.infoText}>
+              A high score means you can trust{'\n'} it, while a low score means it's {'\n'}less certain.
+            </Text>
+          </View>
+
+          {/* Right Side Donut Chart */}
+          <View style={styles.chartContainer}>
+            <View style={{ transform: [{ rotate: '180deg' }] }}>
+              <PieChart
+                data={data}
+                width={260}
+                height={200}
+                chartConfig={{
+                  color: () => '#243D63',
+                }}
+                accessor="population"
+                backgroundColor="transparent"
+                paddingLeft="15"
+                hasLegend={false}
+                center={[0, 0]}
+              />
+            </View>
+
+            {/* Percentage in center */}
+            <View style={styles.centerCircle}>
+              <Text style={styles.percentText}>75%</Text>
+            </View>
+          </View>
+        </View>
+
+
 
         {/* Balance and Spends */}
         <View style={styles.cardRow}>
           <View style={[styles.balanceCard, styles.shadow]}>
-            <View style={styles.database}>    
-                      <Text style={styles.cardTitle}>Balance</Text>
-            <TouchableOpacity>
-              <DatabaseIcon />
-            </TouchableOpacity>
+            <View style={styles.database}>
+              <Text style={styles.cardTitle}>Balance</Text>
+              <TouchableOpacity><DatabaseIcon width={44} height={44} color='rgba(251, 253, 255, 1)' /></TouchableOpacity>
             </View>
-
-            <Text style={styles.balanceText}>₹12,450</Text>
+            <RupeeIcon width={16} height={16} color='rgba(255, 255, 255, 1)' />
+            <Text style={styles.balanceText}>12,450</Text>
           </View>
 
           <View style={[styles.spendsCard, styles.shadow]}>
             <View style={styles.database}>
-            <Text style={styles.cardTitle}>Spends</Text>
-            <TouchableOpacity>
-              <Hand />
-            </TouchableOpacity>
+              <Text style={styles.cardTitle1}>Spends</Text>
+              <TouchableOpacity>
+                <Hand />
+              </TouchableOpacity>
             </View>
-            <Text style={styles.spendsText}>₹5000</Text>
+            <RupeeIcon width={16} height={16} color='rgba(18, 18, 18, 1)' />
+
+            <Text style={styles.spendsText}>5000</Text>
           </View>
         </View>
 
         {/* Income vs Expenses Box */}
-            <Text style={styles.sectionTitle}>Income vs Expenses</Text>
-
+        <Text style={styles.sectionTitle}>Income vs Expenses</Text>
         <View style={[styles.sectionBox, styles.shadow]}>
-          <View style={styles.rowBetween}>
+          <View style={styles.dropdownWrapper}>
             <TouchableOpacity style={styles.dropdown}>
               <Text style={styles.dropdownText}>weekly</Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.down}>
+              <ArrowDown width={10} height={14} />
             </TouchableOpacity>
           </View>
 
-         
+
+
           <View style={styles.pie}>
-<PieChart
-  data={[
-     {
-      name: 'Expenses',
-      population: 25,
-      color: '#E5E7EB',
-      legendFontColor: '#E5E7EB',
-      legendFontSize: 12,
-    },
-    {
-      name: 'Income',
-      population: 75,
-      color: '#243D63',
-      legendFontColor: '#243D63',
-      legendFontSize: 12,
-    },
-   
-  ]}
-  width={230} 
-  height={160}
-  chartConfig={{
-    color: () => '#243D63',
-  }}
-  accessor="population"
-  backgroundColor="transparent"
-  paddingLeft="10"     
-  hasLegend={false}    
-  center={[1, 0]}      
-/>
+            <PieChart
+              data={[
+                {
+                  name: 'Expenses',
+                  population: 25,
+                  color: 'rgba(227, 233, 241, 1)',
+                  legendFontColor: 'rgba(227, 233, 241, 1)',
+                  legendFontSize: 12,
+                },
+                {
+                  name: 'Income',
+                  population: 75,
+                  color: '#243D63',
+                  legendFontColor: '#243D63',
+                  legendFontSize: 12,
+                },
 
-          </View>
+              ]}
+              width={230}
+              height={160}
+              chartConfig={{
+                color: () => '#243D63',
+              }}
+              accessor="population"
+              backgroundColor="transparent"
+              paddingLeft="10"
+              hasLegend={false}
+              center={[1, 0]}
+            />
 
-          <View style={styles.rowBetween}>
-            <View>
-              <View style={styles.legendRow}>
-                <View style={[styles.legendDot, { backgroundColor: '#243D63' }]} />
-                <Text style={styles.legendText}>Income</Text>
-              </View>
-              <View style={styles.legendRow}>
-                <View style={[styles.legendDot, { backgroundColor: '#E5E7EB' }]} />
-                <Text style={styles.legendText}>Expenses</Text>
-              </View>
-            </View>
-            <TouchableOpacity>
-              <Text style={styles.viewReport}>View Report</Text>
-            </TouchableOpacity>
           </View>
         </View>
 
-        {/* Explore Section */}
-        <View style={[styles.exploreBox, styles.shadow]}>
-           <TouchableOpacity style={styles.star} >
+        <View style={styles.legendWrapper}>
+          <View style={styles.legendGroup}>
+            <View style={styles.legendRow}>
+              <View style={[styles.legendDot, { backgroundColor: 'rgba(34, 63, 97, 1)' }]} />
+              <Text style={styles.legendText}>Income</Text>
+            </View>
+            <View style={styles.legendRow}>
+              <View style={[styles.legendDot, { backgroundColor: 'rgba(227, 233, 241, 1)' }]} />
+              <Text style={styles.legendText}>Expenses</Text>
+            </View>
+          </View>
 
-           <Star  />
-           </TouchableOpacity>
-          <Text style={styles.exploreText}>
-            You spent 20% less than last{'\n'} month. AI suggests investing the{'\n'} extra ₹2,400 in your Growth Fund.
+          <TouchableOpacity style={styles.reportButton}>
+            <Download width={34} height={20} />
 
-          </Text>
-          <TouchableOpacity style={styles.exploreButton}>
-            <Text style={styles.exploreButtonText}>EXPLORE</Text>
+            <Text style={styles.viewReport}>View Report</Text>
           </TouchableOpacity>
         </View>
+        {/* Explore Section */}
+{/* Explore Section */}
+<View style={[styles.exploreBox, styles.shadow]}>
+  <TouchableOpacity style={styles.star1}>
+    <Star />
+  </TouchableOpacity>
 
+  <View style={{ flex: 1, marginLeft: scale(12) }}>
+    <Text style={styles.exploreText}>
+      You spent 20% less than last{'\n'}month. AI suggests investing the{'\n'}extra ₹2,400 in your Growth Fund.
+    </Text>
+
+    <TouchableOpacity style={styles.exploreButton}>
+      <Text style={styles.exploreButtonText}>EXPLORE</Text>
+    </TouchableOpacity>
+  </View>
+  {/* ✅ Fixed Kuboo image placement */}
+  <Image
+    source={require('../../assets/images/DashBoard/Kuboo.png')}
+    style={styles.kubooImage}
+    resizeMode="contain"
+  />
+</View>
         {/* Bottom Navigation */}
-        
         <View style={styles.bottomBar}>
-          <TouchableOpacity style={styles.star} >
-
-           <SearchIcon  />
-           </TouchableOpacity>
-        
+          <TouchableOpacity style={styles.star}>
+            <SearchIcon />
+          </TouchableOpacity>
           <TouchableOpacity>
             <Brain />
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.centerButton}>
-            <Text style={styles.plus}></Text>
-          </TouchableOpacity> */}
+          <TouchableOpacity style={styles.centerButton}>
+            <TouchableOpacity style={styles.plus}>
+              <PlusIcon />
+            </TouchableOpacity>
+          </TouchableOpacity>
           <TouchableOpacity>
-            <UpdatedIcon  />
+            <UpdatedIcon />
           </TouchableOpacity>
           <TouchableOpacity>
             <Protect width={30} height={30} />
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -184,16 +242,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7FAFD',
   },
   headerContainer: {
-    marginTop: 60,
+    marginTop: 20,
     paddingHorizontal: 20,
   },
-  header:{
-    flexDirection:'row',
+  header: {
+    flexDirection: 'row',
   },
   rowBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // alignItems: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -205,143 +262,142 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   greetingText: {
-    fontSize: 14,
-    color: '#243D63',
+    fontFamily: 'Kollektif',
+    fontSize: moderateScale(16),
+    fontWeight: 400,
+    color: 'rgba(18, 18, 18, 1)',
+    left: scale(15),
+
   },
   nameText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#243D63',
+    fontFamily: 'Kollektif',
+    fontSize: moderateScale(16),
+    fontWeight: 700,
+    color: 'rgba(18, 18, 18, 1)',
+    left: scale(15),
+
   },
- 
-  subText: {
-    color: 'rgba(34, 63, 97, 1)',
-    fontSize: moderateScale(10),
-    fontWeight:400,
-    lineHeight:verticalScale(15),
-    marginTop:verticalScale(40),
-    marginBottom:verticalScale(30),
-    left:scale(30),
+  bell:{
+    right:scale(10),
+    marginTop:verticalScale(10),
   },
 
-  // Cards
   cardRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 25,
-    // paddingHorizontal: 20,
-    height:verticalScale(77),
-    width:scale(300),
-    left:scale(30),
+    marginTop: 5,
+    height: verticalScale(77),
+    width: scale(300),
+    left: scale(30),
 
   },
-  database:{
-flexDirection:'row',
-justifyContent:'space-between',
-
+  database: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   balanceCard: {
-    backgroundColor: '#243D63',
+    backgroundColor: 'rgba(34, 63, 97, 1)',
     flex: 0.48,
     borderRadius: 12,
     padding: 15,
   },
   spendsCard: {
-    backgroundColor: '#EDEFF3',
+    backgroundColor: 'rgba(227, 233, 241, 1)',
     flex: 0.48,
     borderRadius: 12,
     padding: 15,
   },
   cardTitle: {
-    fontSize: 12,
-    color: '#6B7C93',
+    fontFamily: 'Avenir LT Std',
+    fontWeight: 600,
+    fontSize: moderateScale(10),
+    color: 'rgba(251, 253, 255, 1)',
+  },
+  cardTitle1: {
+    fontFamily: 'Avenir LT Std',
+    fontWeight: 600,
+    fontSize: moderateScale(10),
+    color: 'rgba(18, 18, 18, 1)',
   },
   balanceText: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    fontSize: moderateScale(20),
+    color: 'rgba(251, 253, 255, 1)',
+    fontWeight: '700',
+    fontFamily: 'Kollektif',
+    bottom: verticalScale(18),
+    left: scale(15),
   },
   spendsText: {
-    fontSize: 18,
-    color: '#243D63',
-    fontWeight: 'bold',
+    fontSize: moderateScale(20),
+    color: 'rgba(18, 18, 18, 1)',
+    fontWeight: '700',
+    fontFamily: 'Kollektif',
+    bottom: verticalScale(18),
+    left: scale(15),
   },
-
-  // Income Section
   sectionBox: {
     backgroundColor: '#FFFFFF',
-    width:scale(330),
-    height:verticalScale(141),
+    width: scale(330),
+    height: verticalScale(130),
     marginTop: 25,
     borderRadius: 16,
-   
+    alignContent: 'flex-end',
+    left:scale(10),
   },
   sectionTitle: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '600',
-    color: '#243D63',
-    left:20,
-    marginTop:10,
+    fontFamily: 'Avenir LT Std',
+
+    color: 'rgba(18, 18, 18, 1)',
+    left: scale(30),
+    marginTop: verticalScale(10),
+  },
+  dropdownWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: 15, // spacing from right edge
+    marginTop: 10,
+  },
+  down: {
+    top: verticalScale(5)
   },
   dropdown: {
-    backgroundColor: '#F0F2F5',
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 10,
-    alignContent:'flex-end',
-
+    alignSelf: 'flex-end', // optional extra alignment
   },
+
   dropdownText: {
-    color: '#243D63',
-    fontSize: 12,
+    color: 'rgba(34, 63, 97, 1)',
+    fontSize: moderateScale(8),
+    fontWeight: '700',
   },
-  placeholderPie: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#E0E3E7',
-    alignSelf: 'center',
-    marginVertical: 20,
+  kubooImage: {
+    height: 70,
+    width: 70,
+    top: 55,
+    right:scale(15),
   },
-  legendRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    marginVertical: 3,
-  },
-  legendDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginRight: 6,
-  },
-  legendText: {
-    color: '#243D63',
-    fontSize: 12,
-  },
-  viewReport: {
-    color: '#243D63',
-    fontWeight: '500',
-    fontSize: 13,
-  },
-
-  // Explore Section
   exploreBox: {
-    flexDirection:'row',
+    flexDirection: 'row',
     backgroundColor: '#243D63',
     marginHorizontal: 20,
     marginTop: 25,
     borderRadius: 14,
     padding: 15,
-    height:verticalScale(100),
+    height: verticalScale(80),
+    bottom: 80,
   },
   exploreText: {
     color: 'rgba(251, 253, 255, 1)',
-    fontSize: 10,
-    // marginBottom: 10,
-    lineHeight:19,
-    fontFamily:'Avenir LT Std',
-    left:scale(15),
-    top:verticalScale(20),
+    fontSize: moderateScale(10),
+    lineHeight: verticalScale(13),
+    left: scale(15),
+    fontFamily: 'Avenir LT Std',
+    fontWeight: 400
+
   },
   exploreButton: {
     alignSelf: 'flex-start',
@@ -349,15 +405,16 @@ justifyContent:'space-between',
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderRadius: 10,
-    left:scale(25),
-    top:verticalScale(24),
+    left: scale(29),
+    top: verticalScale(10),
   },
   exploreButtonText: {
-    color: '#243D63',
-    fontWeight: 'bold',
+    color: 'rgba(18, 18, 18, 1)',
+    fontWeight: '700',
+    fontFamily: 'Kollektif',
+    fontSize: moderateScale(10),
+    letterSpacing: scale(2),
   },
-
-  // Bottom Bar
   bottomBar: {
     flexDirection: 'row',
     backgroundColor: 'rgba(18, 18, 18, 1)',
@@ -365,24 +422,8 @@ justifyContent:'space-between',
     alignItems: 'center',
     borderRadius: 25,
     margin: 20,
-    paddingVertical: 20,
-  },
-  navIcon: {
-    fontSize: 20,
-    color: '#FFFFFF',
-  },
-  centerButton: {
-    backgroundColor: '#2E3D57',
-    width: 45,
-    height: 45,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  plus: {
-    color: '#FFFFFF',
-    fontSize: 24,
-    fontWeight: 'bold',
+    bottom: 60,
+    height: verticalScale(55),
   },
   shadow: {
     shadowColor: '#223F61',
@@ -391,18 +432,138 @@ justifyContent:'space-between',
     shadowRadius: 4,
     elevation: 3,
   },
-  star:{
-    backgroundColor:'rgba(251, 253, 255, 1)',
-    // width:42,
-    // height:42,
-  // borderRadius:20,
-  // top:verticalScale(20),
+  star: {
+    backgroundColor: '#FBFDFF', // white button
+    borderRadius: 25,           // make it perfectly round
+    width: 44,
+    height: 44,
+    alignItems: 'center',       // center horizontally
+    justifyContent: 'center',   // center vertically
   },
-   pie:{
-           alignItems: 'center', 
-           marginTop: 90 ,
-           right:90,
-           transform: [{ rotate: '90deg' }]
+  star1: {
+    backgroundColor: '#FBFDFF', // white button
+    borderRadius: 25,           // make it perfectly round
+    width: 44,
+    height: 44,
+    alignItems: 'center',       // center horizontally
+    justifyContent: 'center',
+  },
+  pie: {
+    alignItems: 'center',
+    right: 100,
+    transform: [{ rotate: '90deg' }]
 
+  },
+  container1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F7FAFD',
+    borderRadius: 16,
+    padding: 20,
+    justifyContent: 'space-between',
+  },
+
+  infoText: {
+    fontSize: moderateScale(10),
+    fontWeight: 400,
+    color: 'rgba(34, 63, 97, 1)',
+    lineHeight: verticalScale(18),
+    fontFamily: 'Avenir LT Std'
+  },
+  chartContainer: {
+    width: 220,
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 50,
+
+  },
+  centerCircle: {
+    position: 'absolute',
+    width: 100,
+    height: 95,
+    borderRadius: 45,
+    backgroundColor: '#F7FAFD',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: 110,
+  },
+  percentText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#243D63',
+  },
+  legendWrapper: {
+    alignItems: 'flex-end',
+    // marginHorizontal: 10,
+
+  },
+
+  legendGroup: {
+    flexDirection: 'column',
+    bottom: 120,
+    right: 110,
+    
+
+  },
+
+  legendRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 3,
+  },
+
+  legendDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginRight: 6,
+  },
+
+  legendText: {
+    color: 'rgba(18, 18, 18, 1)',
+    fontSize: moderateScale(10),
+    fontFamily: 'Avenir LT Std',
+
+    fontWeight: '300',
+  },
+
+  reportButton: {
+    color: 'rgba(18, 18, 18, 1)',
+    fontWeight: 300,
+    fontSize: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    bottom: 100,
+    right: 30,
+
+
+  },
+
+  viewReport: {
+
+    color: 'rgba(18, 18, 18, 1)',
+    fontFamily: 'Avenir LT Std',
+    fontWeight: 300,
+    fontSize: moderateScale(10),
+
+  },
+  centerButton: {
+    backgroundColor: 'rgba(18, 18, 18, 1)',
+    width: 90,
+    height: 90,
+    borderRadius: 55,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 60,
+    borderColor: 'rgba(244, 242, 239, 1)',
+    borderWidth: 5,
+
+  },
+  plus: {
+
+    alignItems: 'center',
+    justifyContent: 'center',
   }
+
 });

@@ -110,18 +110,19 @@ const NumVerify: React.FC = () => {
           <Text style={[styles.countryText, { color: theme.text }]}>+91</Text>
         </View>
        <TextInput
-  style={[
-    styles.phoneInput,
-    {
-      backgroundColor: theme.buttondark, // dynamic for dark/light
-      color: theme.text, // entered text
-      borderColor: isFocused
-        ? theme.Button
-        : error
-        ? theme.notification
-        : theme.buttondark,
-    },
-  ]}
+style={[
+  styles.phoneInput,
+  {
+    backgroundColor: theme.buttondark, // dark/light mode
+    color: theme.text, // input text color
+    borderColor: error
+      ? theme.notification        // 🔴 Error state border
+      : isFocused
+      ? theme.Button              // 🟢 Focused border
+      : theme.buttondark,         // ⚫ Default border
+  },
+]}
+
   keyboardType="number-pad"
   placeholder="00000 00000"
   placeholderTextColor={

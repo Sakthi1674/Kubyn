@@ -31,10 +31,12 @@ import MenuDotsIcon from "../../assets/icons/MenuDotsIcon";
 import DobIcon from "../../assets/icons/Dobcon";
 import DatabaseIcon from "../../assets/icons/DatabaseIcon";
 import colors from "../../theme/color";
+import ButtonComp from "../../components/common/ButtonComp";
 
 
 type RootStackParamList = {
   NumOtp: undefined;
+  Introduction: undefined;
 };
 
 export default function DemoGraphicQues() {
@@ -44,6 +46,20 @@ export default function DemoGraphicQues() {
 
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "light"];
+  const handleSubmit = async () => {
+    try {
+      // ✅ Optional: Log or save final answers before navigating
+      console.log("Final Answers:", answers);
+
+
+      // ✅ Navigate to Introduction screen
+      navigation.navigate("Introduction");
+
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      // Alert.alert("Error", "Something went wrong. Please try again later.");
+    }
+  };
 
   const handleNext = () => {
     if (step < 27) setStep(step + 1);
@@ -52,6 +68,7 @@ export default function DemoGraphicQues() {
   const handleBack = () => {
     if (step > 1) setStep(step - 1);
   };
+  const [currentStep, setCurrentStep] = useState(1);
 
   const renderQuestion = () => {
     switch (step) {
@@ -122,11 +139,11 @@ export default function DemoGraphicQues() {
             style={[
               styles.input,
               {
-                color: theme.text
+                color: theme.Button
               },
             ]}
             placeholder="Type here ..."
-            placeholderTextColor={theme.textSecondary || theme.text}
+            placeholderTextColor={theme.Button || theme.text}
             value={answers[step] || ""}
             onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
           />
@@ -162,10 +179,10 @@ export default function DemoGraphicQues() {
                       marginHorizontal: scale(5),
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
-                      borderColor: isSelected ? theme.Button : theme.text,
-                      borderWidth: 1,
-                      borderRadius: scale(12),
+                      backgroundColor: isSelected ? theme.Button : theme.option,
+                      // borderColor: isSelected ? theme.Button : theme.text,
+                      // borderWidth: 1,
+                      // borderRadius: scale(12),
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option.label })}
@@ -231,7 +248,7 @@ export default function DemoGraphicQues() {
                   { backgroundColor: theme.buttondark, borderColor: theme.Button },
                 ]}
               >
-                <Text style={[styles.birthBoxText, { color: theme.text }]}>01</Text>
+                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>01</Text>
               </View>
 
               {/* Month */}
@@ -241,7 +258,7 @@ export default function DemoGraphicQues() {
                   { backgroundColor: theme.buttondark, borderColor: theme.Button },
                 ]}
               >
-                <Text style={[styles.birthBoxText, { color: theme.text }]}>01</Text>
+                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>01</Text>
               </View>
 
               {/* Year */}
@@ -251,7 +268,7 @@ export default function DemoGraphicQues() {
                   { width: scale(90), backgroundColor: theme.buttondark, borderColor: theme.Button },
                 ]}
               >
-                <Text style={[styles.birthBoxText, { color: theme.text }]}>2000</Text>
+                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>2000</Text>
               </View>
 
               {/* Calendar icon */}
@@ -290,10 +307,10 @@ export default function DemoGraphicQues() {
                       width: "48%",
                       marginBottom: verticalScale(12),
                       alignItems: "center",
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
-                      borderColor: isSelected ? theme.Button : theme.Button,
-                      borderWidth: 1,
-                      borderRadius: scale(10),
+                      backgroundColor: isSelected ? theme.Button : theme.option,
+                      // borderColor: isSelected ? theme.Button : theme.Button,
+                      // borderWidth: 1,
+                      // borderRadius: scale(10),
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option })}
@@ -341,11 +358,11 @@ export default function DemoGraphicQues() {
                   style={[
                     styles.locationOption,
                     {
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
-                      borderColor: isSelected ? theme.Button : theme.Button,
-                      borderWidth: 1,
-                      borderRadius: scale(10),
-                      width: "48%",
+                      backgroundColor: isSelected ? theme.Button : theme.option,
+                      // borderColor: isSelected ? theme.Button : theme.Button,
+                      // borderWidth: 1,
+                      // borderRadius: scale(10),
+                      // width: "48%",
                       marginBottom: verticalScale(12),
                       alignItems: "center",
                       ...(isLastOdd && {
@@ -394,7 +411,7 @@ export default function DemoGraphicQues() {
                     {
                       backgroundColor: isSelected
                         ? theme.Button
-                        : theme.buttondark,
+                        : theme.option,
                       borderColor: isSelected ? theme.Button : theme.Button,
                     },
                   ]}
@@ -438,7 +455,7 @@ export default function DemoGraphicQues() {
                     {
                       backgroundColor: isSelected
                         ? theme.Button
-                        : theme.buttondark,
+                        : theme.option,
                       borderColor: isSelected ? theme.text : theme.text,
                     },
                   ]}
@@ -467,12 +484,12 @@ export default function DemoGraphicQues() {
               style={[
                 styles.input,
                 {
-                  color: theme.text,
+                  color: theme.Button,
 
                 },
               ]}
               placeholder="Type here ..."
-              placeholderTextColor={theme.text}
+              placeholderTextColor={theme.Button}
               value={answers[step] || ""}
               onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
             />
@@ -488,12 +505,12 @@ export default function DemoGraphicQues() {
               style={[
                 styles.input,
                 {
-                  color: theme.text,
+                  color: theme.Button,
 
                 },
               ]}
               placeholder="Type here ..."
-              placeholderTextColor={theme.text}
+              placeholderTextColor={theme.Button}
               value={answers[step] || ""}
               onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
             />
@@ -645,7 +662,7 @@ export default function DemoGraphicQues() {
                       borderColor: theme.Button,
                       backgroundColor: isSelected
                         ? theme.Button
-                        : theme.buttondark,
+                        : theme.option,
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "center",
@@ -677,13 +694,12 @@ export default function DemoGraphicQues() {
                 styles.input,
                 {
                   marginTop: verticalScale(15),
-                  color: theme.text,
-                  borderColor: theme.Button,
-                  backgroundColor: theme.background,
+                  color: theme.Button,
+
                 },
               ]}
               placeholder="Type here for Others..."
-              placeholderTextColor={theme.text}
+              placeholderTextColor={theme.Button}
               value={answers["custom_" + step as any] || ""}
               onChangeText={(text) =>
                 setAnswers({ ...answers, ["custom_" + step]: text })
@@ -714,7 +730,7 @@ export default function DemoGraphicQues() {
                   {
                     borderColor: theme.Button,
                     backgroundColor:
-                      answers[step] === option ? theme.Button : theme.buttondark,
+                      answers[step] === option ? theme.Button : theme.option,
                   },
                 ]}
                 onPress={() => setAnswers({ ...answers, [step]: option })}
@@ -850,7 +866,6 @@ export default function DemoGraphicQues() {
           </View>
         );
       }
-
       case 14: {
         const trackExpenseOptions = ["Yes", "No", "Sometimes"];
         return (
@@ -871,7 +886,9 @@ export default function DemoGraphicQues() {
                   {
                     borderColor: theme.Button,
                     backgroundColor:
-                      answers[step] === option ? theme.Button : theme.buttondark,
+                      answers[step] === option ? theme.Button : theme.option,
+                    justifyContent: "center", // ✅ centers vertically
+                    alignItems: "center", // ✅ centers horizontally
                   },
                   trackExpenseOptions.length % 2 !== 0 && option === "Sometimes"
                     ? { alignSelf: "center" }
@@ -883,6 +900,7 @@ export default function DemoGraphicQues() {
                   style={{
                     color:
                       answers[step] === option ? theme.background : theme.text,
+                    textAlign: "center", // ✅ ensures multi-line text stays centered
                   }}
                 >
                   {option}
@@ -913,7 +931,9 @@ export default function DemoGraphicQues() {
                   {
                     borderColor: theme.Button,
                     backgroundColor:
-                      answers[step] === option ? theme.Button : theme.buttondark,
+                      answers[step] === option ? theme.Button : theme.option,
+                    justifyContent: "center", // ✅ centers vertically
+                    alignItems: "center", // ✅ centers horizontally
                   },
                   spendingDecisionOptions.length % 2 !== 0 &&
                     option === "Mix of both"
@@ -951,16 +971,21 @@ export default function DemoGraphicQues() {
                 {
                   flex: 1,
                   textAlign: "left",
-                  color: theme.text,
+                  color: theme.Button,
                   backgroundColor: theme.background,
                   borderColor: theme.Button,
                 },
               ]}
               placeholder=".............%"
               keyboardType="numeric"
-              placeholderTextColor={theme.text}
+              placeholderTextColor={theme.Button}
               value={answers[step] || ""}
-              onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
+              onChangeText={(text) => {
+                // ✅ Allow only digits
+                const numericText = text.replace(/[^0-9]/g, "");
+                setAnswers({ ...answers, [step]: numericText });
+              }}
+              maxLength={3} // optional: limit to 3 digits if it’s a percentage
             />
           </View>
         );
@@ -988,7 +1013,7 @@ export default function DemoGraphicQues() {
                       borderColor: theme.Button,
                       backgroundColor: isSelected
                         ? theme.Button
-                        : theme.buttondark,
+                        : theme.option,
                     },
                     stressSpendingOptions.length % 2 !== 0 &&
                     option === "Sometimes" && { alignSelf: "center" },
@@ -1164,7 +1189,7 @@ export default function DemoGraphicQues() {
                       borderColor: theme.Button,
                       backgroundColor: isSelected
                         ? theme.Button
-                        : theme.buttondark,
+                        : theme.option,
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: label })}
@@ -1212,7 +1237,7 @@ export default function DemoGraphicQues() {
                       borderColor: theme.Button,
                       backgroundColor: isSelected
                         ? theme.Button
-                        : theme.buttondark,
+                        : theme.option,
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option })}
@@ -1253,7 +1278,7 @@ export default function DemoGraphicQues() {
                     {
                       width: "48%",
                       borderColor: theme.Button,
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      backgroundColor: isSelected ? theme.Button : theme.option,
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option })}
@@ -1296,7 +1321,7 @@ export default function DemoGraphicQues() {
                     {
                       width: "48%",
                       borderColor: theme.Button,
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      backgroundColor: isSelected ? theme.Button : theme.option,
                     },
                     compareOptions.length % 2 !== 0 && option === "Sometimes"
                       ? { alignSelf: "center" }
@@ -1446,7 +1471,7 @@ export default function DemoGraphicQues() {
                     {
                       width: "48%",
                       borderColor: theme.Button,
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      backgroundColor: isSelected ? theme.Button : theme.option,
                     },
                     extraIncomeOptions.length % 2 !== 0 && option === "Mix of Both"
                       ? { alignSelf: "center" }
@@ -1492,7 +1517,7 @@ export default function DemoGraphicQues() {
                     {
                       width: "48%",
                       borderColor: theme.Button,
-                      backgroundColor: isSelected ? theme.Button : theme.buttondark,
+                      backgroundColor: isSelected ? theme.Button : theme.option,
                     },
                     adviceOptions.length % 2 !== 0 && option === "Self-Research"
                       ? { alignSelf: "center" }
@@ -1623,13 +1648,12 @@ export default function DemoGraphicQues() {
             style={[
               styles.input,
               {
-                color: theme.text,
-                backgroundColor: theme.background,
-                borderColor: theme.Button,
+                color: theme.Button,
+
               },
             ]}
             placeholder="Type here ..."
-            placeholderTextColor={theme.text}
+            placeholderTextColor={theme.Button}
             value={answers[step] || ""}
             onChangeText={(text) => setAnswers({ ...answers, [step]: text })}
           />
@@ -1644,12 +1668,15 @@ export default function DemoGraphicQues() {
       style={[styles.container, { backgroundColor: theme.background }]}
     >
       {/* Top Left Back Button */}
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.backButton}
-      >
-        <BackWard width={10} height={16} color="#223F61" />
-      </TouchableOpacity>
+      {step === 1 && (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <BackWard width={10} height={16} color={theme.text} />
+        </TouchableOpacity>
+      )}
+
 
       <View style={styles.questionContainer}>
         {/* Subtitle */}
@@ -1687,8 +1714,20 @@ export default function DemoGraphicQues() {
           )}
         </View>
       ) : (
-        <View style={styles.horizontalButtons}>
-          {step > 1 && (
+        <View
+          style={[
+            styles.horizontalButtons,
+            step === 27 && {
+              left: 0,
+              right: 0,
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 0,
+            },
+          ]}
+        >
+          {/* 🔙 Show Back button only after step 1 */}
+          {step > 1 && step < 27 && (
             <TouchableOpacity
               style={[styles.secondaryButton, { backgroundColor: theme.Button }]}
               onPress={handleBack}
@@ -1696,13 +1735,30 @@ export default function DemoGraphicQues() {
               <LeftWard width={20} height={20} color={theme.bttext} />
             </TouchableOpacity>
           )}
-          {step < 27 && (
+
+          {/* ➡️ Steps 1–26 show Next button; Step 27 shows Finish */}
+          {step < 27 ? (
             <TouchableOpacity
               style={[styles.button, { backgroundColor: theme.Button }]}
               onPress={handleNext}
             >
               <RightWard width={20} height={20} color={theme.background} />
             </TouchableOpacity>
+          ) : (
+            <ButtonComp
+              title="Sumbit"
+              onPress={handleSubmit}
+              style={{
+                backgroundColor: theme.Button,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              textStyle={{
+                color: theme.bttext,
+                fontSize: moderateScale(16),
+                fontWeight: "600",
+              }}
+            />
           )}
         </View>
       )}
@@ -1745,7 +1801,7 @@ const styles = StyleSheet.create({
   progressText: {
     fontSize: moderateScale(14),
     color: "#888",
-    marginBottom: verticalScale(4),
+    marginBottom: verticalScale(10),
   },
   input: {
     width: "100%",
@@ -1755,17 +1811,13 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontSize: moderateScale(24),
     color: "#223F61",
-    // opacity: 0.25,
     borderWidth: 0,
     borderColor: "#223F61",
     marginTop: verticalScale(12),
-    paddingHorizontal: scale(10),
   },
   optionButton: {
     paddingVertical: verticalScale(12),
     paddingHorizontal: scale(20),
-    borderWidth: 1,
-    borderColor: "#223F61",
     borderRadius: scale(10),
     marginBottom: verticalScale(12),
     alignItems: "center",

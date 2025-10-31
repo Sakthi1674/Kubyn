@@ -1,19 +1,29 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, useColorScheme } from "react-native";
+import colors from "../../theme/color";
 
 const FirstNumTrap = () => {
+    const colorScheme = useColorScheme();
+    const theme = colors[colorScheme || "light"];
     return (
-        <View style={styles.container}>
-            {/* --- Image Section --- */}
-            <Image
-                source={require("../../assets/images/DashBoard/NumberTrapKuboo.png")} // 👈 correct syntax
-                style={styles.image}
-                resizeMode="contain"
-            />
+       <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.Success }, // ✅ dynamic background
+      ]}
+    >
+      {/* --- Image Section --- */}
+      <Image
+        source={require("../../assets/images/DashBoard/NumberTrapKuboo.png")}
+        style={styles.image}
+        resizeMode="contain"
+      />
 
-            {/* --- Text Section --- */}
-            <Text style={styles.title}>The First Number Trap</Text>
-        </View>
+      {/* --- Text Section --- */}
+      <Text style={styles.title}>
+        The First Number Trap
+      </Text>
+    </View>
     );
 };
 

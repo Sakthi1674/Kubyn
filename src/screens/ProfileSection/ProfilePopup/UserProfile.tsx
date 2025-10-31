@@ -35,7 +35,7 @@ const UserProfile: React.FC<GalleryPopupProps> = ({ visible, onClose }) => {
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
-               <View style={[styles.popupBox, { backgroundColor: theme.container }]}>
+               <View style={[styles.popupBox, { backgroundColor: theme.Profilebg }]}>
                 <TouchableOpacity style={styles.wrong}
                 onPress={onClose}>
                 <Wrong width={20} height={20}  />

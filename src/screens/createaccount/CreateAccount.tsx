@@ -50,45 +50,85 @@ const CreateAccount: React.FC = () => {
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "light"];
 
-  const [showError, setShowError] = useState(false);
-  const handleCreateAccount = async () => {
-    if (!userName || !email || !password || !confirmPassword || !phone || !isChecked) {
+const [showError, setShowError] = useState(false);
+const [errorMessage, setErrorMessage] = useState(""); // dynamic inline error text
+
+const handleCreateAccount = async () => {
+  // 🔄 Reset error state
+  setShowError(false);
+  setErrorMessage("");
+
+  // ✅ Frontend validation (specific)
+  if (!userName) {
+    setShowError(true);
+    setErrorMessage("* Username is required");
+    return;
+  }
+  if (!email) {
+    setShowError(true);
+    setErrorMessage("* Email is required");
+    return;
+  }
+  if (!phone) {
+    setShowError(true);
+    setErrorMessage("* Phone number is required");
+    return;
+  }
+  if (!password) {
+    setShowError(true);
+    setErrorMessage("* Password is required");
+    return;
+  }
+  if (!confirmPassword) {
+    setShowError(true);
+    setErrorMessage("* Please confirm your password");
+    return;
+  }
+  if (password !== confirmPassword) {
+    setShowError(true);
+    setErrorMessage("* Passwords do not match");
+    return;
+  }
+  if (!isChecked) {
+    setShowError(true);
+    setErrorMessage("* Please accept the terms & conditions");
+    return;
+  }
+
+  // ✅ Proceed with API call
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userName,
+        email,
+        password,
+        phoneNumber: phone,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // 🧾 Backend error message
       setShowError(true);
-      console.log("Missing field:", { userName, email, password, confirmPassword, phone, isChecked });
+      setErrorMessage(`* ${data.message || "Registration failed"}`);
       return;
     }
 
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
+    // ✅ Success → reset or navigate
+    setShowError(false);
+    setErrorMessage("");
+    navigation.navigate("HeyScreen");
+  } catch (err) {
+    console.error("Registration error:", err);
+    setShowError(true);
+    setErrorMessage("* Unable to reach server. Please try again later.");
+  }
+};
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userName,
-          email,
-          password,
-          phoneNumber: phone,
-        }),
-      });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        Alert.alert("Error", data.message || "Registration failed");
-        return;
-      }
-
-      Alert.alert("Success", "Account created successfully");
-      navigation.navigate("HeyScreen");
-    } catch (err) {
-      console.error(err);
-      Alert.alert("Error", "Unable to reach server");
-    }
-  };
 
 return (
   <ScrollView
@@ -122,8 +162,8 @@ return (
                 ? theme.notification
                 : focusedField === "userName"
                 ? theme.radio
-                : theme.container,
-            backgroundColor: theme.container,
+                : theme.buttondark,
+            backgroundColor: theme.buttondark,
             color: theme.text,
           },
         ]}
@@ -150,8 +190,8 @@ return (
                 ? theme.notification
                 : focusedField === "email"
                 ? theme.radio
-                : theme.container,
-            backgroundColor: theme.container,
+                : theme.buttondark,
+            backgroundColor: theme.buttondark,
             color: theme.text,
           },
         ]}
@@ -180,8 +220,8 @@ return (
                   ? theme.notification
                   : focusedField === "password"
                   ? theme.radio
-                  : theme.container,
-              backgroundColor: theme.container,
+                  : theme.buttondark,
+              backgroundColor: theme.buttondark,
               color: theme.text,
             },
           ]}
@@ -224,8 +264,8 @@ return (
                   ? theme.notification
                   : focusedField === "confirmPassword"
                   ? theme.radio
-                  : theme.container,
-              backgroundColor: theme.container,
+                  : theme.buttondark,
+              backgroundColor: theme.buttondark,
               color: theme.text,
             },
           ]}
@@ -283,13 +323,14 @@ return (
         </Text>
       </View>
 
-      <View style={styles.errorWrapper}>
-        {showError && (
-          <Text style={[styles.errorText, { color: theme.notification }]}>
-            * Please fill out all required details
-          </Text>
-        )}
-      </View>
+<View style={styles.errorWrapper}>
+  {showError && (
+    <Text style={[styles.errorText, { color: theme.notification }]}>
+      {errorMessage}
+    </Text>
+  )}
+</View>
+
     </View>
 
     {/* Create Account Button */}
@@ -316,12 +357,12 @@ return (
     {/* Social Login */}
     <View style={styles.socialContainer}>
       <TouchableOpacity
-        style={[styles.socialBox, { backgroundColor: theme.container }]}
+        style={[styles.socialBox, { backgroundColor: theme.buttondark }]}
       >
         <GoogleIcon width={24} height={24} />
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.socialBox, { backgroundColor: theme.container }]}
+        style={[styles.socialBox, { backgroundColor: theme.buttondark }]}
       >
         <AppleIcon width={24} height={24} />
       </TouchableOpacity>

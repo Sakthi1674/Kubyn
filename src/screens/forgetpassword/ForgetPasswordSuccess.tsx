@@ -21,7 +21,7 @@ const ForgetPasswordSuccess: React.FC = () => {
     return () => clearTimeout(timer);
   }, [navigation]);
   return (
-    <View style={[styles.container, { backgroundColor: theme.Button }]}>
+    <View style={[styles.container, { backgroundColor: theme.Success }]}>
       {/* Success Image */}
       <Image
         source={require("../../assets/images/onboardimg/successpage.png")}
@@ -29,15 +29,15 @@ const ForgetPasswordSuccess: React.FC = () => {
       />
 
       {/* Success Text */}
-      <Text style={[styles.successText, { color: theme.bttext }]}>
+      <Text style={styles.successText}>
         Successful!
       </Text>
 
       {/* Subtitle */}
-      <Text style={[styles.subText, { color: theme.bttext, opacity: 0.7 }]}>
+      <Text style={styles.subText}>
         Your password has been
       </Text>
-      <Text style={[styles.subText, { color: theme.bttext, opacity: 0.7 }]}>
+      <Text style={styles.subText}>
         changed successfully
       </Text>
     </View>
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     paddingTop: scale(150),
     paddingHorizontal: scale(40),
     alignItems: "center",
-    justifyContent: "center",
   },
   image: {
     width: scale(224),
@@ -66,12 +65,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(36),
     marginBottom: verticalScale(10),
     textAlign: "center",
+   color:"#FAFBFB"
   },
   subText: {
     fontFamily: "Kollektif-Regular",
     fontWeight: "400",
     fontSize: moderateScale(20),
     textAlign: "center",
+    color:"#FAFBFB"
   },
 });
 

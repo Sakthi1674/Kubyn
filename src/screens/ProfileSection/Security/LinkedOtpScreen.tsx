@@ -85,7 +85,7 @@ const LinkedOtpScreen: React.FC = () => {
             opacity: 0.35,
           }}
           textStyle={{
-            color: theme.text,
+            color: theme.bttext,
             fontWeight: '600',
             fontFamily: 'Avenir LT Std',
             letterSpacing: scale(2),

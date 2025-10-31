@@ -40,7 +40,7 @@ const LinkedScreen: React.FC = () => {
             placeholderTextColor={theme.text}
             style={[styles.input, { color: theme.text }]}
           />
-          <TickMark width={20} height={20} color={theme.text} />
+          <TickMark width={20} height={20} color={theme.icon} />
         </View>
         <TouchableOpacity
           style={[styles.nextButton, { backgroundColor: theme.Button }]}

@@ -130,9 +130,9 @@ const PasswordReset: React.FC = () => {
           style={[
             styles.inputBoxPassword,
             {
-              backgroundColor: theme.container,
+              backgroundColor: theme.buttondark,
               borderColor:
-                !password && showError ? theme.notification : theme.container,
+                !password && showError ? theme.notification : theme.buttondark,
               color: theme.text,
             },
           ]}
@@ -164,11 +164,11 @@ const PasswordReset: React.FC = () => {
           style={[
             styles.inputBoxPassword,
             {
-              backgroundColor: theme.container,
+              backgroundColor: theme.buttondark,
               borderColor:
                 !confirmPassword && showError
                   ? theme.notification
-                  : theme.container,
+                  : theme.buttondark,
               color: theme.text,
             },
           ]}

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     textAlign: 'left',
     lineHeight: verticalScale(27),
-    marginBottom: verticalScale(30),
+    marginBottom: verticalScale(25),
   },
   buttonContainer: {
     marginVertical: 20,

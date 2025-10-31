@@ -81,8 +81,8 @@ const ForgetPasswordOtp: React.FC = () => {
         {otp.map((digit, index) => {
           const isFocused = focusedIndex === index;
 
-          let borderColor = theme.container;
-          let backgroundColor = theme.container;
+          let borderColor = theme.buttondark;
+          let backgroundColor = theme.buttondark;
           let placeholderColor = `${theme.Button}55`;
 
           if (error) {

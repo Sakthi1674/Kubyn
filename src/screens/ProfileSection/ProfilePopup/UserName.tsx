@@ -32,7 +32,7 @@ const UserName: React.FC<ChangeNamePopupProps> = ({
       <TouchableWithoutFeedback onPress={onCancel}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
-            <View style={[styles.popupContainer, { backgroundColor: theme.container }]}>
+            <View style={[styles.popupContainer, { backgroundColor: theme.Profilebg }]}>
               <TouchableOpacity style={styles.wrong} onPress={onCancel}>
              <Wrong width={20} height={20}  />
               </TouchableOpacity>

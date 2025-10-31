@@ -23,7 +23,7 @@ const LoginSuccess: React.FC = () => {
     return () => clearTimeout(timer);
   }, [navigation]);
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.Success }]}>
       {/* Image */}
       <Image
         source={require("../../assets/images/onboardimg/successpage.png")}
@@ -31,13 +31,13 @@ const LoginSuccess: React.FC = () => {
       />
 
       {/* Successful! */}
-      <Text style={[styles.successText, { color: theme.Button }]}>Successful!</Text>
+      <Text style={styles.successText}>Successful!</Text>
 
       {/* Two-Factor Authentication Successful */}
-      <Text style={[styles.subText, { color: theme.textSecondary }]}>
+      <Text style={styles.subText}>
         Two - Factor
       </Text>
-      <Text style={[styles.subText, { color: theme.textSecondary }]}>
+      <Text style={styles.subText}>
         Authentication Successful
       </Text>
     </View>
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: moderateScale(36),
     marginBottom: verticalScale(10),
+    color:"#FAFBFB"
   },
   subText: {
     fontFamily: "Kollektif-Regular",
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(20),
     opacity: 0.58,
     textAlign: "center",
+     color:"#FAFBFB"
   },
 });
 
