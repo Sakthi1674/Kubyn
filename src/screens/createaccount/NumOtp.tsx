@@ -83,9 +83,9 @@ const NumOtp: React.FC = () => {
       <View style={styles.otpContainer}>
         {otp.map((digit, index) => {
           const isFocused = focusedIndex === index;
-          let borderColor = theme.container;
-          let backgroundColor = theme.container;
-          let placeholderColor = "rgba(34,63,97,0.35)";
+          let borderColor = theme.buttondark;
+          let backgroundColor = theme.buttondark;
+          let placeholderColor = "rgba(3, 3, 4, 0.35)";
 
           if (error) {
             borderColor = theme.notification;

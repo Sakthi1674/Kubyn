@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, useColorScheme } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import colors from "../../theme/color";
-
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+type RootStackParamList = {
+  Introduction: undefined;
+};
 
 const ForgetPasswordSuccess: React.FC = () => {
   const colorScheme = useColorScheme();
   const theme = colorScheme === "dark" ? colors.dark : colors.light;
+   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // 👇 Change "Home" to the screen you want to go after success
+      navigation.navigate("Introduction");
+    }, 1000); // 2000ms = 2 seconds
 
+    // cleanup
+    return () => clearTimeout(timer);
+  }, [navigation]);
   return (
     <View style={[styles.container, { backgroundColor: theme.Button }]}>
       {/* Success Image */}

@@ -29,7 +29,7 @@ const LoginActivity = () => {
           <Text style={[styles.title, { color: theme.text }]}>Login Activity</Text>
         </View>
 
-        {/* Current Device */}
+       
         <View style={[styles.sessionBox, { backgroundColor: theme.buttondark }]}>
           <View style={styles.rowBetween}>
             <Text style={[styles.deviceName, { color: theme.text }]}>

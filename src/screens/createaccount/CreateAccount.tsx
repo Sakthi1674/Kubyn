@@ -25,7 +25,7 @@ const API_BASE_URL =
 type RootStackParamList = {
   NumOtp: undefined;
   Login: undefined;
-  ProfileScreen: undefined;
+  HeyScreen: undefined;
   CreateAccount: { number: string };
 
 };
@@ -83,7 +83,7 @@ const CreateAccount: React.FC = () => {
       }
 
       Alert.alert("Success", "Account created successfully");
-      navigation.navigate("ProfileScreen");
+      navigation.navigate("HeyScreen");
     } catch (err) {
       console.error(err);
       Alert.alert("Error", "Unable to reach server");

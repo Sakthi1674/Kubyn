@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   TouchableWithoutFeedback,
+  useColorScheme,
 } from 'react-native';
 import Wrong from '../../../assets/icons/Wrong';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import colors from '../../../theme/color';
 
 interface ChangeNamePopupProps {
   visible: boolean;
@@ -23,36 +25,48 @@ const UserName: React.FC<ChangeNamePopupProps> = ({
   onConfirm,
 }) => {
   const [newName, setNewName] = useState('');
-
+  const scheme = useColorScheme();
+  const theme = scheme === "dark" ? colors.dark : colors.light;
   return (
     <Modal animationType="fade" transparent visible={visible} onRequestClose={onCancel}>
       <TouchableWithoutFeedback onPress={onCancel}>
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
-            <View style={styles.popupContainer}>
+            <View style={[styles.popupContainer, { backgroundColor: theme.container }]}>
               <TouchableOpacity style={styles.wrong} onPress={onCancel}>
-              <Wrong />
+             <Wrong width={20} height={20}  />
               </TouchableOpacity>
-              <TextInput
-                style={styles.input}
+          <TextInput
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor: theme.bttext,
+                    color: theme.text,
+                    borderColor: theme.Button,
+                  },
+                ]}
                 placeholder="Type your Name"
-                placeholderTextColor="#999"
+                placeholderTextColor={theme.text}
                 value={newName}
                 onChangeText={setNewName}
-                
               />
 
-              <Text style={styles.popupText}>Are you Sure You want {'\n'}to change name ?</Text>
-
-              <View style={styles.buttonContainer}>
+       <Text style={styles.popupText}>
+                Are you sure you want{'\n'}to change your name?
+              </Text>
+                           <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                  style={styles.yesButton}
-                  onPress={() => onConfirm(newName)}>
-                  <Text style={styles.yesText}>Yes</Text>
+                  style={[styles.yesButton, { backgroundColor: theme.bttext }]}
+                  onPress={() => onConfirm(newName)}
+                >
+                  <Text style={[styles.yesText, { color: theme.text }]}>Yes</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.noButton} onPress={onCancel}>
-                  <Text style={styles.noText}>No</Text>
+                <TouchableOpacity
+                  style={[styles.noButton, { backgroundColor: theme.bttext }]}
+                  onPress={onCancel}
+                >
+                  <Text style={[styles.noText, { color: theme.text }]}>No</Text>
                 </TouchableOpacity>
               </View>
             </View>

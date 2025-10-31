@@ -106,11 +106,11 @@ const Login: React.FC = () => {
               borderColor: showPhoneError
                 ? `${theme.notification}55`
                 : focusedField === "phone"
-                ? `${theme.Button}55`
-                : theme.container,
+                ? `${theme.Button}95`
+                : theme.buttondark,
               backgroundColor: showPhoneError
                 ? theme.bttext
-                : theme.container,
+                : theme.buttondark,
               color: theme.text,
             },
           ]}
@@ -139,11 +139,11 @@ const Login: React.FC = () => {
                 borderColor: showPasswordError
                   ? `${theme.notification}55`
                   : focusedField === "password"
-                  ? `${theme.Button}55`
-                  : theme.container,
+                  ? `${theme.Button}95`
+                  : theme.buttondark,
                 backgroundColor: showPasswordError
                   ? theme.bttext
-                  : theme.container,
+                  : theme.buttondark,
                 color: theme.text,
               },
             ]}
@@ -182,7 +182,7 @@ const Login: React.FC = () => {
             onPress={() => setIsChecked(!isChecked)}
           >
             {isChecked && (
-              <Text style={[styles.tick, { color: theme.Button }]}>✓</Text>
+              <Text style={[styles.tick, { color: theme.buttondark }]}>✓</Text>
             )}
           </TouchableOpacity>
           <Text

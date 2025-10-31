@@ -56,7 +56,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={MyGoal}
+          component={LoginNumOtp}
           options={{ headerShown: false }}
         />
         <Stack.Screen

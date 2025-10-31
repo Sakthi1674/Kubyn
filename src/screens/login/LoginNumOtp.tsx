@@ -82,7 +82,7 @@ const LoginNumOtp: React.FC = () => {
             ? theme.notification
             : isFocused
             ? theme.Button
-            : theme.container;
+            : theme.buttondark;
 
           return (
             <TextInput
@@ -94,7 +94,7 @@ const LoginNumOtp: React.FC = () => {
                 styles.otpBox,
                 {
                   borderColor,
-                  backgroundColor: theme.container,
+                  backgroundColor: theme.buttondark,
                   color: theme.text,
                 },
               ]}
