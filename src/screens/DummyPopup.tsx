@@ -163,7 +163,6 @@ const DummyPopup = () => {
                             </TouchableOpacity>
                         </View>
 
-                        {/* Image */}
                         <Image
                             source={require("../assets/images/DashBoard/TopLeftIcon.png")}
                             style={styles.aiImage}
