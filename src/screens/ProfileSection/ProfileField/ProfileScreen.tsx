@@ -109,7 +109,7 @@ const ProfileScreen: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Popup Modals */}
+      
       <LogoutScreen
         visible={logoutVisible}
         onCancel={() => setLogoutVisible(false)}
