@@ -45,6 +45,8 @@ import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import { ThemeProvider } from './src/theme/ThemeContext';
 import MyCommunity from './src/screens/Dashboard/MyCommunity';
 import MyGoal from './src/screens/Dashboard/MyGoal';
+import DummyPopup from './src/screens/DummyPopup';
+import BehaviorScreen from './src/screens/Dashboard/BehaviorScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -56,7 +58,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={LoginNumOtp}
+          component={DummyPopup}
           options={{ headerShown: false }}
         />
         <Stack.Screen
