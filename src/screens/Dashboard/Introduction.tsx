@@ -167,6 +167,12 @@ const Introduction = () => {
             />
 
           </View>
+
+          <TouchableOpacity style={styles.reportButton}>
+            <Download width={34} height={20} />
+
+            <Text style={styles.viewReport}>View Report</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.legendWrapper}>
@@ -186,6 +192,11 @@ const Introduction = () => {
 
             <Text style={styles.viewReport}>View Report</Text>
           </TouchableOpacity>
+          <Image
+            source={require('../../assets/images/DashBoard/Kuboo.png')}
+            style={styles.kubooImage}
+          />
+
         </View>
         {/* Explore Section */}
 {/* Explore Section */}
@@ -238,6 +249,7 @@ export default Introduction;
 
 const styles = StyleSheet.create({
   container: {
+    overflow: 'hidden',
     flex: 1,
     backgroundColor: '#F7FAFD',
   },
