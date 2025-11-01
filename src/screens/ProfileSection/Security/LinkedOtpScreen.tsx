@@ -26,7 +26,7 @@ const LinkedOtpScreen: React.FC = () => {
       {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('LinkedScreen')}>
-          <BackWard width={20} height={20} stroke={theme.icon} />
+          <BackWard width={10} height={16} stroke={theme.icon} />
         </TouchableOpacity>
       </View>
 
@@ -37,7 +37,7 @@ const LinkedOtpScreen: React.FC = () => {
           { backgroundColor: theme.buttondark },
         ]}
       >
-        <Text style={[styles.title, { color: theme.text }]}>Confirmation</Text>
+        <Text style={[styles.title, { color: theme.Button }]}>Confirmation</Text>
         <Text style={[styles.subText, { color: theme.textSecondary }]}>
           Please Enter the verification Code sent to {'\n'}+91***0156
         </Text>
@@ -49,7 +49,7 @@ const LinkedOtpScreen: React.FC = () => {
               key={index}
               style={[
                 styles.otpBox,
-                { borderColor: theme.Button, backgroundColor: theme.bttext },
+                { borderColor: theme.bttext, backgroundColor: theme.bttext },
               ]}
             >
               <Text style={[styles.otpText, { color: theme.text }]}>0</Text>
@@ -102,32 +102,32 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     alignItems: 'center',
+    marginTop: verticalScale(60),
+    paddingHorizontal: scale(30),
   },
   headerContainer: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(60),
-    marginLeft: scale(50),
   },
   cardContainer: {
-    width: '85%',
+    width: '100%',
     borderRadius: moderateScale(22),
     paddingVertical: verticalScale(10),
     alignItems: 'center',
     marginTop: verticalScale(100),
   },
   title: {
-    fontSize: moderateScale(18),
-    fontWeight: 'bold',
-    fontFamily: 'Avenir LT Std',
+    fontSize: moderateScale(14),
+    fontWeight:700,
+    fontFamily: 'Avenir LT Std 95 Black',
     marginBottom: verticalScale(10),
   },
   subText: {
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(10),
     textAlign: 'center',
     marginBottom: verticalScale(25),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
     lineHeight: verticalScale(18),
   },
   otpContainer: {
@@ -148,10 +148,11 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(24),
     fontWeight: '600',
     opacity: scale(0.35),
+    fontFamily: 'Avenir LT Std 65 Medium',
   },
   updateWrapper: {
     position: 'absolute',
-    bottom: verticalScale(40),
+    bottom: verticalScale(65),
     width: '90%',
     alignItems: 'center',
   },

@@ -34,7 +34,7 @@ const SecurityScreen = () => {
             <ChangePasswordIcon width={22} height={22} color={theme.text} />
             <Text style={[styles.text, { color: theme.text }]}>Change Password</Text>
           </View>
-          <Front width={24} height={24} color={theme.text} />
+          <Front width={12} height={24} color={theme.text} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("LinkedScreen")}>
@@ -44,7 +44,7 @@ const SecurityScreen = () => {
               Linked Email and Mobile Number
             </Text>
           </View>
-          <Front width={24} height={24} color={theme.text} />
+          <Front width={12} height={24} color={theme.text} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("")}>
@@ -68,7 +68,7 @@ const SecurityScreen = () => {
             <Activity width={22} height={22} color={theme.text} />
             <Text style={[styles.text, { color: theme.text }]}>Activity</Text>
           </View>
-          <Front width={24} height={24} color={theme.text} />
+          <Front width={12} height={24} color={theme.text} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -79,8 +79,8 @@ export default SecurityScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: scale(24),
+   flex: 1,
+    paddingHorizontal: scale(30),
     paddingTop: verticalScale(60),
   },
   headerContainer: {
@@ -89,11 +89,11 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(10),
   },
   header: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(20),
     fontWeight: "700",
     marginLeft: scale(30),
-    fontFamily: "Kollektif",
-    letterSpacing: scale(4),
+    fontFamily: "Kollektif-Bold",
+    letterSpacing: scale(5),
   },
   list: {
     marginTop: verticalScale(15),
@@ -102,17 +102,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: verticalScale(8),
+    paddingVertical: verticalScale(12),
   },
   leftSection: {
     flexDirection: "row",
     alignItems: "center",
   },
   text: {
-    fontSize: moderateScale(13),
-    marginLeft: scale(24),
-    fontFamily: "Avenir LT Std",
-    letterSpacing: scale(2),
+    fontSize: moderateScale(16),
+    marginLeft: scale(14),
+    fontFamily: "Avenir LT Std 55 Roman",
     fontWeight: "600",
   },
 });

@@ -12,19 +12,21 @@ import BackWard from '../../assets/icons/BackWard'; // use your back icon
 import DoubleTick from '../../assets/icons/DoubleTick'; // your tick icon
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import colors from '../../theme/color';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const Notification = () => {
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "light"];
+      const navigation = useNavigation<NavigationProp<any>>();
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.background }]}
     >
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
-          <BackWard color={theme.text} /> {/* ✅ theme-based icon color */}
-        </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <BackWard width={10} height={16} color={theme.text} />
+                    </TouchableOpacity>
 
         <Text style={[styles.headerTitle, { color: theme.text }]}>
           Notification
@@ -132,19 +134,20 @@ export default Notification;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: scale(15),
-    paddingTop: verticalScale(50),
+
   },
   headerTitle: {
     fontSize: scale(16),
     fontWeight: '600',
     color: 'rgba(34, 63, 97, 1)',
-    fontFamily: 'Open Sans',
+    fontFamily: 'Kollektif-Bold',
     right: scale(40),
   },
   makeReadContainer: {
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
   makeReadText: {
     color: 'rgba(18, 18, 18, 1)',
     fontSize: scale(10),
-    marginLeft: scale(5),
+    marginLeft: scale(10),
     fontFamily: 'Open Sans',
     fontWeight: 400,
 
@@ -166,7 +169,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     backgroundColor: '#E9EFF9',
-    marginHorizontal: scale(16),
     padding: scale(12),
     borderRadius: scale(10),
 
@@ -207,7 +209,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     marginTop: verticalScale(10),
     marginBottom: verticalScale(10),
-    marginLeft: scale(20),
     fontWeight: '600',
     color: 'rgba(18, 18, 18, 1)',
     fontFamily: 'Open Sans',
@@ -216,10 +217,8 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: 'rgba(251, 253, 255, 1)',
-    marginHorizontal: scale(16),
     borderRadius: scale(20),
     height: verticalScale(61),
-    width: scale(320),
     marginBottom: verticalScale(10),
     flexDirection: 'row',
     alignItems: 'center',
@@ -228,16 +227,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-
     // ✅ Shadow for Android
     elevation: 3,
   },
   card1: {
     backgroundColor: 'rgba(227, 233, 241, 0.8)',
-    marginHorizontal: scale(16),
     borderRadius: scale(20),
     height: verticalScale(61),
-    width: scale(320),
     marginBottom: verticalScale(10),
     flexDirection: 'row',
     alignItems: 'center',

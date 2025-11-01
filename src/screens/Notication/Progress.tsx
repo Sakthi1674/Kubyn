@@ -20,8 +20,8 @@ const Progress = () => {
             >
                 {/* Header */}
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => navigation.navigate("SecurityScreen")}>
-                        <BackWard width={15} height={18} fill={theme.text} />
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <BackWard width={10} height={16} color={theme.text} />
                     </TouchableOpacity>
                     <Text style={[styles.title, { color: theme.text }]}>Notification</Text>
                 </View>
@@ -58,16 +58,17 @@ export default Progress;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+    flex: 1,
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
     },
     content: {
-        padding: scale(20),
+       
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: verticalScale(50),
+
     },
     title: {
 
@@ -75,17 +76,12 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         fontSize: moderateScale(16),
         left: scale(20),
-
-
     },
     sessionBox: {
         backgroundColor: 'rgba(227, 233, 241, 1)',
         height: verticalScale(154),
         borderRadius: moderateScale(10),
-        width: scale(325),
-
         marginTop: verticalScale(40),
-
     },
 
     deviceName: {

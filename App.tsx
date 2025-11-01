@@ -35,7 +35,6 @@ import HelpCentreScreen from './src/screens/ProfileSection/AppSetting/HelpCenter
 import HeyScreen from './src/screens/Questions/HeyScreen';
 import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
 import Introduction from './src/screens/Dashboard/Introduction';
-import Nofication from './src/screens/Notication/Notification';
 import Progress from './src/screens/Notication/Progress';
 import FirstNumTrap from './src/screens/Dashboard/FirstNumTrap';
 import MySpend from './src/screens/Dashboard/MySpend';
@@ -45,8 +44,10 @@ import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import { ThemeProvider } from './src/theme/ThemeContext';
 import MyCommunity from './src/screens/Dashboard/MyCommunity';
 import MyGoal from './src/screens/Dashboard/MyGoal';
-import DummyPopup from './src/screens/DummyPopup';
 import BehaviorScreen from './src/screens/Dashboard/BehaviorScreen';
+import Notification from './src/screens/Notication/Notification';
+import MySpendTrans from './src/screens/Dashboard/MySpendTrans';
+import CreateGoal from './src/screens/Dashboard/CreateGoal';
 
 
 const Stack = createNativeStackNavigator();
@@ -58,7 +59,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={DummyPopup}
+          component={CreateGoal}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -124,6 +125,11 @@ const App = () => {
          <Stack.Screen
           name="HeyScreen"
           component={HeyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MySpendTrans"
+          component={MySpendTrans}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -233,7 +239,7 @@ const App = () => {
         />
         <Stack.Screen
           name="Notification"
-          component={Nofication}
+          component={Notification}
           options={{ headerShown: false }}
         />
          <Stack.Screen

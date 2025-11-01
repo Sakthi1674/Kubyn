@@ -28,11 +28,7 @@ const AccountScreen: React.FC = () => {
       {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <BackWard 
-            width={scale(15)} 
-            height={verticalScale(20)} 
-            color={theme.Button} 
-          />
+         <BackWard width={10} height={16} color={theme.text} />
         </TouchableOpacity>
         <Text style={[styles.header, { color: theme.text }]}>Account</Text>
       </View>
@@ -44,7 +40,7 @@ const AccountScreen: React.FC = () => {
           onPress={() => navigation.navigate('ChangePrefrence')}
         >
           <View style={styles.leftSection}>
-            <ChangePreference width={scale(25)} height={scale(25)} color={theme.Button} />
+            <ChangePreference width={scale(24)} height={scale(24)} color={theme.Button} />
             <Text style={[styles.text, { color: theme.text }]}>Change Preference</Text>
           </View>
           <Front width={scale(28)} height={scale(28)} color={theme.Button} />
@@ -55,7 +51,7 @@ const AccountScreen: React.FC = () => {
           onPress={() => navigation.navigate('MySubscriptions')}
         >
           <View style={styles.leftSection}>
-            <AddMailIcon width={scale(26)} height={scale(26)} stroke={theme.Button} />
+            <AddMailIcon width={scale(24)} height={scale(24)} stroke={theme.Button} />
             <Text style={[styles.text, { color: theme.text }]}>My Subscriptions</Text>
           </View>
           <Front width={scale(24)} height={scale(24)} color={theme.Button} />
@@ -66,7 +62,7 @@ const AccountScreen: React.FC = () => {
           onPress={() => navigation.navigate('DownloadStatements')}
         >
           <View style={styles.leftSection}>
-            <Download width={scale(26)} height={scale(26)} stroke={theme.Button} />
+            <Download width={scale(24)} height={scale(24)} stroke={theme.Button} />
             <Text style={[styles.text, { color: theme.text }]}>Download Statements</Text>
           </View>
           <Front width={scale(24)} height={scale(24)} color={theme.Button} />
@@ -77,7 +73,7 @@ const AccountScreen: React.FC = () => {
           onPress={() => navigation.navigate('DeleteAccount')}
         >
           <View style={styles.leftSection}>
-            <TrashIcon width={scale(26)} height={scale(26)} stroke={theme.Button} />
+            <TrashIcon width={scale(24)} height={scale(24)} stroke={theme.Button} />
             <Text style={[styles.text, { color: theme.text }]}>Delete Account</Text>
           </View>
           <Front width={scale(24)} height={scale(24)} color={theme.text} />
@@ -92,7 +88,7 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(24),
+    paddingHorizontal: scale(30),
     paddingTop: verticalScale(60),
   },
   headerContainer: {
@@ -101,10 +97,10 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(30),
   },
   header: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(20),
     fontWeight: '700',
     marginLeft: scale(30),
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     letterSpacing: scale(5),
   },
   list: {
@@ -123,7 +119,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: moderateScale(16),
     marginLeft: scale(24),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 65 Medium',
     letterSpacing: scale(1.5),
     fontWeight: '600',
   },

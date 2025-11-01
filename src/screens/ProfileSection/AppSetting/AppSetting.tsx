@@ -42,7 +42,7 @@ export default function AppSettingsScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-          <BackWard width={20} height={20} stroke={theme.icon} />
+          <BackWard width={10} height={16} color={theme.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: theme.text }]}>
           App Setting
@@ -159,34 +159,34 @@ export default function AppSettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(24),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: verticalScale(75),
-    marginTop: verticalScale(45),
+    marginBottom: verticalScale(55),
   },
   headerTitle: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(20),
     fontWeight: '700',
-    marginLeft: scale(10),
+    marginLeft: scale(30),
     letterSpacing: scale(4),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 95 Black',
   },
   section: {},
   sectionTitle: {
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(12),
     fontWeight: '800',
-    marginBottom: verticalScale(10),
-    fontFamily: 'Avenir LT Std',
+    marginBottom: verticalScale(20),
+    fontFamily: 'Avenir LT Std 85 Heavy',
   },
   sectionTitle1: {
-    fontSize: moderateScale(15),
-    fontWeight: '800',
-    marginBottom: verticalScale(18),
-    fontFamily: 'Avenir LT Std',
-    marginTop: verticalScale(19),
+    fontSize: moderateScale(12),
+    fontWeight: '700',
+    marginBottom: verticalScale(20),
+    fontFamily: 'Avenir LT Std 85 Heavy',
+    marginTop: verticalScale(20),
   },
   row: {
     flexDirection: 'row',
@@ -195,9 +195,9 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(14),
   },
   label: {
-    fontSize: moderateScale(15),
-    marginBottom: verticalScale(14),
-    fontFamily: 'Avenir LT Std',
+    fontSize: moderateScale(12),
+    marginBottom: verticalScale(10),
+    fontFamily: 'Avenir LT Std 55 Roman',
     fontWeight: '400',
   },
   radioRow: {
@@ -220,7 +220,9 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   linkText: {
-    fontSize: 15,
+    fontSize: moderateScale(12),
+    fontFamily: 'Avenir LT Std 55 Roman',
+    fontWeight: '400',
   },
   circleWrapper: {
     alignItems: 'flex-end',

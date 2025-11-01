@@ -42,12 +42,12 @@ const CurrentPassword: React.FC = () => {
           Current Password
         </Text>
         <View
-          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
+          style={[styles.inputWrapper, { backgroundColor: theme.pop }]}
         >
           <TextInput
             placeholder="Current Password"
             style={[styles.input, { color: theme.text }]}
-            placeholderTextColor={theme.text}
+            placeholderTextColor={theme.textSecondary}
             secureTextEntry
           />
         </View>
@@ -60,12 +60,12 @@ const CurrentPassword: React.FC = () => {
 
         {/* New Password */}
         <View
-          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
+          style={[styles.inputWrapper, { backgroundColor: theme.pop }]}
         >
           <TextInput
             placeholder="Password"
             style={[styles.input, { color: theme.text }]}
-            placeholderTextColor={theme.text}
+            placeholderTextColor={theme.textSecondary}
             secureTextEntry
           />
           <TouchableOpacity style={styles.iconRight}>
@@ -75,12 +75,12 @@ const CurrentPassword: React.FC = () => {
 
         {/* Confirm Password */}
         <View
-          style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}
+          style={[styles.inputWrapper, { backgroundColor: theme.pop }]}
         >
           <TextInput
             placeholder="Confirm Password"
             style={[styles.input, { color: theme.text }]}
-            placeholderTextColor={theme.text}
+            placeholderTextColor={theme.textSecondary}
             secureTextEntry
           />
           <TouchableOpacity style={styles.iconRight}>
@@ -95,8 +95,8 @@ const CurrentPassword: React.FC = () => {
         onPress={() => console.log('Submit pressed')}
         style={{
           backgroundColor: theme.Button,
-          marginTop: verticalScale(270),
-          marginHorizontal: scale(30),
+          marginTop: verticalScale(240),
+          marginHorizontal: scale(15),
         }}
         textStyle={{
           color: theme.bttext,
@@ -113,19 +113,19 @@ export default CurrentPassword;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(50),
   },
   title: {
     fontSize: moderateScale(20),
     fontWeight: '700',
     marginLeft: scale(19),
     letterSpacing: scale(3),
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
   },
   form: {
     marginTop: verticalScale(40),
@@ -133,8 +133,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: moderateScale(12),
     marginBottom: verticalScale(10),
-    left: scale(17),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
     letterSpacing: scale(1),
   },
   inputWrapper: {
@@ -144,8 +143,8 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(10),
     flexDirection: 'row',
     alignItems: 'center',
-    width: '90%',
-    left: scale(15),
+    width: '100%',
+
   },
   input: {
     flex: 1,
@@ -158,8 +157,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginBottom: verticalScale(18),
     fontSize: moderateScale(10),
-    right: scale(22),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
     letterSpacing: scale(1),
   },
 });

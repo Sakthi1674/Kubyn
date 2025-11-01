@@ -25,7 +25,7 @@ const LinkedScreen: React.FC = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('SecurityScreen')}>
-          <BackWard stroke={theme.text} width={15} height={15} />
+          <BackWard stroke={theme.text} width={10} height={16} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: theme.text }]}>
           Linked Email & Mobile Number
@@ -81,8 +81,8 @@ const LinkedScreen: React.FC = () => {
         onPress={() => console.log('Submit pressed')}
         style={{
           backgroundColor: theme.Button,
-          marginTop: verticalScale(270),
-          marginHorizontal: scale(30),
+          marginTop: verticalScale(255),
+          marginHorizontal: scale(15),
         }}
         textStyle={{
           color: theme.bttext,
@@ -99,23 +99,23 @@ export default LinkedScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: verticalScale(30),
-    marginTop: verticalScale(60),
   },
   headerTitle: {
     fontSize: moderateScale(18),
     fontWeight: '700',
     letterSpacing: scale(2),
-    left: scale(20),
+    left: scale(10),
     fontFamily: 'Kollektif',
   },
   inputSection: {
-    marginLeft: scale(30),
+    
     marginTop: verticalScale(30),
   },
   inputWrapper: {
@@ -124,9 +124,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: scale(15),
     height: verticalScale(45),
-    width: scale(280),
-    right: scale(20),
-    justifyContent: 'space-between',
+    width: scale(290),
+    justifyContent: 'center',
   },
   input: {
     flex: 1,

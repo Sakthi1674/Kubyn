@@ -23,8 +23,8 @@ const DownloadStatements = () => {
           onPress={() => navigation.navigate('AccountScreen')}
         >
           <BackWard
-            width={15}
-            height={15}
+            width={10}
+            height={16}
             color={theme.Button}
           />
         </TouchableOpacity>
@@ -78,13 +78,12 @@ export default DownloadStatements;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(20),
-    paddingTop: verticalScale(30),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(30),
   },
   backButton: {
     padding: scale(10),
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: moderateScale(20),
     fontWeight: '700',
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     letterSpacing: scale(3),
   },
   dropdownWrapper: {
@@ -126,10 +125,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: scale(20),
   },
-  buttonContainer: {
-    marginVertical: verticalScale(30),
-  },
-  button: {
-    marginHorizontal: scale(30),
-  },
+buttonContainer: {
+  marginVertical: verticalScale(55),
+  alignItems: "center",       // ✅ Centers horizontally
+  justifyContent: "center",   // ✅ Centers vertically (optional)
+},
+
+button: {
+  alignSelf: "center",        // ✅ Keeps button centered inside container
+},
+
 });

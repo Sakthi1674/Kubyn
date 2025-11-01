@@ -56,10 +56,10 @@ const UserName: React.FC<ChangeNamePopupProps> = ({
               </Text>
                            <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                  style={[styles.yesButton, { backgroundColor: theme.bttext }]}
+                  style={[styles.yesButton, { backgroundColor: theme.pop }]}
                   onPress={() => onConfirm(newName)}
                 >
-                  <Text style={[styles.yesText, { color: theme.text }]}>Yes</Text>
+                  <Text style={styles.yesText}>Yes</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -82,11 +82,10 @@ export default UserName;
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    width: scale(340), // instead of '85%'
-    height: '100%',
     backgroundColor: '#E3E9F1CC',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   popupContainer: {
     backgroundColor: '#102B4C',
@@ -106,7 +105,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10),
     color: '#223F61',
     textAlign: 'center',
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Regular',
+    fontSize: moderateScale(12),
   },
   popupText: {
     color: '#fff',
@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '75%',
+    width: '80%',
+    marginTop: verticalScale(15),
   },
   yesButton: {
     backgroundColor: '#E3E9F1CC',
@@ -128,14 +129,14 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(8),
     paddingHorizontal: scale(18),
     width: scale(90),
-    marginTop: verticalScale(25),
+    
   },
   yesText: {
     color: '#183153',
     fontWeight: '700',
     fontSize: moderateScale(12),
     textAlign: 'center',
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     letterSpacing: moderateScale(2),
   },
   noButton: {
@@ -144,13 +145,12 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(8),
     paddingHorizontal: scale(18),
     width: scale(90),
-    marginTop: verticalScale(25),
   },
   noText: {
     color: '#183153',
     letterSpacing: moderateScale(2),
     textAlign: 'center',
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     fontWeight: '700',
     fontSize: moderateScale(12),
   },

@@ -65,7 +65,7 @@ const CurrentPin = () => {
           onPress={() => navigation.navigate('SetPin')}
           style={{
             backgroundColor: theme.Button,
-            marginHorizontal: scale(30),
+            
           }}
           textStyle={{
             color: theme.bttext,
@@ -81,27 +81,27 @@ export default CurrentPin;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    alignItems: 'center',
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    marginLeft: scale(30),
-    marginTop: verticalScale(70),
   },
   headerText: {
     fontSize: moderateScale(20),
     fontWeight: '700',
     letterSpacing: scale(3),
     marginLeft: scale(30),
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
   },
   subText: {
     fontSize: moderateScale(10),
     marginTop: verticalScale(40),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
     fontWeight: '400',
+    textAlign: 'center',        // ✅ centers text horizontally
   },
   pinContainer: {
     flexDirection: 'row',
@@ -117,19 +117,25 @@ const styles = StyleSheet.create({
   },
   changeText: {
     fontSize: moderateScale(10),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 85 Heavy',
     fontWeight: '700',
     marginBottom: verticalScale(20),
+    textAlign: 'center',    
   },
   forgotText: {
     fontSize: moderateScale(10),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 85 Heavy',
     marginTop: verticalScale(240),
     fontWeight: '400',
+    textAlign: 'center',    
   },
   buttonWrapper: {
-    width: '90%',
-    position: 'absolute',
-    bottom: verticalScale(40),
+   position: 'absolute',
+    bottom: verticalScale(60), 
+    left: 0,
+    right: 0,
+    alignItems: 'center', 
+    justifyContent: 'center',
+    zIndex: 10,
   },
 });

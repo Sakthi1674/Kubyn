@@ -39,7 +39,7 @@ const ResetPin = () => {
       </View>
 
       {/* Confirm Button */}
-      <View style={styles.buttonWrapper}>
+      <View style={styles.nextButton}>
         <ButtonComp
           title="Confirm"
           onPress={() => navigation.navigate("SecurityScreen")}
@@ -61,30 +61,27 @@ export default ResetPin;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    marginLeft: scale(30),
-    marginTop: verticalScale(70),
   },
   headerText: {
-    fontSize: moderateScale(20),
-    fontWeight: 700,
-    color: '#000',
+     fontSize: moderateScale(20),
+    fontWeight: '700',
     letterSpacing: scale(3),
     marginLeft: scale(30),
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
   },
   subText: {
     fontSize: moderateScale(10),
-    color: '#121212',
     marginTop: verticalScale(40),
-    fontFamily: 'Avenir LT Std',
-    fontWeight:400,
+    fontFamily: 'Avenir LT Std 55 Roman',
+    fontWeight: '400',
+    textAlign: 'center',   
   },
   pinContainer: {
     flexDirection: 'row',
@@ -94,8 +91,7 @@ const styles = StyleSheet.create({
   },
   pinDot: {
     width: scale(30),
-    height: verticalScale(1),
-    backgroundColor: '#121212',
+    height: verticalScale(1.5),
     marginHorizontal: scale(10),
     borderRadius: moderateScale(2),
   },
@@ -120,8 +116,13 @@ const styles = StyleSheet.create({
     bottom: verticalScale(40),
   },
   nextButton: {
-    backgroundColor: '#223F61',
-    borderRadius: moderateScale(8),
+   position: 'absolute',
+    bottom: verticalScale(60), 
+    left: 0,
+    right: 0,
+    alignItems: 'center', 
+    justifyContent: 'center',
+    zIndex: 10,
   },
 });
 

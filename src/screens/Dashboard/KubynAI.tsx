@@ -36,10 +36,13 @@ const KubynAI = ({ navigation }: any) => {
     >
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack} style={styles.backWrapper}>
-          <BackWard />
-        </TouchableOpacity>
-        <Text style={styles.title}>Kubyn AI</Text>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.backWrapper}
+      >
+        <BackWard width={10} height={16} color={theme.text} />
+      </TouchableOpacity>
+        <Text style={[styles.title,{color:theme.Button}]}>Kubyn AI</Text>
       </View>
 
       {/* Chat Messages */}
@@ -93,14 +96,13 @@ const KubynAI = ({ navigation }: any) => {
           style={[
             styles.inputbox,
             {
-              backgroundColor:
-                scheme === "dark" ? "#1E2B3A" : "rgba(232,238,245,0.95)",
+              backgroundColor:theme.buttondark,
             },
           ]}
         >
           {/* Plus Icon */}
           <TouchableOpacity style={styles.iconButton}>
-            <PlusIcon width={20} height={20} />
+            <PlusIcon width={20} height={20} color={theme.Button} />
           </TouchableOpacity>
 
           {/* Text Input */}
@@ -130,21 +132,24 @@ export default KubynAI;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 20,
-    marginHorizontal: 16,
   },
   backWrapper: {
-    marginRight: 8,
+    position: "absolute",
+    left: scale(0),
+    top: verticalScale(4),
   },
   title: {
-    fontFamily: "Open Sans",
+    fontFamily: "Kollektif-Bold",
     fontWeight: "600",
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: "rgba(34, 63, 97, 1)",
+    left:scale(30),
   },
   chatContainer: {
     paddingVertical: 20,
@@ -154,14 +159,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     marginBottom: 15,
-    marginLeft: 10,
+   
   },
   characterLeft: {
-    width: 48,
-    height: 65,
+  width: scale(42),
+  height: scale(42),
+  borderRadius: scale(21),
     resizeMode: "contain",
     marginRight: -60,
     marginBottom: 110,
+    backgroundColor:"#ffff",
   },
   bubbleLeft: {
     width: 300,
@@ -173,7 +180,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "flex-end",
     marginBottom: 1,
-    marginRight: 10,
   },
   bubbleRight: {
     width: 300,
@@ -190,7 +196,6 @@ const styles = StyleSheet.create({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  paddingHorizontal: scale(12),
   paddingVertical: verticalScale(8),
   borderRadius: moderateScale(35),
   shadowColor: "#223F61",
@@ -198,7 +203,7 @@ const styles = StyleSheet.create({
   shadowOpacity: 0.15,
   shadowRadius: 4,
   elevation: 4,
-  width: "92%",
+  width: "100%",
   alignSelf: "center", // ✅ this works fine now
   position: "absolute",
   bottom: 20,
@@ -233,13 +238,15 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(4),
     marginLeft: scale(6),
   },
-  input: {
-    flex: 1,
-    fontFamily: "Avenir LT Std",
-    fontSize: moderateScale(15),
-    paddingHorizontal: scale(10),
-    opacity: 0.8,
-  },
+input: {
+  flex: 1,
+  fontFamily: "Avenir LT Std",
+  fontSize: moderateScale(15),
+  paddingHorizontal: scale(10),
+  opacity: 0.8,
+  textAlignVertical: "center", // ✅ Centers text vertically
+},
+
   sendButton: {
     width: scale(42),
     height: scale(42),

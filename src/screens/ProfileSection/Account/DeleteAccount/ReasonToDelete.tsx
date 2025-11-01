@@ -60,7 +60,7 @@ const AccountDeleteVerification = () => {
           {/* Header */}
           <View style={styles.headerContainer}>
             <TouchableOpacity onPress={() => navigation.navigate('DeleteAccount')}>
-              <BackWard width={20} height={20} color={theme.text} />
+              <BackWard width={10} height={16} color={theme.text} />
             </TouchableOpacity>
             <Text style={[styles.headerText, { color: theme.text }]}>
               Delete Account
@@ -74,7 +74,7 @@ const AccountDeleteVerification = () => {
           </Text>
 
           {/* Question */}
-          <Text style={[styles.questionText, { color: theme.text }]}>
+          <Text style={[styles.questionText, { color: theme.Button }]}>
             Why did you decide to leave {'\n'}this app?
           </Text>
 
@@ -123,13 +123,12 @@ const AccountDeleteVerification = () => {
           )}
 
           {/* Submit Button */}
-          <View style={styles.buttonWrapper}>
+          <View style={styles.ButtonWrapper}>
             <ButtonComp
               title="Submit"
               onPress={() => console.log('Submit pressed')}
               style={{
                 backgroundColor: theme.Button,
-                marginHorizontal: scale(30),
               }}
               textStyle={{
                 color: theme.bttext,
@@ -152,9 +151,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingHorizontal: scale(20),
+    flex: 1,
+    paddingHorizontal: scale(30),
     paddingTop: verticalScale(60),
-    paddingBottom: verticalScale(40),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -162,25 +161,25 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(40),
   },
   headerText: {
-    fontSize: moderateScale(25),
-    fontWeight: 'bold',
+    fontSize: moderateScale(20),
+    fontWeight: 700,
     letterSpacing: scale(5),
-    marginLeft: scale(10),
-    fontFamily: 'Kollektif',
+    marginLeft: scale(30),
+    fontFamily: 'Kollektif-Bold',
   },
   confirmationText: {
     fontSize: moderateScale(10),
     marginBottom: verticalScale(20),
     letterSpacing: scale(1),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
     fontWeight: '400',
   },
   questionText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(16),
     fontWeight: '700',
     marginBottom: verticalScale(15),
-    fontFamily: 'Avenir LT Std',
-    letterSpacing: scale(1),
+    fontFamily: 'Avenir LT Std 85 Heavy',
+    letterSpacing: scale(3),
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -201,8 +200,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   checkboxLabel: {
-    fontSize: moderateScale(14),
-    fontFamily: 'Avenir LT Std',
+    fontSize: moderateScale(12),
+    fontFamily: 'Avenir LT Std 55 Roman',
     fontWeight: '400',
     letterSpacing: scale(1),
   },
@@ -213,9 +212,13 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     marginBottom: verticalScale(20),
   },
-  buttonWrapper: {
-    width: '90%',
+  ButtonWrapper: {
     position: 'absolute',
-    top: verticalScale(590),
+    bottom: verticalScale(55), 
+    left: 0,
+    right: 0,
+    alignItems: 'center', 
+    justifyContent: 'center',
+    zIndex: 10,
   },
 });

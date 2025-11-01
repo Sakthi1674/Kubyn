@@ -62,7 +62,7 @@ const ChangePreferenceScreen = () => {
       {/* Header */}
       <View style={styles.headerWrapper}>
         <TouchableOpacity onPress={() => navigation.navigate("AccountScreen")}>
-          <BackWard width={scale(14)} height={verticalScale(16)} color={theme.text} />
+          <BackWard width={10} height={16} color={theme.text} />
         </TouchableOpacity>
         <Text style={[styles.header, { color: theme.text }]}>Change Preference</Text>
       </View>
@@ -96,7 +96,7 @@ const ChangePreferenceScreen = () => {
           placeholderTextColor={theme.Button}
         />
         <TouchableOpacity style={styles.micWrapper}>
-          <MicIcon width={45} height={45} />
+          <MicIcon width={45} height={45} color={theme.Button} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -108,39 +108,38 @@ export default ChangePreferenceScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: verticalScale(12),
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   scrollContainer: {
     paddingBottom: verticalScale(20),
+    paddingTop:verticalScale(5),
   },
   headerWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: verticalScale(55),
-    marginTop: verticalScale(60),
+    marginBottom: verticalScale(44),
   },
   header: {
     fontSize: moderateScale(20),
     fontWeight: "700",
     marginLeft: scale(22),
     letterSpacing: scale(2),
-    fontFamily: "Kollektif",
+    fontFamily: "Kollektif-Bold",
   },
   questionBlock: {
-    marginBottom: verticalScale(18),
-    left: 10,
+    marginBottom: verticalScale(15),
   },
   question: {
     fontSize: moderateScale(20),
-    fontWeight: "800",
-    fontFamily: "Kollektif",
+    fontWeight: "700",
+    fontFamily: "Kollektif-Bold",
   },
   answer: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(16),
     fontWeight: "700",
-    marginTop: verticalScale(8),
-    fontFamily: "Avenir LT Std",
+    marginTop: verticalScale(5),
+    fontFamily: "Avenir LT Std 85Medium",
     lineHeight: verticalScale(20),
   },
   inputContainer: {

@@ -17,10 +17,10 @@ const MySubscriptions = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.iconBack}
+          style={styles.Backbutton}
           onPress={() => navigation.navigate("AccountScreen")}
         >
-          <BackWard width={15} height={15} color={theme.text} /> {/* ✅ Themed icon */}
+          <BackWard width={10} height={16} color={theme.text} /> {/* ✅ Themed icon */}
         </TouchableOpacity>
         <Text style={[styles.title, { color: theme.text }]}>My Subscriptions</Text>
       </View>
@@ -129,8 +129,8 @@ export default MySubscriptions;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: verticalScale(50),
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: "row",
@@ -139,13 +139,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: moderateScale(20),
     fontWeight: "bold",
-    marginLeft: scale(30),
-    letterSpacing: scale(2),
-    fontFamily: "Kollektif",
+    marginLeft: scale(10),
+    letterSpacing: scale(3),
+    fontFamily: "Kollektif-Bold",
   },
-  iconBack: {
-    padding: scale(5),
-    top: scale(4),
+  Backbutton: {
+    padding: scale(10),
   },
   card1: {
     borderRadius: moderateScale(15),

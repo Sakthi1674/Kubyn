@@ -35,108 +35,108 @@ const ProfileScreen: React.FC = () => {
   const [logoutVisible, setLogoutVisible] = useState(false);
   const [changeNameVisible, setChangeNameVisible] = useState(false);
   const [galleryVisible, setGalleryVisible] = useState(false);
-  const { theme } = useThemeContext(); 
-  
+  const { theme } = useThemeContext();
+
   return (
-     <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
-    <View style={[styles.container, { backgroundColor: theme.Profilebg }]}>
-      {/* Profile Section */}
-      <View style={styles.profileContainer}>
-        <View style={styles.imageWrapper}>
-          <Image
-            source={require('../../../assets/images/ProfileSection/Profile.jpg')}
-            style={styles.profileImage}
-          />
-          {/* Gallery Icon (opens photo popup) */}
+    <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
+      <View style={[styles.container, { backgroundColor: theme.Profilebg }]}>
+        {/* Profile Section */}
+        <View style={styles.profileContainer}>
+          <View style={styles.imageWrapper}>
+            <Image
+              source={require('../../../assets/images/ProfileSection/Profile.jpg')}
+              style={styles.profileImage}
+            />
+            {/* Gallery Icon (opens photo popup) */}
+            <TouchableOpacity
+              style={styles.galleryIconWrapper}
+              onPress={() => setGalleryVisible(true)}
+            >
+              <View style={styles.iconBackground}>
+                <GalleryIcon width={24} height={24} />
+              </View>
+            </TouchableOpacity>
+          </View>
+          {/* Username with edit */}
+          <View style={styles.usernameContainer}>
+            <Text style={styles.username}>John12</Text>
+            <TouchableOpacity onPress={() => setChangeNameVisible(true)}>
+              <EditIcon width={16} height={16} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* Menu Section */}
+        <View style={styles.menuContainer}>
+          {/*  Navigate to Account Screen */}
           <TouchableOpacity
-            style={styles.galleryIconWrapper}
-            onPress={() => setGalleryVisible(true)}
+            style={styles.menuItem}
+            onPress={() => navigation.navigate('AccountScreen')}
           >
-            <View style={styles.iconBackground}>
-              <GalleryIcon width={24} height={24} />
-            </View>
+            <AccountIcon width={24} height={24} />
+            <Text style={styles.menuText}>ACCOUNT</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}
+            onPress={() => navigation.navigate('SecurityScreen')}>
+            <LockIcon width={24} height={24} />
+            <Text style={styles.menuText}>SECURITY</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}
+            onPress={() => navigation.navigate('AppSettingsScreen')}>
+            <SettingsIcon width={24} height={24} />
+            <Text style={styles.menuText}>APP SETTINGS</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => navigation.navigate('HelpCentre')}>
+            <InfoIcon width={24} height={24} />
+            <Text style={styles.menuText}>HELP CENTRE</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}
+            onPress={() => navigation.navigate('LegalPolicies')}>
+            <LectureHallIcon width={24} height={24} />
+            <Text style={styles.menuText}>LEGAL & POLICIES</Text>
           </TouchableOpacity>
         </View>
-        {/* Username with edit */}
-        <View style={styles.usernameContainer}>
-          <Text style={styles.username}>John12</Text>
-          <TouchableOpacity onPress={() => setChangeNameVisible(true)}>
-            <EditIcon width={20} height={20} />
+
+        {/* Logout Section */}
+        <View style={styles.logoutContainer}>
+          <TouchableOpacity onPress={() => setLogoutVisible(true)}>
+            <LogoutIcon width={24} height={24} />
           </TouchableOpacity>
         </View>
+
+
+        <LogoutScreen
+          visible={logoutVisible}
+          onCancel={() => setLogoutVisible(false)}
+          onLogout={() => setLogoutVisible(false)}
+        />
+
+        <UserName
+          visible={changeNameVisible}
+          onCancel={() => setChangeNameVisible(false)}
+          onConfirm={(newName) => {
+            console.log('Name changed to:', newName);
+            setChangeNameVisible(false);
+          }}
+        />
+
+        <UserProfile
+          visible={galleryVisible}
+          onClose={() => setGalleryVisible(false)}
+        />
       </View>
-      {/* Menu Section */}
-      <View style={styles.menuContainer}>
-        {/*  Navigate to Account Screen */}
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('AccountScreen')}
-        >
-          <AccountIcon width={24} height={24} />
-          <Text style={styles.menuText}>ACCOUNT</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}
-          onPress={() => navigation.navigate('SecurityScreen')}>
-          <LockIcon width={24} height={24} />
-          <Text style={styles.menuText}>SECURITY</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}
-          onPress={() => navigation.navigate('AppSettingsScreen')}>
-          <SettingsIcon width={24} height={24} />
-          <Text style={styles.menuText}>APP SETTINGS</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('HelpCentre')}>
-          <InfoIcon width={24} height={24} />
-          <Text style={styles.menuText}>HELP CENTRE</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}
-          onPress={() => navigation.navigate('LegalPolicies')}>
-          <LectureHallIcon width={24} height={24} />
-          <Text style={styles.menuText}>LEGAL & POLICIES</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Logout Section */}
-      <View style={styles.logoutContainer}>
-        <TouchableOpacity onPress={() => setLogoutVisible(true)}>
-          <LogoutIcon width={24} height={24} />
-        </TouchableOpacity>
-      </View>
-
-      
-      <LogoutScreen
-        visible={logoutVisible}
-        onCancel={() => setLogoutVisible(false)}
-        onLogout={() => setLogoutVisible(false)}
-      />
-
-      <UserName
-        visible={changeNameVisible}
-        onCancel={() => setChangeNameVisible(false)}
-        onConfirm={(newName) => {
-          console.log('Name changed to:', newName);
-          setChangeNameVisible(false);
-        }}
-      />
-
-      <UserProfile
-        visible={galleryVisible}
-        onClose={() => setGalleryVisible(false)}
-      />
-    </View>
     </View>
   );
 };
 
 export default ProfileScreen;
 const styles = StyleSheet.create({
-    mainWrapper: {
+  mainWrapper: {
     flex: 1,
     justifyContent: "center",
     alignItems: "flex-start",
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#183153',
     paddingVertical: verticalScale(40),
     justifyContent: 'space-between',
-    alignItems:"center",
+    alignItems: "center",
     width: '85%',
     borderTopRightRadius: verticalScale(30),
     borderBottomRightRadius: verticalScale(30),
@@ -157,13 +157,17 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     position: 'relative',
-  },
-  profileImage: {
+    overflow: 'hidden', // ✅ clip icon background inside
+    borderRadius: moderateScale(80),
     width: scale(110),
     height: verticalScale(95),
-    borderRadius: moderateScale(80),
     borderWidth: scale(1),
     borderColor: '#fff',
+  },
+  profileImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: moderateScale(80),
   },
   galleryIconWrapper: {
     position: 'absolute',
@@ -200,10 +204,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     paddingVertical: verticalScale(6),
     borderRadius: moderateScale(20),
-    fontWeight: 'bold',
+    fontWeight: 700,
     color: '#183153',
     marginRight: scale(8),
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
+    fontSize: moderateScale(12),
     letterSpacing: scale(2),
   },
   menuContainer: {
@@ -218,12 +223,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginLeft: scale(20),
     letterSpacing: scale(3),
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Regular',
     fontWeight: '400',
+    fontSize: moderateScale(12),
   },
   logoutContainer: {
-    position:"absolute",
-    bottom:scale(30),
-    left:scale(30),
+    position: "absolute",
+    bottom: scale(30),
+    left: scale(30),
   },
 });

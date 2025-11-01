@@ -36,7 +36,7 @@ export default function DeleteAccount() {
       </View>
 
       {/* Title */}
-      <Text style={[styles.confirmTitle, { color: theme.text }]}>
+      <Text style={[styles.confirmTitle, { color: theme.Button }]}>
         Are you sure you want to delete your account?
       </Text>
 
@@ -58,9 +58,9 @@ export default function DeleteAccount() {
           onPress={() => navigation.navigate("AccountDeleteVerification")}
           style={{
             backgroundColor: theme.Button,
-            marginTop: verticalScale(545),
+            marginTop: verticalScale(530),
             marginBottom: verticalScale(20),
-            marginHorizontal: scale(35),
+            
           }}
           textStyle={{
             color: theme.bttext,
@@ -73,7 +73,6 @@ export default function DeleteAccount() {
           onPress={() => navigation.navigate("AccountScreen")}
           style={{
             backgroundColor: theme.buttondark,
-            marginHorizontal: scale(35),
           }}
           textStyle={{
             color: theme.text,
@@ -89,7 +88,7 @@ const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(30),
     paddingTop: verticalScale(60),
   },
   headerContainer: {
@@ -98,12 +97,14 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(30),
   },
   headerText: {
+    fontFamily: 'Kollektif-Bold',
     fontSize: moderateScale(20),
     fontWeight: "bold",
     letterSpacing: moderateScale(5),
     marginLeft: scale(30),
   },
   confirmTitle: {
+    fontFamily: 'Avenir LT Std 85 Heavy',
     fontSize: moderateScale(16),
     fontWeight: "700",
     marginBottom: verticalScale(20),
@@ -111,13 +112,19 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(19),
   },
   paragraph: {
+    fontFamily: 'Avenir LT Std 55 Roman',
     fontSize: moderateScale(10),
     marginBottom: verticalScale(15),
     lineHeight: verticalScale(15),
-    fontWeight: "500",
+    fontWeight: "400",
     letterSpacing: scale(1),
   },
-  btn: {
-    position: "absolute",
-  },
+btn: {
+  position: "absolute",
+  left: 0,
+  right: 0,
+  justifyContent: "center",   // ✅ vertical center
+  alignItems: "center",       // ✅ horizontal center
+},
+
 });

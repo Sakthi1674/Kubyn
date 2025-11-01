@@ -26,7 +26,7 @@ const PolicyButton = ({
     style={[styles.policyButton, { backgroundColor: theme.buttondark }]}
     activeOpacity={0.7}>
     <Text style={[styles.policyText, { color: theme.text }]}>{title}</Text>
-    <OpenEye width={20} height={20} stroke={theme.text} />
+    <OpenEye width={10} height={16} stroke={theme.text} />
   </TouchableOpacity>
 );
 
@@ -40,7 +40,7 @@ const LegalPolicies = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-          <BackWard width={24} height={24} stroke={theme.text} />
+          <BackWard width={10} height={16} stroke={theme.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: theme.text }]}>Legal & Policies</Text>
       </View>
@@ -60,24 +60,33 @@ export default LegalPolicies;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(20),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(50),
+
   },
   headerTitle: {
     fontSize: moderateScale(20),
     fontWeight: '700',
     letterSpacing: scale(4),
     marginLeft: scale(30),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 95 Black',
   },
-  content: {
-    marginTop: verticalScale(30),
-    gap: scale(15),
-  },
+content: {
+  marginTop: verticalScale(30),
+  gap: scale(15),
+  // ✅ Shadow for iOS
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.15,
+  shadowRadius: 4,
+  // ✅ Elevation for Android
+  elevation: 5,
+},
+
   policyButton: {
     borderRadius: moderateScale(10),
     paddingVertical: verticalScale(15),
@@ -89,6 +98,6 @@ const styles = StyleSheet.create({
   policyText: {
     fontSize: moderateScale(12),
     fontWeight: '400',
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
   },
 });

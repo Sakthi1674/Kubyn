@@ -66,7 +66,7 @@ export default function HelpCentreScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-          <BackWard width={24} height={24} stroke={theme.text} />
+          <BackWard width={10} height={16} color={theme.text} />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: theme.text }]}>Help Centre</Text>
       </View>
@@ -78,7 +78,7 @@ export default function HelpCentreScreen() {
         <Text style={[styles.chatButtonText, { color: theme.bttext }]}>
           Chat with Support
         </Text>
-        <ChatBox width={24} height={24} stroke={theme.bttext} />
+        <ChatBox width={24} height={24} strcoke={theme.bttext} />
       </TouchableOpacity>
 
       {/* FAQs Section */}
@@ -168,13 +168,13 @@ export default function HelpCentreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(24),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: verticalScale(25),
-    marginTop: verticalScale(50),
   },
   headerTitle: {
     fontSize: moderateScale(22),
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginRight: scale(8),
     letterSpacing: scale(1),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
   },
   section: {
     marginBottom: verticalScale(30),
@@ -208,17 +208,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sectionTitle: {
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(12),
     fontWeight: '700',
     marginBottom: verticalScale(22),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 85 Heavy',
     letterSpacing: scale(1),
   },
   sectionTitle1: {
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(12),
     fontWeight: '700',
     marginBottom: verticalScale(22),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 85 Heavy',
     letterSpacing: scale(1),
   },
   dropdown: {

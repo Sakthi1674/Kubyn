@@ -23,9 +23,12 @@ const LoginActivity = () => {
       <ScrollView contentContainerStyle={styles.content}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.navigate('SecurityScreen')}>
-            <BackWard width={15} height={18} color={theme.text} />
-          </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.backButton}
+      >
+        <BackWard width={10} height={16} color={theme.text} />
+      </TouchableOpacity>
           <Text style={[styles.title, { color: theme.text }]}>Login Activity</Text>
         </View>
 
@@ -65,27 +68,32 @@ const LoginActivity = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   content: {
-    padding: scale(20),
+    padding: scale(0),
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: verticalScale(50),
+    
+  },
+    backButton: {
+    position: "absolute",
+    top: verticalScale(5),
   },
   title: {
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     fontWeight: '700',
     letterSpacing: scale(2),
     fontSize: moderateScale(20),
-    left: scale(20),
+    left:scale(30)
   },
   sectionTitle: {
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(14),
     fontWeight: '700',
     marginBottom: verticalScale(12),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 85 Heavy',
     letterSpacing: scale(2),
   },
   sessionBox: {
@@ -95,24 +103,24 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
   },
   deviceName: {
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(10),
     fontWeight: '700',
     marginBottom: verticalScale(6),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 85 Heavy',
     letterSpacing: scale(1),
   },
   location: {
     fontSize: moderateScale(10),
     fontStyle: 'italic',
     marginBottom: verticalScale(4),
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 65 Medium',
     letterSpacing: scale(1),
   },
   time: {
     fontSize: moderateScale(10),
     letterSpacing: scale(1),
     fontWeight: '600',
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 65 Medium',
   },
   rowBetween: {
     flexDirection: 'row',
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
   thisDevice: {
     fontSize: moderateScale(10),
     fontWeight: '600',
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 55 Roman',
   },
 });
 

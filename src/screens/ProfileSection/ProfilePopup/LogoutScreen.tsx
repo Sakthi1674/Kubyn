@@ -46,10 +46,10 @@ const LogoutScreen: React.FC<LogoutPopupProps> = ({ visible, onCancel }) => {
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                  style={[styles.cancelButton, { backgroundColor: theme.bttext }]}
+                  style={[styles.cancelButton, { backgroundColor: theme.pop }]}
                   onPress={onCancel}
                 >
-                  <Text style={[styles.cancelText, { color: theme.text }]}>Cancel</Text>
+                  <Text style={styles.cancelText}>Cancel</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -89,10 +89,10 @@ const styles = StyleSheet.create({
   },
   popupText: {
     color: '#FBFDFF',
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
     marginBottom: verticalScale(25),
     textAlign: 'center',
-    fontFamily: 'Avenir LT Std',
+    fontFamily: 'Avenir LT Std 65 Medium',
     letterSpacing: scale(2),
     fontWeight: '600',
     lineHeight: verticalScale(20),
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   cancelText: {
     color: '#223F61',
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     fontWeight: '700',
     letterSpacing: scale(2),
     fontSize: moderateScale(12),
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     color: '#223F61',
-    fontFamily: 'Kollektif',
+    fontFamily: 'Kollektif-Bold',
     fontWeight: '700',
     letterSpacing: scale(2),
     fontSize: moderateScale(12),
