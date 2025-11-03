@@ -22,6 +22,7 @@ export const lightColors = {
   Profilebg:"#223F61",
   green:"rgba(94, 170, 34, 1)",
   pop:"#E3E9F1",
+  iconbg:"#FBFDFF"
 };
 
 // Dark Theme Colors
@@ -43,6 +44,7 @@ export const darkColors = {
   Profilebg:"#3A3A3A",
   green:"rgba(94, 170, 34, 1)",
   pop:"#E3E9F1",
+  iconbg:"#FBFDFF"
 };
 
 // Combined theme object

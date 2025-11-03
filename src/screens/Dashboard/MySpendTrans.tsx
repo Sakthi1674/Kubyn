@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     SafeAreaView,
     FlatList,
+    useColorScheme,
 } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
@@ -16,100 +17,111 @@ import NoTransactionsIcon from "../../assets/icons/NoTransactionsIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
 import UpIcon from "../../assets/icons/UpIcon";
 import DownIcon from "../../assets/icons/DownIcon";
+import colors from "../../theme/color";
 
 const MySpendTrans = () => {
     const navigation = useNavigation();
-
+  const scheme = useColorScheme();
+  const theme = colors[scheme === "dark" ? "dark" : "light"];
     const transactions = [
         { id: "1", name: "Kowsalya", amount: "+2500", time: "Today, 2:30" },
         { id: "2", name: "Kowsalya", amount: "-500", time: "Today, 4:30" },
     ];
 
     return (
-        <SafeAreaView style={styles.safeArea}>
-            {/* Header Section */}
-            <View style={styles.headerContainer}>
-                <View style={styles.headerTop}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <BackWard width={20} height={20} color="#FBFDFF" />
-                    </TouchableOpacity>
-                    <Text style={styles.headerTitle}>My Spends</Text>
-                </View>
+ 
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.background }]}>
 
-                {/* Income and Expense Section */}
-                {/* Income and Expense Section */}
-                <View style={styles.incomeExpenseRow}>
-                    {/* Income */}
-                    <View style={styles.infoBox}>
-                        <View style={styles.iconCircle}>
-                            <IncomeIcon width={32} height={32} />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.labelText}>Income</Text>
-                            <Text style={styles.amountText}>$13,500</Text>
-                        </View>
-                    </View>
+      {/* Header Section */}
+      <View style={[styles.headerContainer,{backgroundColor:theme.Button}]}>
+        <View style={styles.headerTop}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <BackWard width={20} height={20} color={theme.bttext} />
+          </TouchableOpacity>
+          <Text style={[styles.headerTitle, { color: theme.bttext }]}>My Spends</Text>
+        </View>
 
-                    {/* Expense */}
-                    <View style={styles.infoBox}>
-                        <View style={styles.iconCircle}>
-                            <ExpenseIcon width={32} height={32} />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.labelText}>Expense</Text>
-                            <Text style={[styles.amountText, { color: "#FFB1B1" }]}>$4,500</Text>
-                        </View>
-                    </View>
-                </View>
-
-
+        {/* Income and Expense Section */}
+        <View style={styles.incomeExpenseRow}>
+          {/* Income */}
+          <View style={styles.infoBox}>
+            <View style={styles.iconCircle}>
+              <IncomeIcon width={32} height={32} color={theme.icon}/>
             </View>
+            <View style={styles.textContainer}>
+              <Text style={[styles.labelText, { color: theme.textSecondary }]}>Income</Text>
+              <Text style={[styles.amountText, { color: theme.green }]}>$13,500</Text>
+            </View>
+          </View>
 
-            {/* Empty / Transactions Section */}
-            {transactions.length === 0 ? (
-                <View style={styles.emptyContainer}>
-                    <NoTransactionsIcon />
-                    <Text style={styles.noText}>No transactions available</Text>
+          {/* Expense */}
+          <View style={styles.infoBox}>
+            <View style={styles.iconCircle}>
+              <ExpenseIcon width={32} height={32} color={theme.icon}/>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={[styles.labelText, { color: theme.textSecondary }]}>Expense</Text>
+              <Text style={[styles.amountText, { color: theme.notification }]}>$4,500</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      {/* Transactions Section */}
+      {transactions.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <NoTransactionsIcon />
+          <Text style={[styles.noText, { color: theme.textSecondary }]}>
+            No transactions available
+          </Text>
+        </View>
+      ) : (
+        <>
+          <Text style={[styles.subhead, { color: theme.text }]}>Last 7 days</Text>
+          <FlatList
+            data={transactions}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={[styles.transactionCard, { backgroundColor: theme.pop }]}>
+                <View style={[styles.arrowCircle, { backgroundColor: theme.iconbg }]}>
+                  {item.amount.startsWith('-') ? (
+                    <DownIcon width={25} height={25} />
+                  ) : (
+                    <UpIcon width={25} height={25} />
+                  )}
                 </View>
-            ) : (
-                <>
-                    <Text style={styles.subhead}>Last 7 days</Text>
-                    <FlatList
-                        data={transactions}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <View style={styles.transactionCard}>
-                                <View style={styles.arrowCircle}>
-                                    {item.amount.startsWith("-") ? (
-                                        <DownIcon width={25} height={25} />
-                                    ) : (
-                                        <UpIcon width={25} height={25} />
-                                    )}
-                                </View>
+                <View style={styles.transactionDetails}>
+                        <Text style={[styles.transactionTime, { color: theme.textSecondary }]}>
+                            {item.time}
+                        </Text>
+                        <Text style={styles.transactionName}>
+                            {item.name}
+                        </Text>
 
-                                <View style={styles.transactionDetails}>
-                                    <Text style={styles.transactionName}>{item.name}</Text>
-                                    <Text style={styles.transactionTime}>{item.time}</Text>
-                                </View>
-                                <Text
-                                    style={[
-                                        styles.amount,
-                                        { color: item.amount.startsWith("-") ? "#E74C3C" : "#54B00C" },
-                                    ]}
-                                >
-                                    {item.amount}
-                                </Text>
-                            </View>
-                        )}
-                    />
-                </>
+                </View>
+                <Text
+                  style={[
+                    styles.amount,
+                    {
+                      color: item.amount.startsWith('-') ? theme.notification : theme.green,
+                    },
+                  ]}
+                >
+                  {item.amount}
+                </Text>
+              </View>
             )}
+          />
+        </>
+      )}
 
-            {/* Floating Add Button */}
-            <TouchableOpacity style={styles.addButton}>
-                <PlusIcon />
-            </TouchableOpacity>
-        </SafeAreaView>
+      {/* Floating Add Button */}
+      <TouchableOpacity
+        style={[styles.addButton, { backgroundColor: theme.text }]}
+      >
+        <PlusIcon color={theme.icon} />
+      </TouchableOpacity>
+    </SafeAreaView>
     );
 };
 
@@ -195,7 +207,7 @@ const styles = StyleSheet.create({
         marginTop: verticalScale(120),
     },
     noText: {
-        color: "rgba(177, 177, 177, 1)",
+        
         fontSize: moderateScale(20),
         fontFamily: "Avenir LT Std",
         fontWeight: "600",
@@ -254,12 +266,12 @@ const styles = StyleSheet.create({
     /** Floating Add Button **/
     addButton: {
         position: "absolute",
-        bottom: verticalScale(25),
+        bottom: verticalScale(80),
         right: scale(25),
         backgroundColor: "#121212",
         width: scale(55),
         height: verticalScale(55),
-        borderRadius: 28,
+        borderRadius: 21,
         justifyContent: "center",
         alignItems: "center",
         elevation: 5,

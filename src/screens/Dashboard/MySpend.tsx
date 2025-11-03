@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
-    top: verticalScale(4),
+    top: verticalScale(2),
   },
   headerTitle: {
     fontFamily: "Kollektif-Bold",
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   incomeText: {
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(18),
     lineHeight: verticalScale(18),
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   expenseText: {
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(18),
     lineHeight: verticalScale(18),
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     gap: scale(6),
   },
   amountText: {
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 95 Black",
     fontWeight: "700",
     fontSize: moderateScale(24),
     opacity: 0.11,
@@ -211,10 +211,9 @@ const styles = StyleSheet.create({
     opacity: 0.85,
   },
   titleText: {
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(12),
-    // opacity: 0.5,
   },
   categoryRow: {
     flexDirection: "row",
@@ -222,7 +221,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   categoryLabel: {
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(12),
   },
@@ -239,13 +238,13 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   rentText: {
-    fontFamily: "Avenir LT Std",
+    fontFamily: "Avenir LT Std 65 Medium",
     fontWeight: "600",
     fontSize: moderateScale(10),
   },
   bottomButtonContainer: {
     position: "absolute",
-    bottom: verticalScale(65),
+    bottom: verticalScale(50),
     left: 0,
     right: 0,
     alignItems: "center",

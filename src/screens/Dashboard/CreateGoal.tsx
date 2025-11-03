@@ -1,157 +1,250 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   SafeAreaView,
+  useColorScheme,
   ScrollView,
+  Modal,
 } from 'react-native';
-import BackWard from '../../assets/icons/BackWard';
+import { Calendar } from 'react-native-calendars';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import DropdownArrow from '../../assets/icons/DropdownArrow';
+import colors from '../../theme/color';
 import CalendarIcon from '../../assets/icons/CalendarIcon';
 import ButtonComp from '../../components/common/ButtonComp';
+import BackWard from '../../assets/icons/BackWard';
 import RupeeIcon from '../../assets/icons/RupeeIcon';
-import UpdatedIcon from '../../assets/icons/UpdateIcon';
-// import ThermometerIcon from '../../assets/icons/ThermometerIcon';
+import Target from '../../assets/icons/Target';
+import Exclamatory from '../../assets/icons/Exclamatory';
+import DropdownArrow from '../../assets/icons/DropdownArrow';
 
 const CreateGoal = () => {
   const [selectedOption, setSelectedOption] = useState('recur');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [showStartCalendar, setShowStartCalendar] = useState(false);
+  const [showEndCalendar, setShowEndCalendar] = useState(false);
+
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme || 'light'];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity>
-            <BackWard />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Create a goal</Text>
-        </View>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <BackWard width={10} height={16} color={theme.Button} />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, { color: theme.Button }]}>Create a goal</Text>
+      </View>
 
-        {/* Amount */}
-        <View style={styles.amountRow}>
-          <Text style={styles.rupee}><RupeeIcon/></Text>
-          <Text style={styles.amount}>0.00</Text>
-        </View>
+      {/* Amount */}
+      <View style={styles.amountRow}>
+        <RupeeIcon width={13} height={19} color={theme.Button} />
+        <Text style={[styles.amount, { color: theme.textSecondary }]}>0.00</Text>
+      </View>
 
-        {/* Goal Input */}
-      
-        <View >
-            <UpdatedIcon />
-          </View>
+      {/* Inputs */}
+      <View style={styles.inputContainer}>
         <View style={styles.inputRow}>
-             
-          {/* <TargetIcon /> */}
-          
-        
-          <TextInput
-            placeholder="What's your goal?"
-            placeholderTextColor="#9AA3B2"
-            style={styles.textInput}
-          />
+          <View style={styles.iconContainer}>
+            <Target width={24} height={24} stroke={theme.text} />
+          </View>
+          <View style={styles.inputFieldContainer}>
+            <Text style={[styles.textInput, { color: theme.text }]}>What's your goal?</Text>
+          </View>
         </View>
-      
-        
 
-        {/* Why Input */}
-        <View  style={styles.inputhead}>
-        {/* <TouchableOpacity>
-  <ThermometerIcon width={28} height={28} />
-</TouchableOpacity> */}
         <View style={[styles.inputRow, { marginTop: verticalScale(14) }]}>
-            
-          {/* <ImportantIcon /> */}
-          <TextInput
-            placeholder="Why is it important?"
-            placeholderTextColor="#9AA3B2"
-            style={styles.textInput}
-          />
-        </View>
-        </View>
-
-        {/* Date Labels */}
-        <View style={styles.dateLabels}>
-          <Text style={styles.dateLabel}>Sets from</Text>
-          <Text style={styles.dateLabel}>Target on</Text>
-        </View>
-
-        {/* Dates Row */}
-        <View style={styles.dateRow}>
-          <View style={styles.dateBox}>
-            <CalendarIcon />
-            <TextInput
-              placeholder="dd/mm/yyyy"
-              placeholderTextColor="rgba(251, 253, 255, 1)"
-              style={styles.dateInput}
-            />
+          <View style={styles.iconContainer}>
+            <Exclamatory width={24} height={24} fill={theme.text} />
           </View>
-
-          <View style={styles.dateBox}>
-            <CalendarIcon />
-            <TextInput
-              placeholder="dd/mm/yyyy"
-              placeholderTextColor="rgba(251, 253, 255, 1)"
-              
-              style={styles.dateInput}
-            />
+          <View style={styles.inputFieldContainer}>
+            <Text style={[styles.textInput, { color: theme.text }]}>Why is it important?</Text>
           </View>
         </View>
+      </View>
 
-        {/* Recurrence Section */}
-        <View style={styles.recurRow}>
-          <View style={styles.radioRow}>
-            <TouchableOpacity onPress={() => setSelectedOption('recur')}>
-              <View
-                style={[
-                  styles.radioOuter,
-                  selectedOption === 'recur' && styles.radioActive,
-                ]}
-              >
-                {selectedOption === 'recur' && <View style={styles.radioInner} />}
-              </View>
-            </TouchableOpacity>
-            <Text style={styles.radioLabel}>Will it recur?</Text>
+      {/* Dates */}
+      <View style={styles.dateLabels}>
+        <Text style={[styles.dateLabel, { color: theme.text }]}>Sets from</Text>
+        <Text style={[styles.dateLabel, { color: theme.text }]}>Target on</Text>
+      </View>
+
+      <View style={styles.dateRow}>
+        {/* Start Date */}
+        <TouchableOpacity
+          onPress={() => {
+            setShowStartCalendar(true);
+            setShowEndCalendar(false);
+          }}
+          activeOpacity={0.8}
+          style={[styles.dateInputRow, { backgroundColor: theme.Profilebg }]}
+        >
+          <View style={styles.dateIconContainer}>
+            <CalendarIcon color={theme.iconbg} />
           </View>
+          <View style={styles.dateInputContainer}>
+            <Text style={[styles.dateInput, { color: theme.bttext }]}>
+              {startDate || 'dd/mm/yyyy'}
+            </Text>
+          </View>
+        </TouchableOpacity>
 
-          <TouchableOpacity style={styles.dropdown}>
-            <Text style={styles.dropdownText}>Select Period</Text>
-            <DropdownArrow />
+        {/* End Date */}
+        <TouchableOpacity
+          onPress={() => {
+            setShowEndCalendar(true);
+            setShowStartCalendar(false);
+          }}
+          activeOpacity={0.8}
+          style={[styles.dateInputRow, { backgroundColor: theme.Profilebg }]}
+        >
+          <View style={styles.dateIconContainer}>
+            <CalendarIcon color={theme.iconbg} />
+          </View>
+          <View style={styles.dateInputContainer}>
+            <Text style={[styles.dateInput, { color: theme.bttext }]}>
+              {endDate || 'dd/mm/yyyy'}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {/* START DATE CALENDAR */}
+      {showStartCalendar && (
+        <Modal transparent visible={showStartCalendar} animationType="fade">
+          <TouchableOpacity
+            style={styles.overlay}
+            activeOpacity={1}
+            onPress={() => setShowStartCalendar(false)}
+          >
+            <View style={[styles.calendarPopup, { top: '40%', alignSelf: 'center' }]}>
+              <ScrollView style={{ width: 240, height: 240 }} showsVerticalScrollIndicator={false}>
+                <Calendar
+                  onDayPress={(day) => {
+                    setStartDate(day.dateString);
+                    setShowStartCalendar(false);
+                  }}
+                  style={{ borderRadius: 10 }}
+                  markedDates={{
+                    ...(startDate && {
+                      [startDate]: {
+                        selected: true,
+                        color: '#223F61',
+                        textColor: 'white',
+                      },
+                    }),
+                  }}
+                  theme={{
+                    textDayFontSize: 12,
+                    textMonthFontSize: 14,
+                    textDayHeaderFontSize: 10,
+                    calendarBackground: '#FBFDFF',
+                    selectedDayBackgroundColor: '#223F61',
+                    todayTextColor: '#223F61',
+                    arrowColor: '#223F61',
+                  }}
+                />
+              </ScrollView>
+            </View>
           </TouchableOpacity>
-        </View>
+        </Modal>
+      )}
 
-        {/* Single time */}
-        <View style={[styles.radioRow, { marginTop: verticalScale(10) }]}>
-          <TouchableOpacity onPress={() => setSelectedOption('single')}>
+      {/* END DATE CALENDAR */}
+      {showEndCalendar && (
+        <Modal transparent visible={showEndCalendar} animationType="fade">
+          <TouchableOpacity
+            style={styles.overlay}
+            activeOpacity={1}
+            onPress={() => setShowEndCalendar(false)}
+          >
+            <View style={[styles.calendarPopup, { top: '50%', alignSelf: 'center' }]}>
+              <ScrollView style={{ width: 240, height: 240 }} showsVerticalScrollIndicator={false}>
+                <Calendar
+                  onDayPress={(day) => {
+                    setEndDate(day.dateString);
+                    setShowEndCalendar(false);
+                  }}
+                  style={{ borderRadius: 10 }}
+                  markedDates={{
+                    ...(endDate && {
+                      [endDate]: {
+                        selected: true,
+                        color: '#223F61',
+                        textColor: 'white',
+                      },
+                    }),
+                  }}
+                  theme={{
+                    textDayFontSize: 12,
+                    textMonthFontSize: 14,
+                    textDayHeaderFontSize: 10,
+                    calendarBackground: '#FBFDFF',
+                    selectedDayBackgroundColor: '#223F61',
+                    todayTextColor: '#223F61',
+                    arrowColor: '#223F61',
+                  }}
+                />
+              </ScrollView>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+      )}
+
+      {/* Recurrence Section */}
+      <View style={styles.recurRow}>
+        <View style={styles.radioRow}>
+          <TouchableOpacity onPress={() => setSelectedOption('recur')}>
             <View
               style={[
                 styles.radioOuter,
-                selectedOption === 'single' && styles.radioActive,
+                selectedOption === 'recur' && { borderColor: theme.Button },
               ]}
             >
-              {selectedOption === 'single' && <View style={styles.radioInner} />}
+              {selectedOption === 'recur' && (
+                <View style={[styles.radioInner, { backgroundColor: theme.Button }]} />
+              )}
             </View>
           </TouchableOpacity>
-          <Text style={styles.radioLabel}>single time</Text>
+          <Text style={[styles.radioLabel, { color: theme.text }]}>Will it recur?</Text>
         </View>
 
-        {/* Button */}
-         <View style={styles.buttonWrapper}>
-            <ButtonComp
-              title="Set the Goal"
-              onPress={() => console.log('Submit pressed')}
-              style={{
-                backgroundColor: '#223F61',
-                marginHorizontal: scale(30),
-              }}
-              textStyle={{
-                textColor: '#FAF8F5',
-              }}
-            />
-            </View>
-      </ScrollView>
+        <TouchableOpacity style={[styles.dropdown, { backgroundColor: theme.pop }]}>
+          <Text style={styles.dropdownText}>Select Period</Text>
+          <DropdownArrow stroke={theme.buttondark} />
+        </TouchableOpacity>
+      </View>
+
+      {/* Single Time */}
+      <View style={[styles.radioRow, { marginTop: verticalScale(10) }]}>
+        <TouchableOpacity onPress={() => setSelectedOption('single')}>
+          <View
+            style={[
+              styles.radioOuter,
+              selectedOption === 'single' && { borderColor: theme.Button },
+            ]}
+          >
+            {selectedOption === 'single' && (
+              <View style={[styles.radioInner, { backgroundColor: theme.Button }]} />
+            )}
+          </View>
+        </TouchableOpacity>
+        <Text style={[styles.radioLabel, { color: theme.text }]}>Single time</Text>
+      </View>
+
+      {/* Button */}
+      <View style={styles.buttonWrapper}>
+        <ButtonComp
+          title="Set the Goal"
+          onPress={() => console.log('Submit pressed')}
+          style={{ backgroundColor: theme.Button }}
+          textStyle={{ color: theme.bttext }}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -161,93 +254,76 @@ export default CreateGoal;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FBFDFF',
-    paddingHorizontal: scale(24),
+    paddingHorizontal: scale(30),
+    paddingTop: verticalScale(60),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: verticalScale(50),
-    marginBottom: verticalScale(30),
+    marginBottom: verticalScale(50),
   },
   headerText: {
     fontSize: moderateScale(16),
-    fontFamily:'Kollektif',
     fontWeight: '700',
-    color: 'rgba(34, 63, 97, 1)',
-    marginLeft: scale(10),
+    marginLeft: scale(30),
   },
   amountRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: verticalScale(25),
-  },
-  rupee: {
-    top:verticalScale(8),
+    marginBottom: verticalScale(5),
   },
   amount: {
     fontSize: moderateScale(48),
-    color: 'rgba(34, 63, 97, 1)',
     fontWeight: '600',
     marginLeft: scale(10),
-    fontFamily:'Avenir LT Std',
-    opacity:0.25,
+    opacity: 0.25,
   },
-  
-inputhead:{
-flexDirection:'row',
-},
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(227, 233, 241, 0.8)',
-    borderRadius: 10,
-    paddingHorizontal: 12,
+  inputContainer: { marginTop: verticalScale(20) },
+  inputRow: { flexDirection: 'row', alignItems: 'center' },
+  iconContainer: { width: scale(40), alignItems: 'center', justifyContent: 'center' },
+  inputFieldContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(227,233,241,0.8)',
+    borderRadius: 15,
     height: verticalScale(40),
-    width:scale(279),
-  
+    justifyContent: 'center',
+    paddingHorizontal: 10,
   },
   textInput: {
-    flex: 1,
-    color: 'rgba(34, 63, 97, 1)',
-    marginLeft: 10,
     fontSize: moderateScale(16),
-    fontFamily:'Avenir LT Std',
-    fontWeight:600,
   },
   dateLabels: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    gap:138,
+    justifyContent: 'space-between',
     marginTop: verticalScale(22),
     marginBottom: verticalScale(6),
   },
-  dateLabel: {
-    color: 'rgba(34, 63, 97, 1)',
-    fontFamily:'Avenir LT Std',
-    fontWeight:600,
-    fontSize: moderateScale(10),
-  },
-  dateRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  dateBox: {
+  dateLabel: { fontSize: moderateScale(10), width: scale(140) },
+  dateRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  dateInputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#243D63',
     borderRadius: 10,
-    paddingHorizontal: 10,
     width: scale(140),
     height: verticalScale(35),
-    color:'rgba(251, 253, 255, 1)',
   },
-  dateInput: {
+  dateIconContainer: { width: scale(40), alignItems: 'center', justifyContent: 'center' },
+  dateInputContainer: { flex: 1 },
+  dateInput: { fontSize: moderateScale(12), opacity: 0.8 },
+  overlay: {
     flex: 1,
-    marginLeft: 8,
-    fontSize: moderateScale(12),
-    color: 'rgba(251, 253, 255, 1)',
-    opacity:0.4,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'center',
+  },
+  calendarPopup: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    padding: 10,
   },
   recurRow: {
     flexDirection: 'row',
@@ -255,10 +331,7 @@ flexDirection:'row',
     alignItems: 'center',
     marginTop: verticalScale(24),
   },
-  radioRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+  radioRow: { flexDirection: 'row', alignItems: 'center' },
   radioOuter: {
     width: 18,
     height: 18,
@@ -269,47 +342,23 @@ flexDirection:'row',
     justifyContent: 'center',
     marginRight: 8,
   },
-  radioActive: {
-    borderColor: '#243D63',
-  },
-  radioInner: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#243D63',
-  },
+  radioInner: { width: 8, height: 8, borderRadius: 4 },
   radioLabel: {
-    color: 'rgba(34, 63, 97, 1)',
     fontSize: moderateScale(16),
-    fontFamily:'Avenir LT Std',
-    fontWeight:600,
-    opacity:0.7
+    fontWeight: '600',
+    opacity: 0.7,
   },
   dropdown: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(227, 233, 241, 0.8)',
     borderRadius: 10,
     paddingHorizontal: 12,
     height: verticalScale(20),
   },
-  dropdownText: {
-    color: 'rgba(34, 63, 97, 1)',
-    fontSize: moderateScale(10),
-    marginRight: scale(6),
-    fontFamily:'Open Sans',
-    opacity:0.4,
+  dropdownText: { fontSize: moderateScale(10), marginRight: scale(6), opacity: 0.4 },
+  buttonWrapper: {
+    marginTop: verticalScale(130),
+    alignItems: 'center',
+    marginBottom: verticalScale(40),
   },
-
-  buttonText: {
-    color: '#FFFFFF',
-    fontWeight: '600',
-    fontSize: moderateScale(15),
-  },
-   buttonWrapper: {
-     width: '90%',
-      position: 'absolute',
-      top: verticalScale(590),
-      
-    },
 });
