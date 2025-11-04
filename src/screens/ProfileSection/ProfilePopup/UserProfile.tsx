@@ -38,7 +38,7 @@ const UserProfile: React.FC<GalleryPopupProps> = ({ visible, onClose }) => {
             <View style={[styles.popupBox, { backgroundColor: theme.Profilebg }]}>
               <TouchableOpacity style={styles.wrong}
                 onPress={onClose}>
-                <Wrong width={20} height={20} />
+                <Wrong width={12} height={12} />
               </TouchableOpacity>
               <Text style={styles.popupTitle}>
                 Change Profile Photo

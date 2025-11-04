@@ -23,10 +23,22 @@ const PolicyButton = ({
   theme: any;
 }) => (
   <TouchableOpacity
-    style={[styles.policyButton, { backgroundColor: theme.buttondark }]}
+    style={[
+      styles.policyButton,
+      {
+        backgroundColor: theme.option,
+        borderColor: '#E3E9F1BF',
+        borderWidth: 1,
+        shadowColor: '#223F61', 
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.25, 
+        shadowRadius: 4,
+        elevation: 3, 
+      },
+    ]}
     activeOpacity={0.7}>
-    <Text style={[styles.policyText, { color: theme.text }]}>{title}</Text>
-    <OpenEye width={10} height={16} stroke={theme.text} />
+    <Text style={[styles.policyText, { color: theme.text + '72' }]}>{title}</Text>
+    <OpenEye width={20} height={16} stroke={theme.text} opacity={0.3} />
   </TouchableOpacity>
 );
 
@@ -75,17 +87,17 @@ const styles = StyleSheet.create({
     marginLeft: scale(30),
     fontFamily: 'Avenir LT Std 95 Black',
   },
-content: {
-  marginTop: verticalScale(30),
-  gap: scale(15),
-  // ✅ Shadow for iOS
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.15,
-  shadowRadius: 4,
-  // ✅ Elevation for Android
-  elevation: 5,
-},
+  content: {
+    marginTop: verticalScale(30),
+    gap: scale(15),
+    // ✅ Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    // ✅ Elevation for Android
+    elevation: 5,
+  },
 
   policyButton: {
     borderRadius: moderateScale(10),

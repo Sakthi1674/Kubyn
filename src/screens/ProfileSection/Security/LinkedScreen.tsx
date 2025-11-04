@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,9 @@ const LinkedScreen: React.FC = () => {
   const scheme = useColorScheme();
   const theme = colors[scheme === 'dark' ? 'dark' : 'light'];
 
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isMobileFocused, setIsMobileFocused] = useState(false);
+
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Header */}
@@ -34,13 +37,24 @@ const LinkedScreen: React.FC = () => {
 
       {/* Email Input + Next */}
       <View style={styles.inputSection}>
-        <View style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}>
+        <View
+          style={[
+            styles.inputWrapper,
+            {
+              backgroundColor: theme.option,
+              borderColor: isEmailFocused ? theme.Button : "transparent",
+              borderWidth: 1.5,
+            },
+          ]}
+        >
           <TextInput
             placeholder="Email"
-            placeholderTextColor={theme.text}
+            placeholderTextColor={theme.Button + 35 }
             style={[styles.input, { color: theme.text }]}
+            onFocus={() => setIsEmailFocused(true)}
+            onBlur={() => setIsEmailFocused(false)}
           />
-          <TickMark width={20} height={20} color={theme.icon} />
+          <TickMark width={20} height={20} color={isEmailFocused ? theme.Button : theme.icon} />
         </View>
         <TouchableOpacity
           style={[styles.nextButton, { backgroundColor: theme.Button }]}
@@ -54,15 +68,30 @@ const LinkedScreen: React.FC = () => {
 
       {/* Mobile Input + Next */}
       <View style={styles.inputSection}>
-        <View style={[styles.inputWrapper, { backgroundColor: theme.buttondark }]}>
+        <View
+          style={[
+            styles.inputWrapper,
+            {
+              backgroundColor: theme.option,
+              borderColor: isMobileFocused ? theme.Button : "transparent", // 👈 border color on focus
+              borderWidth: 1.5,
+            },
+          ]}
+        >
           <TextInput
             placeholder="Mobile No"
-            placeholderTextColor={theme.text}
+            placeholderTextColor={theme.Button + 35}
             keyboardType="phone-pad"
             style={[styles.input, { color: theme.text }]}
+            onFocus={() => setIsMobileFocused(true)}
+            onBlur={() => setIsMobileFocused(false)}
           />
           <TouchableOpacity>
-            <TickMark width={20} height={20} color={theme.icon} />
+            <TickMark
+              width={20}
+              height={20}
+              color={isMobileFocused ? theme.Button : theme.icon}
+            />
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -110,12 +139,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: moderateScale(18),
     fontWeight: '700',
-    letterSpacing: scale(2),
+    letterSpacing: scale(1.5),
     left: scale(10),
     fontFamily: 'Kollektif',
   },
   inputSection: {
-    
+
     marginTop: verticalScale(30),
   },
   inputWrapper: {

@@ -115,7 +115,7 @@ const AccountDeleteVerification = () => {
                 },
               ]}
               placeholder="Type here..."
-              placeholderTextColor={theme.textSecondary}
+              placeholderTextColor={theme.Button}
               value={otherReason}
               onChangeText={setOtherReason}
               multiline

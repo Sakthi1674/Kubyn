@@ -34,7 +34,7 @@ const LinkedOtpScreen: React.FC = () => {
       <View
         style={[
           styles.cardContainer,
-          { backgroundColor: theme.buttondark },
+          { backgroundColor: theme.option },
         ]}
       >
         <Text style={[styles.title, { color: theme.Button }]}>Confirmation</Text>

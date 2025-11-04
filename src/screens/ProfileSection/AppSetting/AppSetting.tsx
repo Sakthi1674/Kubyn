@@ -13,6 +13,7 @@ import Toggle from '../../../components/Toggle';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import colors from '../../../theme/color';
+import Notification from '../../Notication/Notification';
 
 export default function AppSettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -52,7 +53,7 @@ export default function AppSettingsScreen() {
       {/* Notifications */}
       <View style={styles.section}>
         <View style={styles.row}>
-          <Text style={[styles.sectionTitle, { color: theme.text }]}>
+          <Text style={[styles.notificationTitle, { color: theme.Button }]}>
             Notifications
           </Text>
           <Toggle />
@@ -69,7 +70,7 @@ export default function AppSettingsScreen() {
 
       {/* Theme & Display */}
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>
+        <Text style={[styles.sectionTitle, { color: theme.Button }]}>
           Theme & Display
         </Text>
 
@@ -89,11 +90,15 @@ export default function AppSettingsScreen() {
                   opacity: selectedMethod === 'light' ? 1 : 0.3,
                 },
               ]}>
-              {selectedMethod === 'light' && (
-                <View
-                  style={[styles.smallCircle, { backgroundColor: theme.Button }]}
-                />
-              )}
+              <View
+                style={[
+                  styles.smallCircle,
+                  {
+                    backgroundColor: theme.Button,
+                    opacity: selectedMethod === 'light' ? 1 : 0.7,
+                  },
+                ]}
+              />
             </View>
           </View>
         </TouchableOpacity>
@@ -114,11 +119,15 @@ export default function AppSettingsScreen() {
                   opacity: selectedMethod === 'dark' ? 1 : 0.3,
                 },
               ]}>
-              {selectedMethod === 'dark' && (
-                <View
-                  style={[styles.smallCircle, { backgroundColor: theme.Button }]}
-                />
-              )}
+              <View
+                style={[
+                  styles.smallCircle,
+                  {
+                    backgroundColor: theme.Button,
+                    opacity: selectedMethod === 'dark' ? 1 : 0.7,
+                  },
+                ]}
+              />
             </View>
           </View>
         </TouchableOpacity>
@@ -126,7 +135,7 @@ export default function AppSettingsScreen() {
 
       {/* Language Preferences */}
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle1, { color: theme.text }]}>
+        <Text style={[styles.sectionTitle1, { color: theme.Button }]}>
           Language Preferences
         </Text>
         <TouchableOpacity
@@ -134,7 +143,7 @@ export default function AppSettingsScreen() {
             styles.languageButton,
             { backgroundColor: theme.buttondark },
           ]}>
-          <Text style={[styles.languageText, { color: theme.textSecondary }]}>
+          <Text style={[styles.languageText, { color: theme.Button }]}>
             English
           </Text>
           <ArrowDown width={14} height={14} color={theme.icon} />
@@ -143,7 +152,7 @@ export default function AppSettingsScreen() {
 
       {/* App Information */}
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle1, { color: theme.text }]}>
+        <Text style={[styles.sectionTitle1, { color: theme.Button }]}>
           App Information
         </Text>
         <TouchableOpacity>
@@ -152,7 +161,7 @@ export default function AppSettingsScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View >
   );
 }
 
@@ -175,6 +184,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir LT Std 95 Black',
   },
   section: {},
+  notificationTitle: {
+    fontSize: moderateScale(12),
+    fontWeight: '800',
+    fontFamily: 'Avenir LT Std 85 Heavy',
+  },
   sectionTitle: {
     fontSize: moderateScale(12),
     fontWeight: '800',
@@ -210,13 +224,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: moderateScale(10),
-    paddingVertical: verticalScale(8),
+    borderRadius: moderateScale(100),
+    paddingVertical: verticalScale(5),
     paddingHorizontal: scale(14),
-    width: scale(120),
+    width: scale(80),
   },
   languageText: {
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(10),
     opacity: 0.7,
   },
   linkText: {
@@ -239,5 +253,6 @@ const styles = StyleSheet.create({
     width: scale(9),
     height: verticalScale(9),
     borderRadius: moderateScale(4.5),
+    color: "rgba(34, 63, 97, 0.40)"
   },
 });

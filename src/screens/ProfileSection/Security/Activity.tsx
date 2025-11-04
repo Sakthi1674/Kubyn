@@ -33,7 +33,7 @@ const LoginActivity = () => {
         </View>
 
        
-        <View style={[styles.sessionBox, { backgroundColor: theme.buttondark }]}>
+        <View style={[styles.sessionBox, { backgroundColor: theme.option }]}>
           <View style={styles.rowBetween}>
             <Text style={[styles.deviceName, { color: theme.text }]}>
               Samsung (Android)
@@ -53,7 +53,7 @@ const LoginActivity = () => {
         {/* Other Sessions */}
         <Text style={[styles.sectionTitle, { color: theme.text }]}>Other Sessions</Text>
 
-        <View style={[styles.sessionBox, { backgroundColor: theme.buttondark }]}>
+        <View style={[styles.sessionBox, { backgroundColor: theme.option }]}>
           <Text style={[styles.deviceName, { color: theme.text }]}>iPhone 15</Text>
           <Text style={[styles.location, { color: theme.textSecondary }]}>
             Coimbatore, Tamil Nadu

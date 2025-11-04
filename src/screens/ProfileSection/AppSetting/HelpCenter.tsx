@@ -78,7 +78,7 @@ export default function HelpCentreScreen() {
         <Text style={[styles.chatButtonText, { color: theme.bttext }]}>
           Chat with Support
         </Text>
-        <ChatBox width={24} height={24} strcoke={theme.bttext} />
+        <ChatBox width={24} height={24} fill={theme.bttext + 98} />
       </TouchableOpacity>
 
       {/* FAQs Section */}
@@ -88,7 +88,7 @@ export default function HelpCentreScreen() {
         {faqs.map((item, index) => (
           <View
             key={index}
-            style={[styles.dropdown, { backgroundColor: theme.buttondark }]}>
+            style={[styles.dropdown, { backgroundColor: theme.option }]}>
             <TouchableOpacity
               style={styles.dropdownHeader}
               onPress={() => toggleExpand(index)}
@@ -96,13 +96,13 @@ export default function HelpCentreScreen() {
               <Text style={[styles.dropdownText, { color: theme.text }]}>
                 {item.question}
               </Text>
-            <View
-  style={{
-    transform: [{ rotate: expanded === index ? '180deg' : '0deg' }],
-  }}
->
-  <ArrowDown width={14} height={14} color={theme.text} />
-</View>
+              <View
+                style={{
+                  transform: [{ rotate: expanded === index ? '180deg' : '0deg' }],
+                }}
+              >
+                <ArrowDown width={14} height={14} color={theme.text} />
+              </View>
 
             </TouchableOpacity>
             {expanded === index && (
@@ -119,48 +119,46 @@ export default function HelpCentreScreen() {
       </View>
 
       {/* Report an Issue Section */}
-      <View style={styles.section}>
-        <View style={styles.section1}>
-          <Text style={[styles.sectionTitle1, { color: theme.text }]}>
-            Report an Issue
-          </Text>
+      <View style={styles.section1}>
+        <Text style={[styles.sectionTitle1, { color: theme.text }]}>
+          Report an Issue
+        </Text>
 
-          <View
-            style={[
-              styles.categoryButton,
-              { backgroundColor: theme.buttondark },
-            ]}>
-            <Text style={[styles.categoryText, { color: theme.textSecondary }]}>
-              Category
-            </Text>
-            <ArrowDown width={12} height={16} color={theme.textSecondary} />
-          </View>
-        </View>
-
-        <TextInput
+        <View
           style={[
-            styles.textArea,
-            {
-              backgroundColor: theme.buttondark,
-              color: theme.text,
-            },
-          ]}
-          placeholder="Share your concerns..."
-          placeholderTextColor={theme.textSecondary}
-          multiline
-          value={issueText}
-          onChangeText={setIssueText}
-        />
-
-        <TouchableOpacity
-          style={[styles.submitButton, { backgroundColor: theme.Button }]}
-          onPress={handleSubmit}
-          activeOpacity={0.8}>
-          <Text style={[styles.submitText, { color: theme.bttext }]}>
-            Submit
+            styles.categoryButton,
+            { backgroundColor: theme.option },
+          ]}>
+          <Text style={[styles.categoryText, { color: theme.Button }]}>
+            Category
           </Text>
-        </TouchableOpacity>
+          <ArrowDown width={12} height={16} color={theme.textSecondary} />
+        </View>
       </View>
+
+      <TextInput
+        style={[
+          styles.textArea,
+          {
+            backgroundColor: theme.option,
+            color: theme.text,
+          },
+        ]}
+        placeholder="Share your concerns..."
+        placeholderTextColor={theme.Button}
+        multiline
+        value={issueText}
+        onChangeText={setIssueText}
+      />
+
+      <TouchableOpacity
+        style={[styles.submitButton, { backgroundColor: theme.Button }]}
+        onPress={handleSubmit}
+        activeOpacity={0.8}>
+        <Text style={[styles.submitText, { color: theme.bttext }]}>
+          Submit
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -253,15 +251,15 @@ const styles = StyleSheet.create({
   categoryButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     borderRadius: verticalScale(16),
-    paddingVertical: verticalScale(8),
-    paddingHorizontal: scale(28),
-    width: scale(130),
+    paddingVertical: verticalScale(4),
+    paddingHorizontal: scale(15),
     marginBottom: verticalScale(14),
+    gap: scale(10),
   },
   categoryText: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(10),
     fontFamily: 'Open Sans',
   },
   textArea: {
@@ -274,6 +272,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir LT Std',
   },
   submitButton: {
+    marginTop: verticalScale(20),
     borderRadius: moderateScale(10),
     paddingVertical: verticalScale(8),
     paddingHorizontal: scale(26),

@@ -19,6 +19,7 @@ import RupeeIcon from '../../assets/icons/RupeeIcon';
 import Target from '../../assets/icons/Target';
 import Exclamatory from '../../assets/icons/Exclamatory';
 import DropdownArrow from '../../assets/icons/DropdownArrow';
+import { screensEnabled } from 'react-native-screens';
 
 const CreateGoal = () => {
   const [selectedOption, setSelectedOption] = useState('recur');
@@ -53,7 +54,7 @@ const CreateGoal = () => {
             <Target width={24} height={24} stroke={theme.text} />
           </View>
           <View style={styles.inputFieldContainer}>
-            <Text style={[styles.textInput, { color: theme.text }]}>What's your goal?</Text>
+            <Text style={[styles.textInput, { color: theme.Button + 43 }]}>What's your goal?</Text>
           </View>
         </View>
 
@@ -62,7 +63,7 @@ const CreateGoal = () => {
             <Exclamatory width={24} height={24} fill={theme.text} />
           </View>
           <View style={styles.inputFieldContainer}>
-            <Text style={[styles.textInput, { color: theme.text }]}>Why is it important?</Text>
+            <Text style={[styles.textInput, { color: theme.Button + 43 }]}>Why is it important?</Text>
           </View>
         </View>
       </View>
@@ -279,15 +280,15 @@ const styles = StyleSheet.create({
     opacity: 0.25,
   },
   inputContainer: { marginTop: verticalScale(20) },
-  inputRow: { flexDirection: 'row', alignItems: 'center' },
-  iconContainer: { width: scale(40), alignItems: 'center', justifyContent: 'center' },
+  inputRow: { flexDirection: 'row', alignItems: 'center' , gap:scale(10) , justifyContent:"center"},
+  iconContainer: {  alignItems: 'center', justifyContent: 'center' },
   inputFieldContainer: {
     flex: 1,
     backgroundColor: 'rgba(227,233,241,0.8)',
     borderRadius: 15,
     height: verticalScale(40),
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
   },
   textInput: {
     fontSize: moderateScale(16),
@@ -295,7 +296,7 @@ const styles = StyleSheet.create({
   dateLabels: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: verticalScale(22),
+    marginTop: verticalScale(30),
     marginBottom: verticalScale(6),
   },
   dateLabel: { fontSize: moderateScale(10), width: scale(140) },

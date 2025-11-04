@@ -55,7 +55,7 @@ const MySpend = ({ navigation }: any) => {
         <TouchableOpacity
           style={[
             styles.expenseButton,
-            { backgroundColor: theme.buttondark },
+            { backgroundColor: theme.option },
           ]}
         >
           <ReportIcon width={24} height={24} color={theme.textSecondary} />
@@ -70,7 +70,7 @@ const MySpend = ({ navigation }: any) => {
         style={[
           styles.infoBox,
           {
-            backgroundColor: theme.DOB,
+            backgroundColor: theme.option,
             shadowColor: theme.text,
           },
         ]}
@@ -98,7 +98,7 @@ const MySpend = ({ navigation }: any) => {
           <View
             style={[
               styles.rentBox,
-              { backgroundColor: theme.bttext, shadowColor: theme.text },
+              { backgroundColor: theme.background, shadowColor: theme.text },
             ]}
           >
             <Text style={[styles.rentText, { color: theme.text }]}>Rent</Text>
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   incomeButton: {
     paddingHorizontal: 23,
-    paddingVertical: 22,
+    paddingVertical: 18,
     borderRadius: 10,
     flexDirection: "row",
     justifyContent: "center",
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   expenseButton: {
     paddingHorizontal: 23,
-    paddingVertical: 22,
+    paddingVertical: 20,
     borderRadius: 10,
     flexDirection: "row",
     justifyContent: "center",

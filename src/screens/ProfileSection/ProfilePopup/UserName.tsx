@@ -34,7 +34,7 @@ const UserName: React.FC<ChangeNamePopupProps> = ({
           <TouchableWithoutFeedback>
             <View style={[styles.popupContainer, { backgroundColor: theme.Profilebg }]}>
               <TouchableOpacity style={styles.wrong} onPress={onCancel}>
-             <Wrong width={20} height={20}  />
+             <Wrong width={12} height={12}  />
               </TouchableOpacity>
           <TextInput
                 style={[
@@ -46,7 +46,7 @@ const UserName: React.FC<ChangeNamePopupProps> = ({
                   },
                 ]}
                 placeholder="Type your Name"
-                placeholderTextColor={theme.text}
+                placeholderTextColor={theme.Button}
                 value={newName}
                 onChangeText={setNewName}
               />
