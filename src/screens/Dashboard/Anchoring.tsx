@@ -10,10 +10,13 @@ import {
 } from "react-native";
 import colors from "../../theme/color";
 import ButtonComp from "../../components/common/ButtonComp";
+type RootStackParamList = {
+  Anchoring: undefined;
 
+};
 const Anchoring = ({ navigation }: any) => {
     const [page, setPage] = useState(1);
-
+    
     const handleNext = () => {
         if (page < 4) {
             setPage(page + 1);

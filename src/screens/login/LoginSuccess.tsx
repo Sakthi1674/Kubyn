@@ -5,7 +5,7 @@ import colors from "../../theme/color";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 type RootStackParamList = {
-  Introduction: undefined;
+  MainScreenFooter: undefined;
 };
 const LoginSuccess: React.FC = () => {
   const scheme = useColorScheme();
@@ -16,7 +16,7 @@ const LoginSuccess: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       // 👇 Change "Home" to the screen you want to go after success
-      navigation.navigate("Introduction");
+      navigation.navigate("MainScreenFooter");
     }, 1000); // 2000ms = 2 seconds
 
     // cleanup

@@ -8,6 +8,9 @@ import {
   Platform,
   TextInput,
   useColorScheme,
+  TouchableWithoutFeedback,
+  Modal,
+  ScrollView,
 } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -32,17 +35,30 @@ import DobIcon from "../../assets/icons/Dobcon";
 import DatabaseIcon from "../../assets/icons/DatabaseIcon";
 import colors from "../../theme/color";
 import ButtonComp from "../../components/common/ButtonComp";
+import { Calendar } from "react-native-calendars";
 
 
 type RootStackParamList = {
   NumOtp: undefined;
-  Introduction: undefined;
+  MainScreenFooter: undefined;
 };
 
 export default function DemoGraphicQues() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+
+  const [showStartCalendar, setShowStartCalendar] = useState(false);
+  const [startDate, setStartDate] = useState<string | null>(null);
+
+  // Split the selected date for display
+  const getDateParts = () => {
+    if (!startDate) return { day: "DD", month: "MM", year: "YYYY" };
+    const [year, month, day] = startDate.split("-");
+    return { day, month, year };
+  };
+
+  const { day, month, year } = getDateParts();
 
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "light"];
@@ -53,7 +69,7 @@ export default function DemoGraphicQues() {
 
 
       // ✅ Navigate to Introduction screen
-      navigation.navigate("Introduction");
+      navigation.navigate("MainScreenFooter");
 
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -151,8 +167,8 @@ export default function DemoGraphicQues() {
 
       case 2:
         const options = [
-          { label: "Male", icon: <MaleIcon width={40} height={40} color={theme.text} /> },
-          { label: "Female", icon: <FemaleIcon width={40} height={40} color={theme.text} /> },
+          { label: "Male", icon: <MaleIcon width={40} height={40} color={theme.Button} /> },
+          { label: "Female", icon: <FemaleIcon width={40} height={40} color={theme.Button} /> },
           { label: "Other" },
         ];
 
@@ -180,9 +196,6 @@ export default function DemoGraphicQues() {
                       justifyContent: "center",
                       alignItems: "center",
                       backgroundColor: isSelected ? theme.Button : theme.option,
-                      // borderColor: isSelected ? theme.Button : theme.text,
-                      // borderWidth: 1,
-                      // borderRadius: scale(12),
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option.label })}
@@ -191,7 +204,7 @@ export default function DemoGraphicQues() {
                   {option.icon && (
                     <View style={{ marginBottom: verticalScale(12) }}>
                       {React.cloneElement(option.icon as React.ReactElement, {
-                        ...(option.icon.props && { color: isSelected ? theme.bttext : theme.text })
+                        ...(option.icon.props && { color: isSelected ? theme.bttext : theme.Button })
                       })}
                     </View>
                   )}
@@ -203,7 +216,7 @@ export default function DemoGraphicQues() {
                       fontWeight: "600",
                       fontSize: moderateScale(16),
                       lineHeight: moderateScale(16),
-                      color: isSelected ? theme.bttext : theme.text,
+                      color: isSelected ? theme.bttext : theme.Button,
                       textAlign: "center",
                     }}
                   >
@@ -219,6 +232,7 @@ export default function DemoGraphicQues() {
       case 3:
         return (
           <View style={{ marginTop: verticalScale(20), width: "100%" }}>
+            {/* Label */}
             <Text
               style={{
                 fontFamily: "Avenir LT Std",
@@ -234,6 +248,7 @@ export default function DemoGraphicQues() {
               DD | MM | YYYY
             </Text>
 
+            {/* Date boxes + icon */}
             <View
               style={{
                 flexDirection: "row",
@@ -245,39 +260,104 @@ export default function DemoGraphicQues() {
               <View
                 style={[
                   styles.birthBox,
-                  { backgroundColor: theme.buttondark, borderColor: theme.Button },
+                  { backgroundColor: theme.option, borderColor: theme.Button },
                 ]}
               >
-                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>01</Text>
-              </View>
+                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>{day}</Text>
+              </View> 
 
               {/* Month */}
               <View
                 style={[
                   styles.birthBox,
-                  { backgroundColor: theme.buttondark, borderColor: theme.Button },
+                  { backgroundColor: theme.option, borderColor: theme.Button },
                 ]}
               >
-                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>01</Text>
+                <Text style={[styles.birthBoxText, { color: theme.DOB}]}>{month}</Text>
               </View>
 
               {/* Year */}
               <View
                 style={[
                   styles.birthBox,
-                  { width: scale(90), backgroundColor: theme.buttondark, borderColor: theme.Button },
+                  {
+                    width: scale(90),
+                    backgroundColor: theme.option,
+                    borderColor: theme.Button,
+                  },
                 ]}
               >
-                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>2000</Text>
+                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>{year}</Text>
               </View>
 
               {/* Calendar icon */}
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => setShowStartCalendar(true)}>
                 <View style={{ marginTop: 10 }}>
                   <DobIcon width={24} height={24} color={theme.text} />
                 </View>
               </TouchableOpacity>
             </View>
+
+            {/* Calendar Modal */}
+            {showStartCalendar && (
+              <Modal transparent visible={showStartCalendar} animationType="fade">
+                <TouchableOpacity
+                  style={styles.overlay}
+                  activeOpacity={1}
+                  onPressOut={() => setShowStartCalendar(false)}
+                >
+                  <TouchableWithoutFeedback>
+                    <View
+                      style={[
+                        styles.calendarPopup,
+                        { top: "40%", alignSelf: "center" },
+                      ]}
+                    >
+                      <ScrollView
+                        style={{ width: 240, height:220 }}
+                        showsVerticalScrollIndicator={false}
+                      >
+                        <Calendar
+                          onDayPress={(day) => {
+                            setStartDate(day.dateString);
+                            setShowStartCalendar(false);
+                          }}
+                          style={{
+                            borderRadius: 10,
+                            borderWidth: 1,  
+                            borderColor: theme.text, 
+                          }}
+
+                          markedDates={{
+                            ...(startDate && {
+                              [startDate]: {
+                                selected: true,
+                                color: "#223F61",
+                                textColor: "white",
+                              },
+                            }),
+                          }}
+                          theme={{
+                            textDayFontSize: 12,
+                            textMonthFontSize: 14,
+                            textDayHeaderFontSize: 10,
+                            calendarBackground: theme.background,
+                            dayTextColor: theme.text,
+                            monthTextColor: theme.text,
+                            textDisabledColor: theme.text + "80",
+                            selectedDayBackgroundColor: theme.Button,
+                            selectedDayTextColor: "#000000ff",
+                            todayTextColor: theme.Button,
+                            arrowColor: theme.text,
+                            textSectionTitleColor: theme.text,
+                          }}
+                        />
+                      </ScrollView>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </TouchableOpacity>
+              </Modal>
+            )}
           </View>
         );
 
@@ -1789,6 +1869,21 @@ const styles = StyleSheet.create({
     color: "#888",
     marginBottom: verticalScale(8),
   },
+  calendarPopup: {
+    position: "absolute",
+    backgroundColor:"#00000002",
+    borderRadius: scale(12),
+    padding: scale(12),
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  overlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   questionText: {
     fontFamily: "Kollektif",
     fontWeight: "700",

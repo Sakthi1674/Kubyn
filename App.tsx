@@ -34,7 +34,6 @@ import LegalPolicies from './src/screens/ProfileSection/AppSetting/LegalandPolic
 import HelpCentreScreen from './src/screens/ProfileSection/AppSetting/HelpCenter';
 import HeyScreen from './src/screens/Questions/HeyScreen';
 import DemoGraphicQues from './src/screens/Questions/DemoGraphicQues';
-import Introduction from './src/screens/Dashboard/Introduction';
 import Progress from './src/screens/Notication/Progress';
 import FirstNumTrap from './src/screens/Dashboard/FirstNumTrap';
 import MySpend from './src/screens/Dashboard/MySpend';
@@ -44,11 +43,14 @@ import ForgetPassword from './src/screens/forgetpassword/ForgetPassword';
 import { ThemeProvider } from './src/theme/ThemeContext';
 import MyCommunity from './src/screens/Dashboard/MyCommunity';
 import MyGoal from './src/screens/Dashboard/MyGoal';
-import BehaviorScreen from './src/screens/Dashboard/BehaviorScreen';
+import BehaviorScreen from './src/screens/Dashboard/MyBehavior';
 import Notification from './src/screens/Notication/Notification';
 import MySpendTrans from './src/screens/Dashboard/MySpendTrans';
 import CreateGoal from './src/screens/Dashboard/CreateGoal';
 import Dates from './src/components/common/Dates';
+import MyBehavior from './src/screens/Dashboard/MyBehavior';
+import MainScreen from './src/screens/Dashboard/MainScreen';
+import MainScreenFooter from './src/screens/Dashboard/MainScreenFooter';
 
 
 const Stack = createNativeStackNavigator();
@@ -56,201 +58,211 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <ThemeProvider>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={CreateGoal}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Details"
-          component={WelcomePage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="KubynAI"
-          component={KubynAI}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NumVerify"
-          component={NumVerify}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NumOtp"
-          component={NumOtp}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="CreateAccount"
-          component={CreateAccount}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LoginNumOtp"
-          component={LoginNumOtp}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LoginSuccess"
-          component={LoginSuccess}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ForgetPassword"
-          component={ForgetPassword}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ForgetPasswordOtp"
-          component={ForgetPasswordOtp}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="PasswordReset"
-          component={PasswordReset}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ForgetPasswordSuccess"
-          component={ForgetPasswordSuccess}
-          options={{ headerShown: false }}
-        />
-         <Stack.Screen
-          name="HeyScreen"
-          component={HeyScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MySpendTrans"
-          component={MySpendTrans}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AccountScreen"
-          component={AccountScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MySubscriptions"
-          component={MySubscriptions}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DownloadStatements"
-          component={DownloadStatements}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ChangePrefrence"
-          component={ChangePreferenceScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DeleteAccount"
-          component={DeleteAccount}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AccountDeleteVerification"
-          component={AccountDeleteVerification}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SecurityScreen"
-          component={SecurityScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="CurrentPassword"
-          component={CurrentPassword}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LinkedScreen"
-          component={LinkedScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LinkedOtpScreen"
-          component={LinkedOtpScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="CurrentPin"
-          component={CurrentPin}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ForgetPin"
-          component={ForgetPin}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SetPin"
-          component={SetPin}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ResetPin"
-          component={ResetPin}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LoginActivity"
-          component={LoginActivity}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AppSettingsScreen"
-          component={AppSettingsScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="HelpCentre"
-          component={HelpCentreScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="LegalPolicies"
-          component={LegalPolicies}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ProfileScreen"
-          component={ProfileScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DemoGraphicQues"
-          component={DemoGraphicQues}
-          options={{ headerShown: false }}
-        />
-         <Stack.Screen
-          name="Introduction"
-          component={Introduction}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Notification"
-          component={Notification}
-          options={{ headerShown: false }}
-        />
-         <Stack.Screen
-          name="Progress"
-          component={Progress}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-   </ThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={MainScreenFooter}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Details"
+            component={WelcomePage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="KubynAI"
+            component={KubynAI}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NumVerify"
+            component={NumVerify}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NumOtp"
+            component={NumOtp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CreateAccount"
+            component={CreateAccount}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LoginNumOtp"
+            component={LoginNumOtp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LoginSuccess"
+            component={LoginSuccess}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgetPassword"
+            component={ForgetPassword}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgetPasswordOtp"
+            component={ForgetPasswordOtp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PasswordReset"
+            component={PasswordReset}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgetPasswordSuccess"
+            component={ForgetPasswordSuccess}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="HeyScreen"
+            component={HeyScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MySpendTrans"
+            component={MySpendTrans}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AccountScreen"
+            component={AccountScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MySubscriptions"
+            component={MySubscriptions}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DownloadStatements"
+            component={DownloadStatements}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChangePrefrence"
+            component={ChangePreferenceScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DeleteAccount"
+            component={DeleteAccount}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AccountDeleteVerification"
+            component={AccountDeleteVerification}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SecurityScreen"
+            component={SecurityScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CurrentPassword"
+            component={CurrentPassword}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LinkedScreen"
+            component={LinkedScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LinkedOtpScreen"
+            component={LinkedOtpScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CurrentPin"
+            component={CurrentPin}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgetPin"
+            component={ForgetPin}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SetPin"
+            component={SetPin}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ResetPin"
+            component={ResetPin}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LoginActivity"
+            component={LoginActivity}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AppSettingsScreen"
+            component={AppSettingsScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="HelpCentre"
+            component={HelpCentreScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LegalPolicies"
+            component={LegalPolicies}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProfileScreen"
+            component={ProfileScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DemoGraphicQues"
+            component={DemoGraphicQues}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MainScreenFooter"
+            component={MainScreenFooter}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={Notification}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Progress"
+            component={Progress}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MySpend"
+            component={MySpend}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CreateGoal"
+            component={CreateGoal}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, useColorScheme, ScrollView } from "react-native";
 import NotificationBell from "../../assets/icons/NotificationBell";
 import HandPointer from "../../assets/icons/HandPointer";
 import SearchIcon from "../../assets/icons/SearchIcon";
@@ -7,23 +7,39 @@ import Brain from "../../assets/icons/Brain";
 import PlusIcon from "../../assets/icons/PlusIcon";
 import UpdatedIcon from "../../assets/icons/UpdateIcon";
 import Protect from "../../assets/icons/Protect";
-import { verticalScale } from "react-native-size-matters";
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import colors from "../../theme/color";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
+type RootStackParamList = {
+  Notification: undefined;
+
+};
 const MyCommunity = () => {
+      const scheme = useColorScheme();
+      const theme = colors[scheme === "dark" ? "dark" : "light"];
+      const navigation = useNavigation<NavigationProp<any>>();
   return (
-    <View style={styles.container}>
+        <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
+    >
+    <View style={[styles.container,{backgroundColor:theme.background}]}>
       {/* 🔹 Header Row */}
       <View style={styles.header}>
-        <Text style={styles.title}>My Community</Text>
-        <NotificationBell />
+        <Text style={[styles.title,{color:theme.text}]}>My Community</Text>
+                 <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
+                   <NotificationBell fill={theme.text} />
+        </TouchableOpacity>
       </View>
 
       {/* 🔹 Benchmarks Text */}
-      <Text style={styles.benchmarks}>Benchmarks</Text>
+      <Text style={[styles.benchmarks,{color:theme.text}]}>Benchmarks</Text>
 
       {/* 🔹 2x2 Box Grid */}
       <View style={styles.grid}>
         {/* Box 1 */}
+        
         <ImageBackground
           source={require("../../assets/images/DashBoard/TheFirstNumberTrap.png")}
           style={styles.box1}
@@ -67,63 +83,48 @@ const MyCommunity = () => {
         </ImageBackground>
       </View>
 
-
-
       {/* 🔹 See More + Collective Nudges Row */}
-      <View style={styles.bottomTextContainer}>
-        <Text style={styles.seeMoreText}>See More</Text>
+      <View>
+        <Text style={[styles.seeMoreText,{color:theme.Button}]}>See More</Text>
       </View>
 
-      <Text style={styles.collectiveText}>Collective Nudges</Text>
+      <Text style={[styles.collectiveText,{color:theme.text}]}>Collective Nudges</Text>
 
-      <View style={styles.debtContainer}>
-        <HandPointer />
-        <View style={styles.debtTextContainer}>
-          <Text style={styles.debtTitle}>Debt Management</Text>
-          <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
+      <View style={{ marginTop: 10 }}>
+        <View style={styles.debtContainer}>
+          <HandPointer />
+          <View style={styles.debtTextContainer}>
+            <Text style={styles.debtTitle}>Debt Management</Text>
+            <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
+          </View>
+        </View>
+
+        <View style={styles.debtContainer}>
+          <HandPointer />
+          <View style={styles.debtTextContainer}>
+            <Text style={styles.debtTitle}>Debt Management</Text>
+            <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
+          </View>
         </View>
       </View>
 
-      <View style={styles.debtContainer}>
-        <HandPointer />
-        <View style={styles.debtTextContainer}>
-          <Text style={styles.debtTitle}>Savings</Text>
-          <Text style={styles.debtSubtitle}>You’ve achieved 64% of your goal</Text>
-        </View>
-      </View>
-
-      <Text style={styles.seeMoreTextBottom}>See More</Text>
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.star}>
-          <SearchIcon width={30} height={30}/>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Brain />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.centerButton}>
-          <TouchableOpacity style={styles.plus}>
-            <PlusIcon width={30} height={30}/>
-          </TouchableOpacity>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <UpdatedIcon />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Protect width={30} height={30} />
-        </TouchableOpacity>
-      </View>
+        <Text style={[styles.seeMoreText,{color:theme.Button}]}>See More</Text>
     </View>
+    </ScrollView>
   );
 };
 
 export default MyCommunity;
 
 const styles = StyleSheet.create({
+    scrollContent: {
+    paddingBottom: scale(70),
+  },
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    paddingTop: verticalScale(35),
+    paddingHorizontal: scale(20),
   },
   header: {
     flexDirection: "row",
@@ -133,89 +134,108 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Kollektif",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: "rgba(18, 18, 18, 1)",
   },
   benchmarks: {
-    marginTop: 30,
+    marginTop: verticalScale(30),
     fontFamily: "Kollektif",
     fontWeight: "700",
-    fontSize: 12,
-    lineHeight: 12,
+    fontSize: moderateScale(12),
+    lineHeight: verticalScale(12),
     color: "rgba(18, 18, 18, 1)",
     textAlign: "left",
   },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  imageStyle: {
-    borderRadius: 20,
-  },
+ grid: {
+  width: scale(330), // overall layout width (tweak if needed)
+  height: verticalScale(235), // overall layout height
+  alignSelf: "center",
+  position: "relative",
+  marginTop: verticalScale(20),
+},
 
-  // Box styles
-  box1: {
-    width: 161,
-    height: 139,
-    borderRadius: 20,
-    overflow: "hidden",
-    justifyContent: "flex-end",
-    padding: 10,
-    backgroundColor: "rgba(61, 89, 121, 1)",
-    shadowColor: "rgba(34, 63, 97, 0.25)",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 4,
-  },
-  box2: {
-    width: 161,
-    height: 198,
-    borderRadius: 20,
-    overflow: "hidden",
-    justifyContent: "flex-end",
-    padding: 10,
-    backgroundColor: "rgba(227, 233, 241, 1)",
-    shadowColor: "rgba(34, 63, 97, 0.25)",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 4,
-    marginBottom: 8,
-  },
-  box3: {
-    width: 161,
-    height: 173,
-    borderRadius: 20,
-    overflow: "hidden",
-    justifyContent: "flex-end",
-    padding: 10,
-    backgroundColor: "rgba(227, 233, 241, 0.8)",
-    shadowColor: "rgba(34, 63, 97, 0.25)",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 4,
-  },
-  box4: {
-    width: 161,
-    height: 113,
-    borderRadius: 20,
-    overflow: "hidden",
-    justifyContent: "flex-end",
-    padding: 10,
-    backgroundColor: "rgba(61, 89, 121, 1)",
-    shadowColor: "rgba(34, 63, 97, 0.25)",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 4,
-  },
+imageStyle: {
+  borderRadius: moderateScale(20),
+},
+
+// top-left small box
+box1: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: scale(155),
+  height: verticalScale(80),
+  borderRadius: moderateScale(20),
+  overflow: "hidden",
+  justifyContent: "flex-end",
+  padding: scale(15),
+  backgroundColor: "rgba(61, 89, 121, 1)",
+  shadowColor: "rgba(34, 63, 97, 0.25)",
+  shadowOffset: { width: 0, height: verticalScale(4) },
+  shadowOpacity: 1,
+  shadowRadius: scale(4),
+},
+
+// top-right tall box
+box2: {
+  position: "absolute",
+  top: 0,
+  right: 0,
+  width: scale(155),
+  height: verticalScale(150),
+  borderRadius: moderateScale(20),
+  overflow: "hidden",
+  justifyContent: "flex-end",
+  padding: scale(15),
+  backgroundColor: "rgba(227, 233, 241, 1)",
+  shadowColor: "rgba(34, 63, 97, 0.25)",
+  shadowOffset: { width: 0, height: verticalScale(4) },
+  shadowOpacity: 1,
+  shadowRadius: scale(4),
+},
+
+// bottom-left tall box
+box3: {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  width: scale(155),
+  height: verticalScale(150),
+  borderRadius: moderateScale(20),
+  overflow: "hidden",
+  justifyContent: "flex-end",
+  padding: scale(15),
+  backgroundColor: "rgba(227, 233, 241, 0.8)",
+  shadowColor: "rgba(34, 63, 97, 0.25)",
+  shadowOffset: { width: 0, height: verticalScale(4) },
+  shadowOpacity: 1,
+  shadowRadius: scale(4),
+},
+
+// bottom-right small box
+box4: {
+  position: "absolute",
+  bottom: 0,
+  right: 0,
+  width: scale(155),
+  height: verticalScale(80),
+  borderRadius: moderateScale(20),
+  overflow: "hidden",
+  justifyContent: "flex-end",
+  padding: scale(15),
+  backgroundColor: "rgba(61, 89, 121, 1)",
+  shadowColor: "rgba(34, 63, 97, 0.25)",
+  shadowOffset: { width: 0, height: verticalScale(4) },
+  shadowOpacity: 1,
+  shadowRadius: scale(4),
+},
 
   // 🔹 Text styles inside boxes
   boxText: {
     fontFamily: "Avenir LT Std",
     fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
+    fontSize: moderateScale(16),
+    lineHeight: verticalScale(26),
   },
   whiteText: {
     color: "rgba(255, 255, 255, 1)",
@@ -223,46 +243,42 @@ const styles = StyleSheet.create({
   blueText: {
     color: "rgba(34, 63, 97, 1)",
   },
-
-  // 🔹 See More + Collective Nudges styles
-  bottomTextContainer: {
-    marginTop: 12,
-  },
   seeMoreText: {
     alignSelf: "flex-end",
     fontFamily: "Avenir LT Std",
     fontWeight: "400",
     fontStyle: "italic",
-    fontSize: 14,
-    lineHeight: 14,
+    fontSize: moderateScale(14),
+    lineHeight: verticalScale(14),
     color: "rgba(34, 63, 97, 1)",
     opacity: 0.92,
+    marginTop: verticalScale(10),
   },
   collectiveText: {
-    marginTop: 20,
+    marginTop: verticalScale(10),
     alignSelf: "flex-start",
     fontFamily: "Kollektif",
     fontWeight: "700",
-    fontSize: 12,
-    lineHeight: 12,
+    fontSize: moderateScale(12),
+    lineHeight: verticalScale(12),
     color: "rgba(18, 18, 18, 1)",
   },
   debtContainer: {
-    marginTop: 20,
+    marginTop: verticalScale(8),
     flexDirection: "row",
     alignItems: "flex-start",
     backgroundColor: "rgba(34, 63, 97, 1)",
-    borderRadius: 16,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    gap: 20
+    borderRadius: moderateScale(16),
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: scale(20),
+    gap: scale(20),
   },
   handIcon: {
-    width: 18,
-    height: 18,
+    width: scale(18),
+    height: scale(18),
     resizeMode: "contain",
-    marginRight: 10,
-    marginTop: 2,
+    marginRight: scale(10),
+    marginTop: verticalScale(2),
   },
   debtTextContainer: {
     flex: 1,
@@ -271,16 +287,16 @@ const styles = StyleSheet.create({
     fontFamily: "Avenir LT Std",
     fontWeight: "700",
     fontStyle: "italic", // simulating 85 Heavy Oblique
-    fontSize: 12,
-    lineHeight: 20,
+    fontSize: moderateScale(12),
+    lineHeight: verticalScale(20),
     color: "rgba(251, 253, 255, 1)",
   },
   debtSubtitle: {
     fontFamily: "Avenir LT Std",
     fontWeight: "400",
     fontStyle: "italic", // simulating 55 Oblique
-    fontSize: 10,
-    lineHeight: 17,
+    fontSize: moderateScale(10),
+    lineHeight: verticalScale(17),
     color: "rgba(251, 253, 255, 1)",
   },
   seeMoreTextBottom: {
@@ -288,51 +304,50 @@ const styles = StyleSheet.create({
     fontFamily: "Open Sans",
     fontWeight: "600",
     fontStyle: "italic",
-    fontSize: 16,
-    lineHeight: 16,
+    fontSize: moderateScale(16),
+    lineHeight: verticalScale(16),
     color: "rgba(34, 63, 97, 1)",
     opacity: 0.92,
-    marginTop: 20
+    marginTop: verticalScale(20),
   },
   bottomBar: {
-    position: "absolute",         // ✅ Fixes it to bottom
-    bottom: 20,                   // Distance from bottom edge
-    left: 20,
-    right: 20,
+    position: "absolute",
+    bottom: verticalScale(20),
+    left: scale(20),
+    right: scale(20),
     flexDirection: "row",
     backgroundColor: "rgba(18, 18, 18, 1)",
     justifyContent: "space-around",
     alignItems: "center",
-    borderRadius: 25,
+    borderRadius: moderateScale(25),
     height: verticalScale(55),
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: verticalScale(4) },
     shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 5,                 // ✅ Shadow for Android
+    shadowRadius: scale(6),
+    elevation: 5,
   },
   centerButton: {
-    backgroundColor: 'rgba(18, 18, 18, 1)',
-    width: 60,
-    height: 60,
-    borderRadius: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: 40,
-    borderColor: 'rgba(244, 242, 239, 1)',
-    borderWidth: 5,
-
+    backgroundColor: "rgba(18, 18, 18, 1)",
+    width: scale(60),
+    height: scale(60),
+    borderRadius: moderateScale(55),
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: verticalScale(40),
+    borderColor: "rgba(244, 242, 239, 1)",
+    borderWidth: scale(5),
   },
   plus: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   star: {
-    backgroundColor: '#FBFDFF',
-    borderRadius: 25,
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#FBFDFF",
+    borderRadius: moderateScale(25),
+    width: scale(44),
+    height: scale(44),
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

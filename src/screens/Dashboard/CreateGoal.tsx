@@ -206,15 +206,22 @@ const CreateGoal = () => {
                 selectedOption === 'recur' && { borderColor: theme.Button },
               ]}
             >
-              {selectedOption === 'recur' && (
-                <View style={[styles.radioInner, { backgroundColor: theme.Button }]} />
-              )}
+              {/* Always show inner circle, but change opacity */}
+              <View
+                style={[
+                  styles.radioInner,
+                  {
+                    backgroundColor: theme.Button,
+                    opacity: selectedOption === 'recur' ? 1 : 0.4, 
+                  },
+                ]}
+              />
             </View>
           </TouchableOpacity>
-          <Text style={[styles.radioLabel, { color: theme.text }]}>Will it recur?</Text>
+          <Text style={[styles.radioLabel, { color: theme.text }]}>Will it reccur?</Text>
         </View>
 
-        <TouchableOpacity style={[styles.dropdown, { backgroundColor: theme.pop }]}>
+        <TouchableOpacity style={[styles.dropdown, { backgroundColor: theme.option }]}>
           <Text style={styles.dropdownText}>Select Period</Text>
           <DropdownArrow stroke={theme.buttondark} />
         </TouchableOpacity>
@@ -229,9 +236,16 @@ const CreateGoal = () => {
               selectedOption === 'single' && { borderColor: theme.Button },
             ]}
           >
-            {selectedOption === 'single' && (
-              <View style={[styles.radioInner, { backgroundColor: theme.Button }]} />
-            )}
+            {/* Same logic for single option */}
+            <View
+              style={[
+                styles.radioInner,
+                {
+                  backgroundColor: theme.Button,
+                  opacity: selectedOption === 'single' ? 1 : 0.4,
+                },
+              ]}
+            />
           </View>
         </TouchableOpacity>
         <Text style={[styles.radioLabel, { color: theme.text }]}>Single time</Text>
@@ -280,8 +294,8 @@ const styles = StyleSheet.create({
     opacity: 0.25,
   },
   inputContainer: { marginTop: verticalScale(20) },
-  inputRow: { flexDirection: 'row', alignItems: 'center' , gap:scale(10) , justifyContent:"center"},
-  iconContainer: {  alignItems: 'center', justifyContent: 'center' },
+  inputRow: { flexDirection: 'row', alignItems: 'center', gap: scale(10), justifyContent: "center" },
+  iconContainer: { alignItems: 'center', justifyContent: 'center' },
   inputFieldContainer: {
     flex: 1,
     backgroundColor: 'rgba(227,233,241,0.8)',
@@ -306,7 +320,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     width: scale(140),
-    height: verticalScale(35),
+    height: verticalScale(45),
   },
   dateIconContainer: { width: scale(40), alignItems: 'center', justifyContent: 'center' },
   dateInputContainer: { flex: 1 },
@@ -330,7 +344,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: verticalScale(24),
+    marginTop: verticalScale(60),
   },
   radioRow: { flexDirection: 'row', alignItems: 'center' },
   radioOuter: {
@@ -358,7 +372,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: { fontSize: moderateScale(10), marginRight: scale(6), opacity: 0.4 },
   buttonWrapper: {
-    marginTop: verticalScale(130),
+    marginTop: verticalScale(93),
     alignItems: 'center',
     marginBottom: verticalScale(40),
   },

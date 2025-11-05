@@ -102,7 +102,7 @@ const KubynAI = ({ navigation }: any) => {
         >
           {/* Plus Icon */}
           <TouchableOpacity style={styles.iconButton}>
-            <PlusIcon width={20} height={20} color={theme.Button} />
+            <PlusIcon width={20} height={20} color={theme.bar} />
           </TouchableOpacity>
 
           {/* Text Input */}
@@ -151,81 +151,87 @@ const styles = StyleSheet.create({
     color: "rgba(34, 63, 97, 1)",
     left:scale(30),
   },
-  chatContainer: {
-    paddingVertical: 20,
-    paddingBottom: 120, // so last message isn't hidden behind input
+ chatContainer: {
+    paddingVertical: verticalScale(20),
+    paddingBottom: verticalScale(120),
   },
+
   groupLeft: {
     flexDirection: "row",
     alignItems: "flex-end",
-    marginBottom: 15,
-   
+    marginBottom: verticalScale(10),
   },
+
   characterLeft: {
-  width: scale(42),
-  height: scale(42),
-  borderRadius: scale(21),
+    width: scale(58),
+    height: scale(55),
+    borderRadius: scale(21),
     resizeMode: "contain",
-    marginRight: -60,
-    marginBottom: 110,
-    backgroundColor:"#ffff",
+    marginRight: scale(-60),
+    marginBottom: verticalScale(70),
+    backgroundColor: "#ffff",
   },
-  bubbleLeft: {
-    width: 300,
-    height: 130,
-    resizeMode: "contain",
-  },
+
+bubbleLeft: {
+  width: scale(250),
+  height: verticalScale(90),
+  resizeMode: "contain",
+},
+
   groupRight: {
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "flex-end",
-    marginBottom: 1,
+    marginBottom: verticalScale(1),
   },
-  bubbleRight: {
-    width: 300,
-    height: 130,
-    resizeMode: "contain",
-    marginRight: -50,
-  },
-  characterRight: {
-    width: 58,
-    height: 55,
-    resizeMode: "contain",
-  },
-  inputbox: {
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  paddingVertical: verticalScale(8),
-  borderRadius: moderateScale(35),
-  shadowColor: "#223F61",
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.15,
-  shadowRadius: 4,
-  elevation: 4,
-  width: "100%",
-  alignSelf: "center", // ✅ this works fine now
-  position: "absolute",
-  bottom: 20,
 
-},
+  bubbleRight: {
+    width: scale(250),
+    height: verticalScale(90),
+    resizeMode: "contain",
+    marginRight: scale(-50),
+  },
+
+  characterRight: {
+    width: scale(40),
+    height: verticalScale(40),
+    resizeMode: "contain",
+  },
+
+  inputbox: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: verticalScale(8),
+    borderRadius: moderateScale(15),
+    shadowColor: "#223F61",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
+    width: "110%",
+    alignSelf: "center", // ✅ this works fine now
+    position: "absolute",
+    bottom: verticalScale(20),
+  },
 
   iconButton: {
-  width: scale(42),
-  height: scale(42),
-  borderRadius: scale(21),
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: "#E3E9F1CC",
-  marginHorizontal: scale(4),
-  shadowColor: "#223F61",
-  shadowOffset: { width: 0, height: 3 },
-  shadowOpacity: 0.25,
-  shadowRadius: 4,
-  elevation: 4,
+    width: scale(42),
+    height: scale(42),
+    borderRadius: scale(21),
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#E3E9F1CC",
+    marginHorizontal: scale(4),
+    shadowColor: "#223F61",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  micbutton:{
-   width: scale(40),
+
+  micbutton: {
+    width: scale(40),
     height: scale(40),
     borderRadius: scale(21),
     justifyContent: "center",
@@ -238,14 +244,15 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(4),
     marginLeft: scale(6),
   },
-input: {
-  flex: 1,
-  fontFamily: "Avenir LT Std",
-  fontSize: moderateScale(15),
-  paddingHorizontal: scale(10),
-  opacity: 0.8,
-  textAlignVertical: "center", // ✅ Centers text vertically
-},
+
+  input: {
+    flex: 1,
+    fontFamily: "Avenir LT Std",
+    fontSize: moderateScale(15),
+    paddingHorizontal: scale(10),
+    opacity: 0.8,
+    textAlignVertical: "center", // ✅ Centers text vertically
+  },
 
   sendButton: {
     width: scale(42),

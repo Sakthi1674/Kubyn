@@ -14,7 +14,10 @@ import ButtonComp from "../../components/common/ButtonComp";
 import RupeeIcon from "../../assets/icons/RupeeIcon";
 import BackWard from "../../assets/icons/BackWard";
 import colors from "../../theme/color";
+type RootStackParamList = {
+  MySpend: undefined;
 
+};
 const MySpend = ({ navigation }: any) => {
   const scheme = useColorScheme();
   const theme = scheme === 'dark' ? colors.dark : colors.light;
