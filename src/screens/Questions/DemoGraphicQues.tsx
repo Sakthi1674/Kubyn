@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   Modal,
   ScrollView,
+  Button,
 } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -36,6 +37,7 @@ import DatabaseIcon from "../../assets/icons/DatabaseIcon";
 import colors from "../../theme/color";
 import ButtonComp from "../../components/common/ButtonComp";
 import { Calendar } from "react-native-calendars";
+import DropDown from "../../assets/icons/DropDown";
 
 
 type RootStackParamList = {
@@ -48,17 +50,34 @@ export default function DemoGraphicQues() {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
 
-  const [showStartCalendar, setShowStartCalendar] = useState(false);
-  const [startDate, setStartDate] = useState<string | null>(null);
+  const [selectedDay, setSelectedDay] = useState(27);
+  const [selectedMonth, setSelectedMonth] = useState(6);
+  const [selectedYear, setSelectedYear] = useState(2025);
+  const [showYearDropdown, setShowYearDropdown] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
 
-  // Split the selected date for display
-  const getDateParts = () => {
-    if (!startDate) return { day: "DD", month: "MM", year: "YYYY" };
-    const [year, month, day] = startDate.split("-");
-    return { day, month, year };
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+
+  const handleMonthChange = (step: number) => {
+    let newMonth = selectedMonth + step;
+    let newYear = selectedYear;
+
+    if (newMonth > 11) {
+      newMonth = 0;
+      newYear++;
+    } else if (newMonth < 0) {
+      newMonth = 11;
+      newYear--;
+    }
+    setSelectedMonth(newMonth);
+    setSelectedYear(newYear);
   };
 
-  const { day, month, year } = getDateParts();
+  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+  const years = Array.from({ length: 100 }, (_, i) => 1975 + i);
 
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "light"];
@@ -229,15 +248,14 @@ export default function DemoGraphicQues() {
         );
 
       // 👇 Case 3 — Date of Birth
+      // 👇 Case 3 — Date of Birth
       case 3:
         return (
           <View style={{ marginTop: verticalScale(20), width: "100%" }}>
-            {/* Label */}
             <Text
               style={{
                 fontFamily: "Avenir LT Std",
                 fontWeight: "600",
-                fontStyle: "normal",
                 fontSize: moderateScale(20),
                 lineHeight: moderateScale(24),
                 color: theme.text,
@@ -248,115 +266,132 @@ export default function DemoGraphicQues() {
               DD | MM | YYYY
             </Text>
 
-            {/* Date boxes + icon */}
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: scale(10),
-              }}
-            >
-              {/* Day */}
-              <View
-                style={[
-                  styles.birthBox,
-                  { backgroundColor: theme.option, borderColor: theme.Button },
-                ]}
-              >
-                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>{day}</Text>
-              </View> 
-
-              {/* Month */}
-              <View
-                style={[
-                  styles.birthBox,
-                  { backgroundColor: theme.option, borderColor: theme.Button },
-                ]}
-              >
-                <Text style={[styles.birthBoxText, { color: theme.DOB}]}>{month}</Text>
+            {/* DOB Row */}
+            <View style={{ flexDirection: "row", alignItems: "center", gap: scale(10) }}>
+              <View style={[styles.birthBox, { backgroundColor: theme.option }]}>
+                <Text style={[styles.birthBoxText, { color: theme.textSecondary }]}>
+                  {String(selectedDay).padStart(2, "0")}
+                </Text>
               </View>
 
-              {/* Year */}
-              <View
-                style={[
-                  styles.birthBox,
-                  {
-                    width: scale(90),
-                    backgroundColor: theme.option,
-                    borderColor: theme.Button,
-                  },
-                ]}
-              >
-                <Text style={[styles.birthBoxText, { color: theme.DOB }]}>{year}</Text>
+              <View style={[styles.birthBox, { backgroundColor: theme.option }]}>
+                <Text style={[styles.birthBoxText, { color: theme.textSecondary }]}>
+                  {String(selectedMonth + 1).padStart(2, "0")}
+                </Text>
               </View>
 
-              {/* Calendar icon */}
-              <TouchableOpacity onPress={() => setShowStartCalendar(true)}>
+              <View style={[styles.birthBox, { width: scale(90), backgroundColor: theme.option }]}>
+                <Text style={[styles.birthBoxText, { color: theme.textSecondary }]}>
+                  {selectedYear}
+                </Text>
+              </View>
+
+              <TouchableOpacity onPress={() => setShowCalendar(!showCalendar)}>
                 <View style={{ marginTop: 10 }}>
-                  <DobIcon width={24} height={24} color={theme.text} />
+                  <Text style={{ fontSize: 22, color: theme.text }}><DobIcon color={theme.text} /></Text>
                 </View>
               </TouchableOpacity>
             </View>
 
-            {/* Calendar Modal */}
-            {showStartCalendar && (
-              <Modal transparent visible={showStartCalendar} animationType="fade">
-                <TouchableOpacity
-                  style={styles.overlay}
-                  activeOpacity={1}
-                  onPressOut={() => setShowStartCalendar(false)}
-                >
-                  <TouchableWithoutFeedback>
-                    <View
-                      style={[
-                        styles.calendarPopup,
-                        { top: "40%", alignSelf: "center" },
-                      ]}
-                    >
-                      <ScrollView
-                        style={{ width: 240, height:220 }}
-                        showsVerticalScrollIndicator={false}
-                      >
-                        <Calendar
-                          onDayPress={(day) => {
-                            setStartDate(day.dateString);
-                            setShowStartCalendar(false);
-                          }}
-                          style={{
-                            borderRadius: 10,
-                            borderWidth: 1,  
-                            borderColor: theme.text, 
-                          }}
+            {/* Inline Calendar */}
+            {showCalendar && (
+              <View style={[styles.calendarContainer, { backgroundColor: theme.background }]}>
+                {/* Header */}
+                <View style={styles.headerRow}>
+                  <View style={styles.monthRow}>
+                    <TouchableOpacity style={styles.arrowButton} onPress={() => handleMonthChange(-1)}>
+                      <Text style={[styles.arrow, { color: theme.Button }]}>‹</Text>
+                    </TouchableOpacity>
 
-                          markedDates={{
-                            ...(startDate && {
-                              [startDate]: {
-                                selected: true,
-                                color: "#223F61",
-                                textColor: "white",
-                              },
-                            }),
-                          }}
-                          theme={{
-                            textDayFontSize: 12,
-                            textMonthFontSize: 14,
-                            textDayHeaderFontSize: 10,
-                            calendarBackground: theme.background,
-                            dayTextColor: theme.text,
-                            monthTextColor: theme.text,
-                            textDisabledColor: theme.text + "80",
-                            selectedDayBackgroundColor: theme.Button,
-                            selectedDayTextColor: "#000000ff",
-                            todayTextColor: theme.Button,
-                            arrowColor: theme.text,
-                            textSectionTitleColor: theme.text,
-                          }}
-                        />
-                      </ScrollView>
+                    <Text style={[styles.monthText, { color: theme.Button }]}>
+                      {months[selectedMonth]}
+                    </Text>
+
+                    <TouchableOpacity style={styles.arrowButton} onPress={() => handleMonthChange(1)}>
+                      <Text style={[styles.arrow, { color: theme.Button }]}>›</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setShowYearDropdown(!showYearDropdown)}
+                    style={styles.yearDropdownButton}
+                  >
+                    <View style={styles.yearInnerRow}>
+                      <Text style={styles.yearText}>{selectedYear}</Text>
+                      <DropDown />
                     </View>
-                  </TouchableWithoutFeedback>
+                  </TouchableOpacity>
+                </View>
+
+                {/* Year Dropdown */}
+                {showYearDropdown && (
+                  <ScrollView style={styles.yearScroll} showsVerticalScrollIndicator={false}>
+                    {years.map((year) => (
+                      <TouchableOpacity
+                        key={year}
+                        onPress={() => {
+                          setSelectedYear(year);
+                          setShowYearDropdown(false);
+                        }}
+                        style={[
+                          styles.yearItem,
+                          year === selectedYear && styles.selectedYearItem,
+                        ]}
+                      >
+                        <Text
+                          style={[
+                            styles.yearText,
+                            year === selectedYear && styles.selectedYearText,
+                          ]}
+                        >
+                          {year}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                )}
+
+                {/* Days Grid */}
+                <View style={styles.daysWrapper}>
+                  <View style={[styles.daysContainer]}>
+                    {["M", "T", "W", "T", "F", "S", "S"].map((d) => (
+                      <Text key={d} style={[styles.weekdayText, { color: theme.Button }]}>{d}</Text>
+                    ))}
+                    {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((day) => (
+                      <TouchableOpacity
+                        key={day}
+                        onPress={() => setSelectedDay(day)}
+                        style={[
+                          styles.dayCell,
+                          day === selectedDay && [
+                            styles.selectedDay,
+                            { backgroundColor: theme.bar },
+                          ],
+                        ]}
+                      >
+                        <Text
+                          style={[
+                            styles.dayText,
+                            {
+                              color: day === selectedDay ? theme.suggestion : theme.text,
+                            },
+                          ]}
+                        >
+                          {day}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+
+                  </View>
+                </View>
+
+                {/* Done Button */}
+                <TouchableOpacity
+                  style={styles.doneButton}
+                  onPress={() => setShowCalendar(false)}
+                >
+                  <Text style={styles.doneText}>Done</Text>
                 </TouchableOpacity>
-              </Modal>
+              </View>
             )}
           </View>
         );
@@ -388,9 +423,6 @@ export default function DemoGraphicQues() {
                       marginBottom: verticalScale(12),
                       alignItems: "center",
                       backgroundColor: isSelected ? theme.Button : theme.option,
-                      // borderColor: isSelected ? theme.Button : theme.Button,
-                      // borderWidth: 1,
-                      // borderRadius: scale(10),
                     },
                   ]}
                   onPress={() => setAnswers({ ...answers, [step]: option })}
@@ -439,10 +471,6 @@ export default function DemoGraphicQues() {
                     styles.locationOption,
                     {
                       backgroundColor: isSelected ? theme.Button : theme.option,
-                      // borderColor: isSelected ? theme.Button : theme.Button,
-                      // borderWidth: 1,
-                      // borderRadius: scale(10),
-                      // width: "48%",
                       marginBottom: verticalScale(12),
                       alignItems: "center",
                       ...(isLastOdd && {
@@ -1871,7 +1899,7 @@ const styles = StyleSheet.create({
   },
   calendarPopup: {
     position: "absolute",
-    backgroundColor:"#00000002",
+    backgroundColor: "#00000002",
     borderRadius: scale(12),
     padding: scale(12),
     alignItems: "center",
@@ -1988,24 +2016,175 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   birthBox: {
-    width: scale(45),
-    height: verticalScale(46),
-    borderRadius: scale(10),
-    backgroundColor: "rgba(240, 244, 249, 1)",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "rgba(34, 63, 97, 0.1)",
-    shadowOffset: { width: 0, height: -1 },
-    shadowOpacity: 1,
-    shadowRadius: 5.3,
-    elevation: 3,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: scale(15),
+    borderColor: "#E3E6EF",
   },
   birthBoxText: {
-    fontFamily: "Avenir LT Std",
+    fontSize: moderateScale(18),
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  calendarContainer: {
+    width: 300,
+    borderRadius: 18,
+    backgroundColor: "#fff",
+    padding: 16,
+    borderWidth: 2,
+    borderColor: "#D2E3FF",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+    marginTop: 16,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+    justifyContent: "center",
+    gap:scale(10)
+  },
+
+  arrowButton: {
+    backgroundColor: "rgba(34, 63, 97, 0.1)", // subtle background
+    borderRadius: 8, // rounded edges
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    marginHorizontal: 4, // small space between arrow & text
+  },
+  monthRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+  arrow: {
+    fontSize: 18,
+    color: "rgba(34, 63, 97, 1)",
+    fontWeight: "600",
+  },
+
+  monthText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "rgba(34, 63, 97, 1)",
+
+  },
+
+  // parent container (if not already)
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+
+  yearDropdownButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0f4ff",
+    paddingVertical: 4,
+    borderRadius: 8,
+    paddingHorizontal: 20,
+  },
+
+  yearText: {
+    fontSize: 18,
     fontWeight: "700",
-    fontStyle: "normal",
-    fontSize: moderateScale(24),
-    color: "rgba(69, 85, 105,0.08)",
+    color: "rgba(34, 63, 97, 1)",
+  },
+
+  downArrow: {
+    fontSize: 14,
+    color: "rgba(34, 63, 97, 1)",
+  },
+
+  yearScroll: {
+    position: "absolute",
+    right: 50, // aligns dropdown to right edge of container
+    top: 45,
+    backgroundColor: "#fff",
+    width: 80,
+    height: 150,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#E3E6EF",
+    elevation: 4,
+    zIndex: 10,
+  },
+
+  yearItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+
+  selectedYearItem: {
+    backgroundColor: "#E6EEFF",
+    borderRadius: 8,
+  },
+
+  yearScrollText: {
+    color: "rgba(34, 63, 97, 1)",
+    fontSize: 16,
+  },
+
+  selectedYearText: {
+    fontWeight: "700",
+  },
+  yearInnerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,      // adds small space
+  },
+  daysContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center"
+  },
+  daysWrapper: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  weekdayText: {
+    width: "14%",
+    textAlign: "center",
+    fontWeight: "600",
+    color: "#4B5563",
+    marginBottom: 8,
+  },
+  dayCell: {
+    width: "14%",
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 2,
+    borderRadius: 20,
+  },
+  selectedDay: {
+    backgroundColor: "rgba(34, 63, 97, 1)",
+  },
+  dayText: {
+    color: "rgba(34, 63, 97, 1)",
+
+  },
+  selectedDayText: {
+    color: "#fff",
+    fontWeight: "700",
+
+  },
+  doneButton: {
+    backgroundColor: "rgba(34, 63, 97, 1)",
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 8,
+    alignSelf: "flex-end",
+  },
+  doneText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 
 }); 

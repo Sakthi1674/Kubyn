@@ -739,7 +739,7 @@ const styles = StyleSheet.create({
         width: "85%",
         backgroundColor: "rgba(251, 253, 255, 1)",
         borderRadius: moderateScale(30),
-        padding: moderateScale(20),
+        padding: moderateScale(30),
         alignItems: "center",
     },
     popupHeader3: {
@@ -758,7 +758,7 @@ const styles = StyleSheet.create({
     chartRow: {
         flexDirection: "row",
         justifyContent: "space-around",
-        paddingVertical: verticalScale(25),
+        paddingVertical: verticalScale(20),
         gap: scale(20),
     },
     columnBox: {

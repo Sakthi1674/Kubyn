@@ -13,6 +13,7 @@ import { PieChart } from "react-native-chart-kit";
 import colors from "../../theme/color";
 import CoinsIcon from "../../assets/icons/CoinIcon";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import DonutChart from "./DonutChart";
 
 type RootStackParamList = {
   Notification: undefined;
@@ -74,26 +75,7 @@ const MainScreen = () => {
           less certain.
         </Text>
 
-        <View style={styles.chartContainer}>
-          <View style={{ transform: [{ rotate: '180deg' }] }}>
-            <PieChart
-              data={[
-                { name: 'High', population: 75, color: theme.bar },
-                { name: 'Low', population: 25, color: theme.chart },
-              ]}
-              width={200}
-              height={160}
-              chartConfig={{ color: () => theme.bar }}
-              accessor="population"
-              backgroundColor="transparent"
-              paddingLeft="15"
-              hasLegend={false}
-            />
-          </View>
-          <View style={styles.centerCircle}>
-            <Text style={[styles.percentText, { color: theme.bar }]}>75%</Text>
-          </View>
-        </View>
+        <DonutChart/>
       </View>
 
       <View style={styles.cardRow}>

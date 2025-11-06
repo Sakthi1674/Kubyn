@@ -49,8 +49,8 @@ const MySpendTrans = () => {
               <IncomeIcon width={32} height={32} color={theme.icon} />
             </View>
             <View style={styles.textContainer}>
-              <Text style={[styles.labelText, { color: theme.textSecondary }]}>Income</Text>
-              <Text style={[styles.amountText, { color: theme.green }]}>$13,500</Text>
+              <Text style={[styles.labelText, { color: theme.background }]}>Income</Text>
+              <Text style={[styles.amountText, { color: theme.textSecondary }]}>$13,500</Text>
             </View>
           </View>
 
@@ -60,8 +60,8 @@ const MySpendTrans = () => {
               <ExpenseIcon width={32} height={32} color={theme.icon} />
             </View>
             <View style={styles.textContainer}>
-              <Text style={[styles.labelText, { color: theme.textSecondary }]}>Expense</Text>
-              <Text style={[styles.amountText, { color: theme.notification }]}>$4,500</Text>
+              <Text style={[styles.labelText, { color: theme.background }]}>Expense</Text>
+              <Text style={[styles.amountText, { color: theme.textSecondary }]}>$4,500</Text>
             </View>
           </View>
         </View>

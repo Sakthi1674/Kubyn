@@ -16,100 +16,96 @@ type RootStackParamList = {
 
 };
 const MyCommunity = () => {
-      const scheme = useColorScheme();
-      const theme = colors[scheme === "dark" ? "dark" : "light"];
-      const navigation = useNavigation<NavigationProp<any>>();
+  const scheme = useColorScheme();
+  const theme = colors[scheme === "dark" ? "dark" : "light"];
+  const navigation = useNavigation<NavigationProp<any>>();
   return (
-        <ScrollView
+    <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollContent}
     >
-    <View style={[styles.container,{backgroundColor:theme.background}]}>
-      {/* 🔹 Header Row */}
-      <View style={styles.header}>
-        <Text style={[styles.title,{color:theme.text}]}>My Community</Text>
-                 <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
-                   <NotificationBell fill={theme.text} />
-        </TouchableOpacity>
-      </View>
+      <View style={[styles.container, { backgroundColor: theme.background }]}>
+        {/* 🔹 Header Row */}
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: theme.text }]}>My Community</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
+            <NotificationBell fill={theme.text} />
+          </TouchableOpacity>
+        </View>
 
-      {/* 🔹 Benchmarks Text */}
-      <Text style={[styles.benchmarks,{color:theme.text}]}>Benchmarks</Text>
+        {/* 🔹 Benchmarks Text */}
+        <Text style={[styles.benchmarks, { color: theme.text }]}>Benchmarks</Text>
 
-      {/* 🔹 2x2 Box Grid */}
-      <View style={styles.grid}>
-        {/* Box 1 */}
-        
-        <ImageBackground
-          source={require("../../assets/images/DashBoard/TheFirstNumberTrap.png")}
-          style={styles.box1}
-          imageStyle={styles.imageStyle}
-        >
-          <Text style={[styles.boxText, styles.whiteText]}>The First</Text>
-          <Text style={[styles.boxText, styles.whiteText]}>Number Trap</Text>
-        </ImageBackground>
+        {/* 🔹 2x2 Box Grid */}
+        <View style={styles.grid}>
+          {/* Box 1 */}
 
-        {/* Box 2 */}
-        <ImageBackground
-          source={require("../../assets/images/DashBoard/TheConfidenceIllusion.png")}
-          style={styles.box2}
-          imageStyle={styles.imageStyle}
-        >
-          <Text style={[styles.boxText, styles.blueText]}>
-            The Confidence Illusion
-          </Text>
-        </ImageBackground>
+          <ImageBackground
+            source={require("../../assets/images/DashBoard/TheFirstNumberTrap.png")}
+            style={styles.box1}
+            imageStyle={styles.imageStyle}
+          >
+            <Text style={[styles.boxText, styles.whiteText]}>The First{"\n"}Number Trap</Text>
+          </ImageBackground>
 
-        {/* Box 3 */}
-        <ImageBackground
-          source={require("../../assets/images/DashBoard/TheSurplusMirage.png")}
-          style={styles.box3}
-          imageStyle={styles.imageStyle}
-        >
-          <Text style={[styles.boxText, styles.blueText]}>The Surplus</Text>
-          <Text style={[styles.boxText, styles.blueText]}>Mirage</Text>
-        </ImageBackground>
+          {/* Box 2 */}
+          <ImageBackground
+            source={require("../../assets/images/DashBoard/TheConfidenceIllusion.png")}
+            style={styles.box2}
+            imageStyle={styles.imageStyle}
+          >
+            <Text style={[styles.boxText, styles.blueText]}>
+              The Confidence Illusion
+            </Text>
+          </ImageBackground>
 
-        {/* Box 4 */}
-        <ImageBackground
-          source={require("../../assets/images/DashBoard/TheLossAversionBias.png")}
-          style={styles.box4}
-          imageStyle={styles.imageStyle}
-        >
-          <Text style={[styles.boxText, styles.whiteText]}>The Loss</Text>
-          <Text style={[styles.boxText, styles.whiteText]}>
-            Aversion Bias
-          </Text>
-        </ImageBackground>
-      </View>
+          {/* Box 3 */}
+          <ImageBackground
+            source={require("../../assets/images/DashBoard/TheSurplusMirage.png")}
+            style={styles.box3}
+            imageStyle={styles.imageStyle}
+          >
+            <Text style={[styles.boxText, styles.blueText]}>The Surplus{"\n"}Mirage</Text>
+          </ImageBackground>
 
-      {/* 🔹 See More + Collective Nudges Row */}
-      <View>
-        <Text style={[styles.seeMoreText,{color:theme.Button}]}>See More</Text>
-      </View>
+          <ImageBackground
+            source={require("../../assets/images/DashBoard/TheLossAversionBias.png")}
+            style={styles.box4}
+            imageStyle={styles.imageStyle}
+          >
+            <Text style={[styles.boxText, styles.whiteText]}>
+              The Loss{"\n"}Aversion Bias
+            </Text>
+          </ImageBackground>
+        </View>
 
-      <Text style={[styles.collectiveText,{color:theme.text}]}>Collective Nudges</Text>
+        {/* 🔹 See More + Collective Nudges Row */}
+        <View>
+          <Text style={[styles.seeMoreText, { color: theme.Button }]}>See More</Text>
+        </View>
 
-      <View style={{ marginTop: 10 }}>
-        <View style={styles.debtContainer}>
-          <HandPointer />
-          <View style={styles.debtTextContainer}>
-            <Text style={styles.debtTitle}>Debt Management</Text>
-            <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
+        <Text style={[styles.collectiveText, { color: theme.text }]}>Collective Nudges</Text>
+
+        <View style={{ marginTop: 10 }}>
+          <View style={styles.debtContainer}>
+            <HandPointer />
+            <View style={styles.debtTextContainer}>
+              <Text style={styles.debtTitle}>Debt Management</Text>
+              <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
+            </View>
+          </View>
+
+          <View style={styles.debtContainer}>
+            <HandPointer />
+            <View style={styles.debtTextContainer}>
+              <Text style={styles.debtTitle}>Debt Management</Text>
+              <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.debtContainer}>
-          <HandPointer />
-          <View style={styles.debtTextContainer}>
-            <Text style={styles.debtTitle}>Debt Management</Text>
-            <Text style={styles.debtSubtitle}>You’ve achieved 82% of your goal</Text>
-          </View>
-        </View>
+        <Text style={[styles.seeMoreText, { color: theme.Button }]}>See More</Text>
       </View>
-
-        <Text style={[styles.seeMoreText,{color:theme.Button}]}>See More</Text>
-    </View>
     </ScrollView>
   );
 };
@@ -117,13 +113,13 @@ const MyCommunity = () => {
 export default MyCommunity;
 
 const styles = StyleSheet.create({
-    scrollContent: {
+  scrollContent: {
     paddingBottom: scale(70),
   },
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingTop: verticalScale(35),
+    paddingTop: verticalScale(40),
     paddingHorizontal: scale(20),
   },
   header: {
@@ -146,96 +142,96 @@ const styles = StyleSheet.create({
     color: "rgba(18, 18, 18, 1)",
     textAlign: "left",
   },
- grid: {
-  width: scale(330), // overall layout width (tweak if needed)
-  height: verticalScale(235), // overall layout height
-  alignSelf: "center",
-  position: "relative",
-  marginTop: verticalScale(20),
-},
+  grid: {
+    width: scale(330), 
+    height: verticalScale(265), 
+    alignSelf: "center",
+    position: "relative",
+    marginTop: verticalScale(20),
+  },
 
-imageStyle: {
-  borderRadius: moderateScale(20),
-},
+  imageStyle: {
+    borderRadius: moderateScale(20),
+  },
 
-// top-left small box
-box1: {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: scale(155),
-  height: verticalScale(80),
-  borderRadius: moderateScale(20),
-  overflow: "hidden",
-  justifyContent: "flex-end",
-  padding: scale(15),
-  backgroundColor: "rgba(61, 89, 121, 1)",
-  shadowColor: "rgba(34, 63, 97, 0.25)",
-  shadowOffset: { width: 0, height: verticalScale(4) },
-  shadowOpacity: 1,
-  shadowRadius: scale(4),
-},
+  // top-left small box
+  box1: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: scale(160),
+    height: verticalScale(110),
+    borderRadius: moderateScale(20),
+    overflow: "hidden",
+    justifyContent: "flex-end",
+    padding: scale(15),
+    backgroundColor: "rgba(61, 89, 121, 1)",
+    shadowColor: "rgba(34, 63, 97, 0.25)",
+    shadowOffset: { width: 0, height: verticalScale(4) },
+    shadowOpacity: 1,
+    shadowRadius: scale(4),
+  },
 
-// top-right tall box
-box2: {
-  position: "absolute",
-  top: 0,
-  right: 0,
-  width: scale(155),
-  height: verticalScale(150),
-  borderRadius: moderateScale(20),
-  overflow: "hidden",
-  justifyContent: "flex-end",
-  padding: scale(15),
-  backgroundColor: "rgba(227, 233, 241, 1)",
-  shadowColor: "rgba(34, 63, 97, 0.25)",
-  shadowOffset: { width: 0, height: verticalScale(4) },
-  shadowOpacity: 1,
-  shadowRadius: scale(4),
-},
+  // top-right tall box
+  box2: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: scale(160),
+    height: verticalScale(150),
+    borderRadius: moderateScale(20),
+    overflow: "hidden",
+    justifyContent: "flex-end",
+    padding: scale(15),
+    backgroundColor: "rgba(227, 233, 241, 1)",
+    shadowColor: "rgba(34, 63, 97, 0.25)",
+    shadowOffset: { width: 0, height: verticalScale(4) },
+    shadowOpacity: 1,
+    shadowRadius: scale(4),
+  },
 
-// bottom-left tall box
-box3: {
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  width: scale(155),
-  height: verticalScale(150),
-  borderRadius: moderateScale(20),
-  overflow: "hidden",
-  justifyContent: "flex-end",
-  padding: scale(15),
-  backgroundColor: "rgba(227, 233, 241, 0.8)",
-  shadowColor: "rgba(34, 63, 97, 0.25)",
-  shadowOffset: { width: 0, height: verticalScale(4) },
-  shadowOpacity: 1,
-  shadowRadius: scale(4),
-},
+  // bottom-left tall box
+  box3: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: scale(160),
+    height: verticalScale(150),
+    borderRadius: moderateScale(20),
+    overflow: "hidden",
+    justifyContent: "flex-end",
+    padding: scale(15),
+    backgroundColor: "rgba(227, 233, 241, 0.8)",
+    shadowColor: "rgba(34, 63, 97, 0.25)",
+    shadowOffset: { width: 0, height: verticalScale(4) },
+    shadowOpacity: 1,
+    shadowRadius: scale(4),
+  },
 
-// bottom-right small box
-box4: {
-  position: "absolute",
-  bottom: 0,
-  right: 0,
-  width: scale(155),
-  height: verticalScale(80),
-  borderRadius: moderateScale(20),
-  overflow: "hidden",
-  justifyContent: "flex-end",
-  padding: scale(15),
-  backgroundColor: "rgba(61, 89, 121, 1)",
-  shadowColor: "rgba(34, 63, 97, 0.25)",
-  shadowOffset: { width: 0, height: verticalScale(4) },
-  shadowOpacity: 1,
-  shadowRadius: scale(4),
-},
+  // bottom-right small box
+  box4: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    width: scale(160),
+    height: verticalScale(110),
+    borderRadius: moderateScale(20),
+    overflow: "hidden",
+    justifyContent: "flex-end",
+    padding: scale(15),
+    backgroundColor: "rgba(61, 89, 121, 1)",
+    shadowColor: "rgba(34, 63, 97, 0.25)",
+    shadowOffset: { width: 0, height: verticalScale(4) },
+    shadowOpacity: 1,
+    shadowRadius: scale(4),
+  },
 
   // 🔹 Text styles inside boxes
   boxText: {
     fontFamily: "Avenir LT Std",
     fontWeight: "600",
     fontSize: moderateScale(16),
-    lineHeight: verticalScale(26),
+    lineHeight: verticalScale(18),
   },
   whiteText: {
     color: "rgba(255, 255, 255, 1)",

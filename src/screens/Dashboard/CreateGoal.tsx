@@ -19,9 +19,10 @@ import RupeeIcon from '../../assets/icons/RupeeIcon';
 import Target from '../../assets/icons/Target';
 import Exclamatory from '../../assets/icons/Exclamatory';
 import DropdownArrow from '../../assets/icons/DropdownArrow';
-import { screensEnabled } from 'react-native-screens';
+import { useNavigation } from "@react-navigation/native";
 
 const CreateGoal = () => {
+  const navigation = useNavigation();
   const [selectedOption, setSelectedOption] = useState('recur');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -36,8 +37,9 @@ const CreateGoal = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity>
-          <BackWard width={10} height={16} color={theme.Button} />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <BackWard width={10} height={16} color={theme.Button} />
+          </TouchableOpacity>        </TouchableOpacity>
         <Text style={[styles.headerText, { color: theme.Button }]}>Create a goal</Text>
       </View>
 
@@ -212,7 +214,7 @@ const CreateGoal = () => {
                   styles.radioInner,
                   {
                     backgroundColor: theme.Button,
-                    opacity: selectedOption === 'recur' ? 1 : 0.4, 
+                    opacity: selectedOption === 'recur' ? 1 : 0.4,
                   },
                 ]}
               />
@@ -324,7 +326,7 @@ const styles = StyleSheet.create({
   },
   dateIconContainer: { width: scale(40), alignItems: 'center', justifyContent: 'center' },
   dateInputContainer: { flex: 1 },
-  dateInput: { fontSize: moderateScale(12), opacity: 0.8 },
+  dateInput: { fontSize: moderateScale(14), opacity: 0.8 },
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.2)',

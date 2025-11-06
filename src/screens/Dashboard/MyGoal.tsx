@@ -11,6 +11,7 @@ import { BarChart } from "react-native-gifted-charts";
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import colors from "../../theme/color";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import ProgressRing from "./ProgressRing ";
 type RootStackParamList = {
     Notification: undefined;
 
@@ -114,7 +115,7 @@ const MyGoal = () => {
             <View style={styles.header}>
                 <Text style={[styles.title, { color: theme.text }]}>My Goals</Text>
                 <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
-                              <NotificationBell fill={theme.text} />
+                    <NotificationBell fill={theme.text} />
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonRow}>
@@ -240,13 +241,13 @@ const MyGoal = () => {
 
                 {/* 🔹 Popup for "Suggestion" */}
                 <Modal visible={showSuggestion} transparent animationType="fade">
-                    <View style={styles.overlay}>
-                        <View style={[styles.popup, { backgroundColor: theme.background }]}>
+                    <View style={styles.overlay1}>
+                        <View style={[styles.popup1, { backgroundColor: theme.background }]}>
                             {/* Header */}
-                            <View style={styles.popupHeader}>
+                            <View style={styles.popupHeader1}>
                                 <Text style={[styles.aiTitle, { color: theme.text }]}>AI Suggestion</Text>
                                 <TouchableOpacity onPress={() => setShowSuggestion(false)}>
-                                    <CrossIcon color={theme.text} />
+                                    <CrossIcon color={theme.Button} />
                                 </TouchableOpacity>
                             </View>
 
@@ -293,7 +294,7 @@ const MyGoal = () => {
                                         >
                                             Impact on You
                                         </Text>
-                                      <Text style={[styles.patternDescription, { color: theme.suggestion }]}>
+                                        <Text style={[styles.patternDescription, { color: theme.suggestion }]}>
                                             This creates a false sense of progress and may cause you to lock in
                                             on the wrong benchmark, leading to missed opportunities.
                                         </Text>
@@ -304,59 +305,21 @@ const MyGoal = () => {
                     </View>
                 </Modal>
 
-            
+
                 <Modal visible={visible4} transparent animationType="fade">
-                    <View style={styles.overlay}>
-                        <View style={[styles.popup, { backgroundColor: theme.background }]}>
+                    <View style={styles.overlay1}>
+                        <View style={[styles.popup1, { backgroundColor: theme.background }]}>
                             {/* Header */}
-                            <View style={styles.popupHeader4}>
+                            <View style={styles.popupHeader1}>
                                 <Text style={[styles.aiTitle, { color: theme.text }]}>
                                     AI Insight on Your Goal
                                 </Text>
                                 <TouchableOpacity onPress={() => setVisible4(false)}>
-                                    <CrossIcon color={theme.icon} />
+                                    <CrossIcon color={theme.Button} />
                                 </TouchableOpacity>
                             </View>
 
-                            {/* Chart */}
-                            <View style={styles.mainContainer}>
-                                <View
-                                    style={[
-                                        styles.borderCircle,
-                                    ]}
-                                >
-                                    <View style={styles.chartContainer}>
-                                        <PieChart
-                                            data={data}
-                                            width={190}
-                                            height={120}
-                                            chartConfig={{
-                                                color: () => theme.text,
-                                            }}
-                                            accessor="population"
-                                            backgroundColor="transparent"
-                                            paddingLeft="0"
-                                            hasLegend={false}
-                                            center={[0, 0]}
-                                        />
-
-                                        {/* Center Text */}
-                                        <View
-                                            style={[
-                                                styles.centerCircle,
-                                                // { backgroundColor: theme.cardBackground },
-                                            ]}
-                                        >
-                                            <Text style={[styles.percentText, { color: theme.textSecondary }]}>
-                                                65%
-                                            </Text>
-                                            <Text style={[styles.subText, { color: theme.textSecondary }]}>
-                                                on-track
-                                            </Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>
+                            <ProgressRing/>
 
                             {/* Background Icon */}
                             <Image
@@ -411,13 +374,13 @@ const MyGoal = () => {
                 {/* Popup Modal */}
                 <Modal visible={visible5} transparent animationType="fade">
                     <View style={styles.modalOverlay}>
-                        <View style={[styles.card, { backgroundColor: theme.background, shadowColor: theme.text }]}>
+                        <View style={[styles.card1, { backgroundColor: theme.background, shadowColor: theme.text }]}>
 
                             {/* Header */}
                             <View style={styles.headerRow}>
                                 <Text style={[styles.title2, { color: theme.text }]}>Wealth Projection</Text>
                                 <TouchableOpacity onPress={() => setVisible5(false)}>
-                                    <CrossIcon color={theme.icon} />
+                                    <CrossIcon color={theme.Button} />
                                 </TouchableOpacity>
                             </View>
 
@@ -509,7 +472,7 @@ const MyGoal = () => {
                             <View style={styles.popupHeader}>
                                 <Text style={[styles.aiTitle, { color: theme.text }]}>Wealth Projection</Text>
                                 <TouchableOpacity onPress={() => setVisible6(false)}>
-                                    <CrossIcon color={theme.icon} />
+                                    <CrossIcon color={theme.Button} />
                                 </TouchableOpacity>
                             </View>
 
@@ -847,6 +810,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: scale(20),
     },
+    overlay1: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.4)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
 
     popup: {
         backgroundColor: "#FBFDFF",
@@ -855,12 +824,26 @@ const styles = StyleSheet.create({
         padding: scale(30),
         elevation: 5,
     },
+    popup1: {
+        backgroundColor: "#FBFDFF",
+        borderRadius: moderateScale(20),
+        width: "85%",
+        padding: scale(5),
+        elevation: 5,
+    },
 
     popupHeader: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: verticalScale(10),
+    },
+    popupHeader1: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: verticalScale(10),
+        padding: scale(15)
     },
 
     aiTitle: {
@@ -940,7 +923,7 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(8),
         lineHeight: verticalScale(13),
         color: "#000000",
-        marginTop:verticalScale(3)
+        marginTop: verticalScale(3)
     },
 
     popupHeader4: {
@@ -951,15 +934,22 @@ const styles = StyleSheet.create({
     },
 
     borderCircle: {
-        width: scale(105),
-        height: scale(106),
-        borderRadius: scale(100),
-        borderWidth: scale(5),
+        width: scale(160),
+        height: scale(160),
+        borderRadius: scale(160),
+        borderWidth: scale(8),
         borderColor: "rgba(34, 63, 97, 0.25)",
         alignItems: "center",
         justifyContent: "center",
+        position: "relative",
     },
-
+    chartWrapper: {
+        position: "absolute",
+        width: scale(130),
+        height: scale(130),
+        alignItems: "center",
+        justifyContent: "center",
+    },
     chartContainer: {
         alignItems: "center",
         justifyContent: "center",
@@ -968,35 +958,27 @@ const styles = StyleSheet.create({
 
     centerCircle: {
         position: "absolute",
-        width: scale(80),
-        height: scale(80),
-        borderRadius: scale(60),
+        width: scale(90),
+        height: scale(90),
+        borderRadius: scale(90),
         backgroundColor: "#F7FAFD",
         alignItems: "center",
         justifyContent: "center",
-        left: scale(8),
     },
-
     percentText: {
         fontSize: moderateScale(24),
-        fontFamily: "Avenir LT Std",
         fontWeight: "700",
-        color: "rgba(34, 63, 97, 1)",
-        letterSpacing: scale(1),
     },
 
     subText: {
         fontSize: moderateScale(12),
-        color: "rgba(34, 63, 97, 1)",
-        opacity: 0.63,
-        fontFamily: "Avenir LT Std",
         fontWeight: "600",
+        opacity: 0.63,
     },
 
     mainContainer: {
         alignItems: "center",
         justifyContent: "center",
-        marginTop: verticalScale(20),
     },
 
     cardButton: {
@@ -1021,8 +1003,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#FBFDFF",
         borderRadius: moderateScale(20),
         width: "85%",
-        padding: scale(30),
         elevation: 5,
+    },
+    card1: {
+        backgroundColor: "#FBFDFF",
+        borderRadius: moderateScale(20),
+        width: "85%",
+        elevation: 5,
+        padding: scale(20)
     },
 
     headerRow: {
@@ -1133,7 +1121,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: scale(50),
         paddingVertical: verticalScale(15),
-        marginHorizontal: scale(5),
     },
 
     footerText: {
@@ -1152,14 +1139,14 @@ const styles = StyleSheet.create({
         lineHeight: verticalScale(17),
         color: '#223F61',
         position: 'absolute',
-        bottom: verticalScale(25),
-        right: 0,
+        bottom: verticalScale(17),
+        right: scale(-5),
     },
 
     savingsText: {
         position: 'absolute',
-        left: scale(-20),
-        bottom: verticalScale(90),
+        left: scale(-15),
+        bottom: verticalScale(70),
         transform: [{ rotate: '-90deg' }],
         fontFamily: 'Avenir LT Std',
         fontWeight: '400',
